@@ -46,6 +46,7 @@ class VerificationService {
                 
             case .failure(let error):
                 print("DEBUG: \(error)")
+                completion(nil, error, nil)
                 break
             }
         }
