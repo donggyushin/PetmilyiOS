@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6C6977D7DBFFEA84C7BA54E3 /* Pods_Petmily_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82EE009CC6F78DAD7E5AE723 /* Pods_Petmily_ios.framework */; };
 		706C5C2825447FCE00A2FA96 /* SecondTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706C5C2725447FCE00A2FA96 /* SecondTabController.swift */; };
 		706C5C2B25447FEA00A2FA96 /* ThirdTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706C5C2A25447FEA00A2FA96 /* ThirdTabController.swift */; };
 		706C5C2F2544816600A2FA96 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706C5C2E2544816600A2FA96 /* Extensions.swift */; };
@@ -25,9 +26,13 @@
 		70B4F94D25447E07005CE631 /* RootController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B4F94C25447E07005CE631 /* RootController.swift */; };
 		70B4F95225447E57005CE631 /* Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B4F95125447E57005CE631 /* Properties.swift */; };
 		70B4F95525447F32005CE631 /* FirstTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B4F95425447F32005CE631 /* FirstTabController.swift */; };
+		70EE69FE2544B3B500C40970 /* VerificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70EE69FD2544B3B500C40970 /* VerificationService.swift */; };
+		70EE6A022544B89F00C40970 /* VerificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70EE6A012544B89F00C40970 /* VerificationModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2ADC32B249E1360650B74E62 /* Pods-Petmily-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Petmily-ios.debug.xcconfig"; path = "Target Support Files/Pods-Petmily-ios/Pods-Petmily-ios.debug.xcconfig"; sourceTree = "<group>"; };
+		53C6A43F359C423EA4A4FFBA /* Pods-Petmily-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Petmily-ios.release.xcconfig"; path = "Target Support Files/Pods-Petmily-ios/Pods-Petmily-ios.release.xcconfig"; sourceTree = "<group>"; };
 		706C5C2725447FCE00A2FA96 /* SecondTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondTabController.swift; sourceTree = "<group>"; };
 		706C5C2A25447FEA00A2FA96 /* ThirdTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdTabController.swift; sourceTree = "<group>"; };
 		706C5C2E2544816600A2FA96 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -48,6 +53,9 @@
 		70B4F94C25447E07005CE631 /* RootController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootController.swift; sourceTree = "<group>"; };
 		70B4F95125447E57005CE631 /* Properties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Properties.swift; sourceTree = "<group>"; };
 		70B4F95425447F32005CE631 /* FirstTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTabController.swift; sourceTree = "<group>"; };
+		70EE69FD2544B3B500C40970 /* VerificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationService.swift; sourceTree = "<group>"; };
+		70EE6A012544B89F00C40970 /* VerificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationModel.swift; sourceTree = "<group>"; };
+		82EE009CC6F78DAD7E5AE723 /* Pods_Petmily_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Petmily_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,12 +63,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C6977D7DBFFEA84C7BA54E3 /* Pods_Petmily_ios.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5C483FF4591F0003AD71219E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2ADC32B249E1360650B74E62 /* Pods-Petmily-ios.debug.xcconfig */,
+				53C6A43F359C423EA4A4FFBA /* Pods-Petmily-ios.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		706C5C2D2544815900A2FA96 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -101,6 +119,8 @@
 			children = (
 				70B4F93525447CF7005CE631 /* Petmily-ios */,
 				70B4F93425447CF7005CE631 /* Products */,
+				5C483FF4591F0003AD71219E /* Pods */,
+				8225DA44B7AA7B39AA24837F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -115,6 +135,8 @@
 		70B4F93525447CF7005CE631 /* Petmily-ios */ = {
 			isa = PBXGroup;
 			children = (
+				70EE6A002544B89400C40970 /* Models */,
+				70EE69FC2544B3A800C40970 /* APIs */,
 				706C5C3B2544852300A2FA96 /* Views */,
 				706C5C362544828B00A2FA96 /* Utils */,
 				706C5C2D2544815900A2FA96 /* Extensions */,
@@ -151,6 +173,30 @@
 			path = Properties;
 			sourceTree = "<group>";
 		};
+		70EE69FC2544B3A800C40970 /* APIs */ = {
+			isa = PBXGroup;
+			children = (
+				70EE69FD2544B3B500C40970 /* VerificationService.swift */,
+			);
+			path = APIs;
+			sourceTree = "<group>";
+		};
+		70EE6A002544B89400C40970 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				70EE6A012544B89F00C40970 /* VerificationModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		8225DA44B7AA7B39AA24837F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				82EE009CC6F78DAD7E5AE723 /* Pods_Petmily_ios.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -158,9 +204,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 70B4F94725447CFA005CE631 /* Build configuration list for PBXNativeTarget "Petmily-ios" */;
 			buildPhases = (
+				54E3BA84B8C93CF5F0BFFC78 /* [CP] Check Pods Manifest.lock */,
 				70B4F92F25447CF7005CE631 /* Sources */,
 				70B4F93025447CF7005CE631 /* Frameworks */,
 				70B4F93125447CF7005CE631 /* Resources */,
+				81F8C2A1EA3FEB0FD4FFABE9 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -216,6 +264,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		54E3BA84B8C93CF5F0BFFC78 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Petmily-ios-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		81F8C2A1EA3FEB0FD4FFABE9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Petmily-ios/Pods-Petmily-ios-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Petmily-ios/Pods-Petmily-ios-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Petmily-ios/Pods-Petmily-ios-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		70B4F92F25447CF7005CE631 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -223,12 +313,14 @@
 			files = (
 				70B4F95525447F32005CE631 /* FirstTabController.swift in Sources */,
 				706C5C45254488D300A2FA96 /* TextContainer.swift in Sources */,
+				70EE6A022544B89F00C40970 /* VerificationModel.swift in Sources */,
 				706C5C2F2544816600A2FA96 /* Extensions.swift in Sources */,
 				706C5C2B25447FEA00A2FA96 /* ThirdTabController.swift in Sources */,
 				70B4F93B25447CF7005CE631 /* ViewController.swift in Sources */,
 				70B4F93725447CF7005CE631 /* AppDelegate.swift in Sources */,
 				706C5C2825447FCE00A2FA96 /* SecondTabController.swift in Sources */,
 				706C5C422544874000A2FA96 /* Utilities.swift in Sources */,
+				70EE69FE2544B3B500C40970 /* VerificationService.swift in Sources */,
 				70B4F93925447CF7005CE631 /* SceneDelegate.swift in Sources */,
 				70B4F95225447E57005CE631 /* Properties.swift in Sources */,
 				70B4F94D25447E07005CE631 /* RootController.swift in Sources */,
@@ -379,6 +471,7 @@
 		};
 		70B4F94825447CFA005CE631 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2ADC32B249E1360650B74E62 /* Pods-Petmily-ios.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -398,6 +491,7 @@
 		};
 		70B4F94925447CFA005CE631 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 53C6A43F359C423EA4A4FFBA /* Pods-Petmily-ios.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

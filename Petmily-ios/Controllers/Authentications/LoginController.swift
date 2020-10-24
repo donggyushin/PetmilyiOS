@@ -19,7 +19,6 @@ class LoginController:UIViewController {
     
     private lazy var idTextContainer:UIView = {
         let view = TextContainer(textField: idTextField)
-        view.heightAnchor.constraint(equalToConstant: 50).isActive = true
         return view
     }()
     
@@ -32,7 +31,6 @@ class LoginController:UIViewController {
     
     private lazy var pwTextContainer:UIView = {
         let view = TextContainer(textField: pwTextField)
-        view.heightAnchor.constraint(equalToConstant: 50).isActive = true
         return view
     }()
     

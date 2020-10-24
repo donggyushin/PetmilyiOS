@@ -22,6 +22,8 @@ class TextContainer:UIView {
         self.textField = textField
         super.init(frame: CGRect.zero)
         
+        heightAnchor.constraint(equalToConstant: 40).isActive = true 
+        
         addSubview(textField)
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.topAnchor.constraint(equalTo: topAnchor).isActive = true

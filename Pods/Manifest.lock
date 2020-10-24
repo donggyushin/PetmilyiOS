@@ -1,0 +1,28 @@
+PODS:
+  - Alamofire (5.2.2)
+  - DynamicBlurView (4.1.0)
+  - PopupDialog (1.1.1):
+    - DynamicBlurView (~> 4.0)
+  - SwiftyJSON (4.3.0)
+
+DEPENDENCIES:
+  - Alamofire (~> 5.2)
+  - PopupDialog (~> 1.1)
+  - SwiftyJSON (~> 4.0)
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - DynamicBlurView
+    - PopupDialog
+    - SwiftyJSON
+
+SPEC CHECKSUMS:
+  Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
+  DynamicBlurView: 58e18fae80bb614e34681a4486870e7d257b62e8
+  PopupDialog: 720c92befd8bc23c13442254945213db5612f149
+  SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
+
+PODFILE CHECKSUM: 384538714f4329794b215e5f84b87b61bdf160e2
+
+COCOAPODS: 1.9.3

@@ -41,20 +41,33 @@ class NewAccountStep1Controller:UIViewController {
     
     private lazy var phone1Container:TextContainer = {
         let tc = TextContainer(textField: phoneTextField1)
-        tc.heightAnchor.constraint(equalToConstant: 40).isActive = true
         return tc
     }()
     
     private lazy var phone2Container:TextContainer = {
         let tc = TextContainer(textField: phoneTextField2)
-        tc.heightAnchor.constraint(equalToConstant: 40).isActive = true
         return tc
     }()
     
     private lazy var phone3Container:TextContainer = {
         let tc = TextContainer(textField: phoneTextField3)
-        tc.heightAnchor.constraint(equalToConstant: 40).isActive = true
         return tc
+    }()
+    
+    private lazy var phoneTextFieldStack:UIStackView = {
+        let phoneTextFieldStack = UIStackView(arrangedSubviews: [phone1Container, phone2Container, phone3Container])
+        phoneTextFieldStack.axis = .horizontal
+        phoneTextFieldStack.distribution = .fillEqually
+        phoneTextFieldStack.spacing = 20
+        return phoneTextFieldStack
+    }()
+    
+    private lazy var verticalStack1:UIStackView = {
+        let verticalStack1 = UIStackView(arrangedSubviews: [phoneTextFieldStack, requestVerificationCodeButton])
+        verticalStack1.axis = .vertical
+        verticalStack1.spacing = 20
+        
+        return verticalStack1
     }()
     
     private lazy var requestVerificationCodeButton:UIButton = {
@@ -69,10 +82,46 @@ class NewAccountStep1Controller:UIViewController {
         return bt
     }()
     
+    private lazy var verificationCodeTextField:UITextField = {
+        let tf = UITextField()
+        tf.placeholder = "597822"
+        tf.textAlignment = .center
+        tf.font = UIFont.systemFont(ofSize: 20)
+        tf.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        tf.defaultTextAttributes.updateValue(10.0,
+             forKey: NSAttributedString.Key.kern)
+        return tf
+    }()
+    
+    private lazy var verificationCodeTextFieldContainer:TextContainer = {
+       let tc = TextContainer(textField: verificationCodeTextField)
+        return tc
+    }()
+    
+    private lazy var verifyButton:UIButton = {
+        let bt = UIButton(type: UIButton.ButtonType.system)
+        bt.setTitle("인증하기", for: UIControl.State.normal)
+        bt.widthAnchor.constraint(equalToConstant: view.frame.width * 0.7).isActive = true
+        bt.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        bt.layer.borderWidth = 1
+        bt.layer.borderColor = UIColor.systemBlue.cgColor
+        bt.layer.cornerRadius = 9
+        bt.addTarget(self, action: #selector(verify), for: UIControl.Event.touchUpInside)
+        
+        return bt
+    }()
+    
+    private lazy var verticalStack2:UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [verificationCodeTextFieldContainer, verifyButton])
+        stack.axis = .vertical
+        stack.spacing = 20
+        return stack
+    }()
+    
     // MARK: - Lifecycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        configure()
         configureUI()
     }
     
@@ -80,28 +129,72 @@ class NewAccountStep1Controller:UIViewController {
     func configureUI() {
         view.backgroundColor = .systemBackground
         
-        let phoneTextFieldStack = UIStackView(arrangedSubviews: [phone1Container, phone2Container, phone3Container])
-        phoneTextFieldStack.axis = .horizontal
-        phoneTextFieldStack.distribution = .fillEqually
-        phoneTextFieldStack.spacing = 20
-        view.addSubview(phoneTextFieldStack)
-        phoneTextFieldStack.translatesAutoresizingMaskIntoConstraints = false
-        phoneTextFieldStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
-        phoneTextFieldStack.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        phoneTextFieldStack.widthAnchor.constraint(equalToConstant: view.frame.width * 0.7).isActive = true
+        view.addSubview(verticalStack1)
+        verticalStack1.translatesAutoresizingMaskIntoConstraints = false
+        verticalStack1.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        verticalStack1.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
-        view.addSubview(requestVerificationCodeButton)
-        requestVerificationCodeButton.translatesAutoresizingMaskIntoConstraints = false
-        requestVerificationCodeButton.topAnchor.constraint(equalTo: phoneTextFieldStack.bottomAnchor, constant: 20).isActive = true
-        requestVerificationCodeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        
+    }
+    
+    func configure() {
+        moveViewWhenKeyboardIsShown()
+        dismissKeyboardWhenTappingAround()
     }
     
     // MARK: - Selectors
     
+    @objc func verify() {
+        guard let verifycode = self.verificationCodeTextField.text else { return }
+        self.verifyButton.isEnabled = false
+        self.verifyButton.setTitleColor(UIColor.systemGray2, for: UIControl.State.normal)
+        self.verifyButton.layer.borderColor = UIColor.systemGray2.cgColor
+        
+        print(verifycode)
+    }
+    
     @objc func requestVerificationCodeButtonTapped() {
+        guard let phone1 = self.phoneTextField1.text else { return }
+        guard let phone2 = self.phoneTextField2.text else { return }
+        guard let phone3 = self.phoneTextField3.text else { return }
+        let phone = phone1 + phone2 + phone3
         self.requestVerificationCodeButton.isEnabled = false
         self.requestVerificationCodeButton.setTitleColor(UIColor.systemGray2, for: UIControl.State.normal)
         self.requestVerificationCodeButton.layer.borderColor = UIColor.systemGray2.cgColor
+        
+        VerificationService.shared.requestVerificationCode(phoneNumber: phone) { (verification, error, errorMessage) in
+            if let errorMessage = errorMessage {
+                print("DEBUG: \(errorMessage)")
+                self.renderPopupWithOkayButtonNoImage(title: "에러", message: errorMessage)
+                self.requestVerificationCodeButton.isEnabled = true
+                self.requestVerificationCodeButton.setTitleColor(UIColor.systemBlue, for: UIControl.State.normal)
+                self.requestVerificationCodeButton.layer.borderColor = UIColor.systemBlue.cgColor
+                return
+            }
+            
+            if let error = error {
+                print("DEBUG: \(error.localizedDescription)")
+                self.renderPopupWithOkayButtonNoImage(title: "에러", message: error.localizedDescription)
+                self.requestVerificationCodeButton.isEnabled = true
+                self.requestVerificationCodeButton.setTitleColor(UIColor.systemBlue, for: UIControl.State.normal)
+                self.requestVerificationCodeButton.layer.borderColor = UIColor.systemBlue.cgColor
+                return
+            }
+            
+            guard let verification = verification else { return }
+            print("DEBUG: \(verification)")
+            
+            self.verticalStack1.removeFromSuperview()
+            
+            self.view.addSubview(self.verticalStack2)
+            self.verticalStack2.translatesAutoresizingMaskIntoConstraints = false
+            self.verticalStack2.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+            self.verticalStack2.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+            
+            
+        }
+        
     }
     
     @objc func textFieldDidChange(textField: UITextField) {
@@ -121,6 +214,12 @@ class NewAccountStep1Controller:UIViewController {
         if textField == self.phoneTextField3 {
             if textField.text?.count == 4 {
                 self.phoneTextField3.endEditing(true)
+            }
+        }
+        
+        if textField == self.verificationCodeTextField {
+            if textField.text?.count == 6 {
+                self.verificationCodeTextField.endEditing(true)
             }
         }
     }
@@ -151,6 +250,17 @@ extension NewAccountStep1Controller:UITextFieldDelegate {
                 let count = textFieldText.count - substringToReplace.count + string.count
             
                 return count <= 4
+        }
+        
+        if textField == self.verificationCodeTextField {
+            guard let textFieldText = textField.text,
+                    let rangeOfTextToReplace = Range(range, in: textFieldText) else {
+                        return false
+                }
+                let substringToReplace = textFieldText[rangeOfTextToReplace]
+                let count = textFieldText.count - substringToReplace.count + string.count
+            
+                return count <= 6
         }
         
         
