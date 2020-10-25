@@ -156,14 +156,22 @@ class NewAccountStep1Controller:UIViewController {
         self.verifyButton.setTitleColor(UIColor.systemGray2, for: UIControl.State.normal)
         self.verifyButton.layer.borderColor = UIColor.systemGray2.cgColor
         
+        
+        
         VerificationService.shared.verify(phoneNumber: phonenumber, verificationCode: verifycode) { (error, errorMessage, verification) in
             if let message = errorMessage {
                 self.renderPopupWithOkayButtonNoImage(title: "에러", message: message)
+                self.verifyButton.isEnabled = true
+                self.verifyButton.setTitleColor(UIColor.systemBlue, for: UIControl.State.normal)
+                self.verifyButton.layer.borderColor = UIColor.systemBlue.cgColor
                 return
             }
             
             if let error = error {
                 self.renderPopupWithOkayButtonNoImage(title: "에러", message: error.localizedDescription)
+                self.verifyButton.isEnabled = true
+                self.verifyButton.setTitleColor(UIColor.systemBlue, for: UIControl.State.normal)
+                self.verifyButton.layer.borderColor = UIColor.systemBlue.cgColor
                 return
             }
             
