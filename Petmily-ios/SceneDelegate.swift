@@ -17,8 +17,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
         
-//        window?.rootViewController = RootController()
-        window?.rootViewController = UINavigationController(rootViewController: NewAccountStep2Controller(phoneNumber: "01090411019"))
+        window?.rootViewController = RootController()
+//        window?.rootViewController = UINavigationController(rootViewController: NewAccountStep2Controller(phoneNumber: "01090411019"))
         
         
         window?.makeKeyAndVisible()

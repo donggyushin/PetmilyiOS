@@ -11,6 +11,7 @@ class NewAccountStep2Controller: UIViewController {
     
     // MARK: - Properties
     let phoneNumber:String
+    var userId:String?
     
     private lazy var idTextField:UITextField = {
         let tf = UITextField()
@@ -77,6 +78,7 @@ class NewAccountStep2Controller: UIViewController {
     func configureNavigation() {
         navigationItem.hidesBackButton = true
         clearNavigationBar()
+        navigationItem.backButtonTitle = "이전"
     }
     
     func configure(){
@@ -85,12 +87,68 @@ class NewAccountStep2Controller: UIViewController {
     }
     
     // MARK: - Helpers
+    func goToNextPage(){
+        guard let userId = self.userId else { return }
+        let vc = NewAccountStep3Controller(userId: userId, phoneNumber: self.phoneNumber)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    // MARK: - Selectors
     @objc func checkThisIdAvailable() {
-        print("DEBUG: 사용하기 버튼 클릭")
+        
         
         useButton.tintColor = .systemGray2
         useButton.layer.borderColor = UIColor.systemGray2.cgColor
-        useButton.isEnabled = false 
+        useButton.isEnabled = false
+        
+        
+        
+        guard let userId = self.idTextField.text else { return }
+        
+        self.userId = userId
+        
+        
+        AuthService.shared.checkThisIdAvailable(id: userId) { (success, error, errorMessage, user) in
+            
+            if let errorMessage = errorMessage {
+                self.renderPopupWithOkayButtonNoImage(title: "에러", message: errorMessage)
+                self.useButton.tintColor = .systemBlue
+                self.useButton.layer.borderColor = UIColor.systemBlue.cgColor
+                self.useButton.isEnabled = true
+                return
+            }
+            
+            if let error = error {
+                self.renderPopupWithOkayButtonNoImage(title: "에러", message: error.localizedDescription)
+                
+                self.useButton.tintColor = .systemBlue
+                self.useButton.layer.borderColor = UIColor.systemBlue.cgColor
+                self.useButton.isEnabled = true
+                return
+            }
+            
+            
+            
+            if success == false { return }
+            
+            if user != nil {
+                self.renderPopupWithOkayButtonNoImage(title: "에러", message: "이미 사용중인 아이디입니다. 다른 아이디를 선택해주세요")
+                
+                self.useButton.tintColor = .systemBlue
+                self.useButton.layer.borderColor = UIColor.systemBlue.cgColor
+                self.useButton.isEnabled = true
+                return
+            }
+            
+            // 아이디 사용가능, 팝업으로 더 진행할 것인지 물어보기
+            
+            self.useButton.tintColor = .systemBlue
+            self.useButton.layer.borderColor = UIColor.systemBlue.cgColor
+            self.useButton.isEnabled = true
+            self.bottomAlertWithCancelButtonAndOkayButton(title: "성공", message: "사용 가능한 아이디입니다. 계속 진행하시겠습니가?", cancleText: "아니요", okayText: "네", okayFunction: self.goToNextPage)
+            
+            
+        }
     }
     
     

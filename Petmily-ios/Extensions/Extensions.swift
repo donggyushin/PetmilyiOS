@@ -10,6 +10,22 @@ import PopupDialog
 
 
 extension UIViewController {
+    
+    func bottomAlertWithCancelButtonAndOkayButton(title:String, message:String, cancleText:String?, okayText:String?, okayFunction:(() -> Void)?) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.actionSheet)
+        
+        alert.addAction(UIAlertAction(title: okayText, style: UIAlertAction.Style.default, handler: { (action) in
+            if let function = okayFunction {
+                function()
+            }
+        }))
+        
+        alert.addAction(UIAlertAction(title: cancleText, style: UIAlertAction.Style.cancel, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    
     var isDarkMode: Bool {
             if #available(iOS 13.0, *) {
                 return self.traitCollection.userInterfaceStyle == .dark
