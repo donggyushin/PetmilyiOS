@@ -1,5 +1,5 @@
 //
-//  NewAccountStep3Controller.swift
+//  NewAccountStep4Controller.swift
 //  Petmily-ios
 //
 //  Created by 신동규 on 2020/10/25.
@@ -7,19 +7,20 @@
 
 import UIKit
 
-class NewAccountStep3Controller:UIViewController {
+class NewAccountStep4Controller:UIViewController {
     
     // MARK: - Properties
     let userId:String
     let phoneNumber:String
+    let password:String
     
     private lazy var passwordTextField:UITextField = {
         let tf = UITextField()
-        tf.placeholder = "비밀번호를 입력해주세요"
+        tf.placeholder = "비밀번호를 다시 한 번 입력해주세요"
         tf.textAlignment = .center
-        tf.font = UIFont.systemFont(ofSize: 20)
+        tf.font = UIFont.systemFont(ofSize: 18)
         tf.delegate = self
-        tf.isSecureTextEntry = true 
+        tf.isSecureTextEntry = true
         return tf
     }()
     
@@ -36,7 +37,7 @@ class NewAccountStep3Controller:UIViewController {
         bt.layer.borderWidth = 1
         bt.layer.borderColor = UIColor.systemBlue.cgColor
         bt.layer.cornerRadius = 9
-        bt.addTarget(self, action: #selector(selectPassword), for: UIControl.Event.touchUpInside)
+        bt.addTarget(self, action: #selector(useButtonTapped), for: UIControl.Event.touchUpInside)
         return bt
     }()
     
@@ -49,9 +50,10 @@ class NewAccountStep3Controller:UIViewController {
     
     // MARK: - Lifecycles
     
-    init(userId:String, phoneNumber:String) {
+    init(userId:String, phoneNumber:String, password:String) {
         self.userId = userId
         self.phoneNumber = phoneNumber
+        self.password = password
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -89,27 +91,24 @@ class NewAccountStep3Controller:UIViewController {
     }
     
     // MARK: - Selectors
-    @objc func selectPassword() {
-        guard let password = passwordTextField.text else { return }
+    @objc func useButtonTapped(){
         
-        let result = Utilities.shared.regularExpressionCheckFunction(text: password, regularExpress: Properties.passwordRegex)
-        
-        if result {
-            // 다음으로 넘어가도 됌
-            let vc = NewAccountStep4Controller(userId: self.userId, phoneNumber: self.phoneNumber, password: password)
-            navigationController?.pushViewController(vc, animated: true)
+        guard let password = self.passwordTextField.text else { return }
+        if self.password != password {
+            renderPopupWithOkayButtonNoImage(title: "주의", message: "이전에 입력한 비밀번호와 일치하지 않습니다")
         }else {
-            // 다음으로 넘어가면 안됌
-            // Minimum 8 characters at least 1 Alphabet, 1 Number and 1 Special Character
-            // 최소 1개의 알파벳, 1개의 숫자 그리고 1개의 특수 문자가 들어간 8자 이상의 비밀번호를 입력해주세요.
-            renderPopupWithOkayButtonNoImage(title: "주의", message: "최소 1개의 알파벳, 1개의 숫자 그리고 1개의 특수 문자가 들어간 8자 이상의 비밀번호를 입력해주세요.")
+            // 다음 페이지로 넘겨주기
+            let vc = NewAccountStep5Controller(userId: userId, password: password, phoneNumber: phoneNumber)
+            navigationController?.pushViewController(vc, animated: true)
+            
         }
-        
     }
+    
 }
 
 
-extension NewAccountStep3Controller:UITextFieldDelegate {
+
+extension NewAccountStep4Controller:UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == self.passwordTextField {
             guard let textFieldText = textField.text,

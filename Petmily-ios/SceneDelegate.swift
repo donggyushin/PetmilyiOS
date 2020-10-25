@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: scene)
         
         window?.rootViewController = RootController()
-//        window?.rootViewController = UINavigationController(rootViewController: NewAccountStep2Controller(phoneNumber: "01090411019"))
+//        window?.rootViewController = UINavigationController(rootViewController: NewAccountStep3Controller(userId: "Donggyu9410", phoneNumber: "01090411019"))
         
         
         window?.makeKeyAndVisible()

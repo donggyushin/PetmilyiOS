@@ -7,8 +7,32 @@
 
 import UIKit
 
+
+
 class Utilities {
     static let shared = Utilities()
+    
+    func regularExpressionCheckFunction(text:String, regularExpress:String) -> Bool {
+        let range = NSRange(location: 0, length: text.utf16.count)
+        let regex = try! NSRegularExpression(pattern: regularExpress, options: NSRegularExpression.Options.caseInsensitive)
+        return regex.firstMatch(in: text, options: [NSRegularExpression.MatchingOptions.reportCompletion], range: range) != nil
+    }
+    
+    
+    func nonuseableNicknameCheck(nickname:String) -> Bool{
+        var result = true
+        
+        for word in nonUseableWords {
+            
+            if nickname.contains(word) {
+                result = false
+                break
+                
+            }
+        }
+        
+        return result
+    }
     
     func jsonToString(json:AnyObject) -> String? {
         do {
