@@ -10,6 +10,9 @@ import UIKit
 class NewAccountStep1Controller:UIViewController {
     
     // MARK: - Properties
+    var phonenumber:String?
+    
+    
     private lazy var phoneTextField1:UITextField = {
         let tf = UITextField()
         tf.placeholder = "010"
@@ -141,17 +144,36 @@ class NewAccountStep1Controller:UIViewController {
     func configure() {
         moveViewWhenKeyboardIsShown()
         dismissKeyboardWhenTappingAround()
+        
     }
     
     // MARK: - Selectors
     
     @objc func verify() {
         guard let verifycode = self.verificationCodeTextField.text else { return }
+        guard let phonenumber = self.phonenumber else { return }
         self.verifyButton.isEnabled = false
         self.verifyButton.setTitleColor(UIColor.systemGray2, for: UIControl.State.normal)
         self.verifyButton.layer.borderColor = UIColor.systemGray2.cgColor
         
-        print(verifycode)
+        VerificationService.shared.verify(phoneNumber: phonenumber, verificationCode: verifycode) { (error, errorMessage, verification) in
+            if let message = errorMessage {
+                self.renderPopupWithOkayButtonNoImage(title: "에러", message: message)
+                return
+            }
+            
+            if let error = error {
+                self.renderPopupWithOkayButtonNoImage(title: "에러", message: error.localizedDescription)
+                return
+            }
+            
+            // 인증 성공 다음페이지로 넘겨준다.
+            let step2 = NewAccountStep2Controller(phoneNumber: phonenumber)
+            self.navigationController?.pushViewController(step2, animated: true)
+            
+        }
+        
+        
     }
     
     @objc func requestVerificationCodeButtonTapped() {
@@ -183,7 +205,7 @@ class NewAccountStep1Controller:UIViewController {
             }
             
             guard let verification = verification else { return }
-            print("DEBUG: \(verification)")
+            self.phonenumber = verification.phoneNumber
             
             self.verticalStack1.removeFromSuperview()
             
