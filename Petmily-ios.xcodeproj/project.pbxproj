@@ -36,6 +36,7 @@
 		70B4F95525447F32005CE631 /* FirstTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B4F95425447F32005CE631 /* FirstTabController.swift */; };
 		70EE69FE2544B3B500C40970 /* VerificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70EE69FD2544B3B500C40970 /* VerificationService.swift */; };
 		70EE6A022544B89F00C40970 /* VerificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70EE6A012544B89F00C40970 /* VerificationModel.swift */; };
+		70F248692549BE6500716A93 /* NewAccountStep6Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F248682549BE6500716A93 /* NewAccountStep6Controller.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +72,7 @@
 		70B4F95425447F32005CE631 /* FirstTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTabController.swift; sourceTree = "<group>"; };
 		70EE69FD2544B3B500C40970 /* VerificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationService.swift; sourceTree = "<group>"; };
 		70EE6A012544B89F00C40970 /* VerificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationModel.swift; sourceTree = "<group>"; };
+		70F248682549BE6500716A93 /* NewAccountStep6Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountStep6Controller.swift; sourceTree = "<group>"; };
 		82EE009CC6F78DAD7E5AE723 /* Pods_Petmily_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Petmily_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -120,6 +122,7 @@
 				706A151B25457F350050C0C8 /* NewAccountStep3Controller.swift */,
 				701DBD2825459F9E0057C8D9 /* NewAccountStep4Controller.swift */,
 				701DBD2B2545A47B0057C8D9 /* NewAccountStep5Controller.swift */,
+				70F248682549BE6500716A93 /* NewAccountStep6Controller.swift */,
 			);
 			path = Authentications;
 			sourceTree = "<group>";
@@ -354,6 +357,7 @@
 				70B4F93725447CF7005CE631 /* AppDelegate.swift in Sources */,
 				701DBD2925459F9E0057C8D9 /* NewAccountStep4Controller.swift in Sources */,
 				7093E8C32545485E00B46B86 /* NewAccountStep2Controller.swift in Sources */,
+				70F248692549BE6500716A93 /* NewAccountStep6Controller.swift in Sources */,
 				706C5C2825447FCE00A2FA96 /* SecondTabController.swift in Sources */,
 				706C5C422544874000A2FA96 /* Utilities.swift in Sources */,
 				70EE69FE2544B3B500C40970 /* VerificationService.swift in Sources */,
