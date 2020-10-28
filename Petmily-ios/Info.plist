@@ -4,6 +4,10 @@
 <dict>
 	<key>CFBundleDisplayName</key>
 	<string>팻밀리</string>
+	<key>NSCameraUsageDescription</key>
+	<string>팻밀리가 카메라를 이용하려고 합니다</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>팻밀리가 사진을 선택하려고 합니다</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>

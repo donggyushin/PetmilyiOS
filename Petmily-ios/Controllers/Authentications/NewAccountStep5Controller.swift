@@ -47,10 +47,7 @@ class NewAccountStep5Controller:UIViewController {
         return stack
     }()
     
-    private lazy var loadingView:LoadingView = {
-        let lv = LoadingView()
-        return lv
-    }()
+    
     
     // MARK: - Lifecycles
     init(userId:String, password:String, phoneNumber:String) {
@@ -82,17 +79,12 @@ class NewAccountStep5Controller:UIViewController {
         verticalStack1.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
         
-        view.addSubview(loadingView)
-        loadingView.translatesAutoresizingMaskIntoConstraints = false
-        loadingView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        loadingView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        loadingView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        loadingView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true 
-        loadingView.isHidden = true
+        
     }
     
     func configureNavigation() {
         navigationItem.title = userId
+        navigationItem.backButtonTitle = "이전"
     }
     
     func configureKeyboard() {
@@ -122,14 +114,10 @@ class NewAccountStep5Controller:UIViewController {
         
         self.nicknameTextField.endEditing(true)
         
-        // TODO: - 로딩창 띄워주기
-        loadingView.isHidden = false 
+        // TODO: - NewAccountStep6Controller 로 보내주기
+        let vc = NewAccountStep6Controller(userId: "Donggyu9410", phoneNumber: "01090411019", password: "~Nlcfjb1129!", nickname: nickname)
+        navigationController?.pushViewController(vc, animated: true)
         
-        // TODO: - 회원가입 요청하기
-        
-        // TODO: - 회원가입 실패하면 메시지 띄워주기
-        
-        // TODO: - 회원가입 완료되면 앱에 진입
         
     }
 }

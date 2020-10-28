@@ -12,6 +12,24 @@ import UIKit
 class Utilities {
     static let shared = Utilities()
     
+    func generateUserBirthList() -> [String] {
+        var result:[String] = []
+        let date = Date()
+        let format = DateFormatter()
+        format.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let calendar = Calendar.current
+        let year = calendar.component(.year, from: date)
+        
+        for index in 0...70 {
+            let number = year - index
+            result.append(String(number))
+        }
+        
+        
+        return result
+    }
+    
     func regularExpressionCheckFunction(text:String, regularExpress:String) -> Bool {
         let range = NSRange(location: 0, length: text.utf16.count)
         let regex = try! NSRegularExpression(pattern: regularExpress, options: NSRegularExpression.Options.caseInsensitive)

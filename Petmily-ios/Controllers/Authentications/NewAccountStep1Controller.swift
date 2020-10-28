@@ -138,6 +138,12 @@ class NewAccountStep1Controller:UIViewController {
         verticalStack1.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
         
+        self.view.addSubview(self.verticalStack2)
+        self.verticalStack2.translatesAutoresizingMaskIntoConstraints = false
+        self.verticalStack2.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        self.verticalStack2.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        verticalStack2.isHidden = true
+        
         
     }
     
@@ -215,12 +221,9 @@ class NewAccountStep1Controller:UIViewController {
             guard let verification = verification else { return }
             self.phonenumber = verification.phoneNumber
             
-            self.verticalStack1.removeFromSuperview()
+            self.verticalStack1.isHidden = true
+            self.verticalStack2.isHidden = false 
             
-            self.view.addSubview(self.verticalStack2)
-            self.verticalStack2.translatesAutoresizingMaskIntoConstraints = false
-            self.verticalStack2.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-            self.verticalStack2.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
             
             
         }
