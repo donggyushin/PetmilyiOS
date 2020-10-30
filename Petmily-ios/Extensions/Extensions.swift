@@ -12,6 +12,7 @@ import PopupDialog
 extension UIViewController {
     
     func bottomAlertWithCancelButtonAndOkayButton(title:String, message:String, cancleText:String?, okayText:String?, okayFunction:(() -> Void)?) {
+        
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.actionSheet)
         
         alert.addAction(UIAlertAction(title: okayText, style: UIAlertAction.Style.default, handler: { (action) in

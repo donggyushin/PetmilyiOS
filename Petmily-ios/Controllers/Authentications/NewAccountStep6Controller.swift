@@ -204,11 +204,56 @@ class NewAccountStep6Controller: UIViewController {
         // TODO: - 로딩창
         loadingView.isHidden = false
         
+        
         // TODO: - 회원가입
+        AuthService.shared.makeNewAccount(userId: self.userId, password: self.password, nickname: self.nickname, phoneNumber: self.phoneNumber, birth: self.UserBirthTextField.text, gender: self.selectedGender, profileImage: self.profileImageView.image) { (error, errorMessage, success) in
+            if let errorMessage = errorMessage {
+                self.renderPopupWithOkayButtonNoImage(title: "죄송합니다", message: errorMessage)
+                self.loadingView.isHidden = true
+                return
+            }
+            
+            if let error = error {
+                self.renderPopupWithOkayButtonNoImage(title: "죄송합니다", message: error.localizedDescription)
+                self.loadingView.isHidden = true
+                return
+            }
+            
+            if success {
+                // 회원가입 성공
+                
+                // TODO: - 로그인
+                AuthService.shared.loginUser(userId: self.userId, password: self.password) { (error, errorMessage, success, token) in
+                    if let errorMessage = errorMessage {
+                        self.renderPopupWithOkayButtonNoImage(title: "죄송합니다", message: errorMessage)
+                        self.loadingView.isHidden = true
+                        return
+                    }
+                    if let error = error {
+                        self.renderPopupWithOkayButtonNoImage(title: "죄송합니다", message: error.localizedDescription)
+                        self.loadingView.isHidden = true
+                        return
+                    }
+                    
+                    if success {
+                        guard let token = token else { return }
+                        LocalData.shared.setting(key: "token", value: token)
+                        // TODO: - 메인화면
+                        let rootVC = self.presentingViewController as? RootController
+                        self.dismiss(animated: true) {
+                            // TODO: - 애완동물이 있다면 애완동물을 등록하라는 팝업 띄우기
+                            rootVC?.renderAlertWhenUserFirstLoggedInAndDoentHaveAnyAnimalsRegistered()
+                        }
+                        
+                    }
+                    
+                }
+                
+                
+            }
+        }
         
-        // TODO: - 로그인
         
-        // TODO: - 메인화면
     }
     
     // MARK: - Selectors
@@ -229,16 +274,19 @@ class NewAccountStep6Controller: UIViewController {
         let index = message.lastIndex(of: ",") ?? message.endIndex
         message = String(message[..<index])
         
-        // TODO: - 알러트
-        let alert = UIAlertController(title: "다음과 같은 항목을 입력하지 않았습니다.\n그대로 진행하시겠습니까?", message: message, preferredStyle: .alert)
-
-        alert.addAction(UIAlertAction(title: "네", style: .default, handler: { (_) in
+        if message.count == 0 {
             self.makeNewAccount()
-        }))
-        alert.addAction(UIAlertAction(title: "아니요", style: .cancel, handler: nil))
+        }else {
+            // TODO: - 알러트
+            let alert = UIAlertController(title: "다음과 같은 항목을 입력하지 않았습니다.\n그대로 진행하시겠습니까?", message: message, preferredStyle: .alert)
 
-        self.present(alert, animated: true)
-        
+            alert.addAction(UIAlertAction(title: "네", style: .default, handler: { (_) in
+                self.makeNewAccount()
+            }))
+            alert.addAction(UIAlertAction(title: "아니요", style: .cancel, handler: nil))
+
+            self.present(alert, animated: true)
+        }
         
     }
     

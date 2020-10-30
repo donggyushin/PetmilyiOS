@@ -22,4 +22,8 @@ class LocalData {
             completion(nil)
         }
     }
+    
+    func remove(key:String) {
+        defaults.removeObject(forKey: key)
+    }
 }

@@ -18,6 +18,7 @@ class RootController: UITabBarController {
         configureUI()
         configureTabBar()
         checkUserLoggedIn()
+        
     }
     
     // MARK: - Configures
@@ -40,6 +41,20 @@ class RootController: UITabBarController {
     }
     
     // MARK: Helpers
+    func renderAlertWhenUserFirstLoggedInAndDoentHaveAnyAnimalsRegistered() {
+        let alert = UIAlertController(title: "팻밀리에 오신 걸 환영합니다", message: "현재 반려동물을 기르고 계신가요? 반려동물의 정보를 입력하면 유용한 정보에 대해서 받아보실 수 있으십니다. 기르고 계신 반려동물을 등록하시겠어요?", preferredStyle: .actionSheet)
+
+        alert.addAction(UIAlertAction(title: "네", style: .default, handler: { (action) in
+            
+            // 반려동물 기입 페이지로 이동시켜준다
+            let animalRegister = UINavigationController(rootViewController: AnimalRegister1())
+            animalRegister.modalPresentationStyle = .fullScreen
+            self.present(animalRegister, animated: true, completion: nil)
+        }))
+        alert.addAction(UIAlertAction(title: "아니요", style: .cancel, handler: nil))
+
+        self.present(alert, animated: true)
+    }
     
     func checkUserLoggedIn() {
         

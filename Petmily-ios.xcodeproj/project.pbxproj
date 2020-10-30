@@ -24,6 +24,10 @@
 		706C5C45254488D300A2FA96 /* TextContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706C5C44254488D300A2FA96 /* TextContainer.swift */; };
 		706C5C492544910300A2FA96 /* NewAccountStep1Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706C5C482544910300A2FA96 /* NewAccountStep1Controller.swift */; };
 		706C5C4C2544927E00A2FA96 /* NavigationBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706C5C4B2544927E00A2FA96 /* NavigationBackButton.swift */; };
+		7079A3C9254C934C001A18FF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7079A3C8254C934C001A18FF /* GoogleService-Info.plist */; };
+		7079A42D254C96A7001A18FF /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7079A42C254C96A7001A18FF /* FileService.swift */; };
+		7079A48C254CA36C001A18FF /* AnimalRegister1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7079A48B254CA36C001A18FF /* AnimalRegister1.swift */; };
+		7079A48F254CA557001A18FF /* Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7079A48E254CA557001A18FF /* Root.swift */; };
 		7093E8C32545485E00B46B86 /* NewAccountStep2Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7093E8C22545485E00B46B86 /* NewAccountStep2Controller.swift */; };
 		70B4F93725447CF7005CE631 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B4F93625447CF7005CE631 /* AppDelegate.swift */; };
 		70B4F93925447CF7005CE631 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B4F93825447CF7005CE631 /* SceneDelegate.swift */; };
@@ -58,6 +62,10 @@
 		706C5C44254488D300A2FA96 /* TextContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextContainer.swift; sourceTree = "<group>"; };
 		706C5C482544910300A2FA96 /* NewAccountStep1Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountStep1Controller.swift; sourceTree = "<group>"; };
 		706C5C4B2544927E00A2FA96 /* NavigationBackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBackButton.swift; sourceTree = "<group>"; };
+		7079A3C8254C934C001A18FF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7079A42C254C96A7001A18FF /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
+		7079A48B254CA36C001A18FF /* AnimalRegister1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalRegister1.swift; sourceTree = "<group>"; };
+		7079A48E254CA557001A18FF /* Root.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Root.swift; sourceTree = "<group>"; };
 		7093E8C22545485E00B46B86 /* NewAccountStep2Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountStep2Controller.swift; sourceTree = "<group>"; };
 		70B4F93325447CF7005CE631 /* Petmily-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Petmily-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		70B4F93625447CF7005CE631 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -132,6 +140,7 @@
 			children = (
 				706C5C372544829400A2FA96 /* LocalData.swift */,
 				706C5C412544874000A2FA96 /* Utilities.swift */,
+				7079A48E254CA557001A18FF /* Root.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -144,6 +153,14 @@
 				701DBD332545B7810057C8D9 /* LoadingView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		7079A48A254CA351001A18FF /* AnimalRegister */ = {
+			isa = PBXGroup;
+			children = (
+				7079A48B254CA36C001A18FF /* AnimalRegister1.swift */,
+			);
+			path = AnimalRegister;
 			sourceTree = "<group>";
 		};
 		70B4F92A25447CF7005CE631 = {
@@ -182,6 +199,7 @@
 				70B4F93F25447CFA005CE631 /* Assets.xcassets */,
 				70B4F94125447CFA005CE631 /* LaunchScreen.storyboard */,
 				70B4F94425447CFA005CE631 /* Info.plist */,
+				7079A3C8254C934C001A18FF /* GoogleService-Info.plist */,
 			);
 			path = "Petmily-ios";
 			sourceTree = "<group>";
@@ -189,6 +207,7 @@
 		70B4F94B25447DED005CE631 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				7079A48A254CA351001A18FF /* AnimalRegister */,
 				706C5C32254481C200A2FA96 /* Authentications */,
 				70B4F94C25447E07005CE631 /* RootController.swift */,
 				70B4F95425447F32005CE631 /* FirstTabController.swift */,
@@ -211,6 +230,7 @@
 			children = (
 				70EE69FD2544B3B500C40970 /* VerificationService.swift */,
 				706A1515254574B60050C0C8 /* AuthService.swift */,
+				7079A42C254C96A7001A18FF /* FileService.swift */,
 			);
 			path = APIs;
 			sourceTree = "<group>";
@@ -292,6 +312,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				70B4F94325447CFA005CE631 /* LaunchScreen.storyboard in Resources */,
+				7079A3C9254C934C001A18FF /* GoogleService-Info.plist in Resources */,
 				70B4F94025447CFA005CE631 /* Assets.xcassets in Resources */,
 				70B4F93E25447CF7005CE631 /* Main.storyboard in Resources */,
 			);
@@ -351,6 +372,7 @@
 				70EE6A022544B89F00C40970 /* VerificationModel.swift in Sources */,
 				706C5C2F2544816600A2FA96 /* Extensions.swift in Sources */,
 				706C5C2B25447FEA00A2FA96 /* ThirdTabController.swift in Sources */,
+				7079A48F254CA557001A18FF /* Root.swift in Sources */,
 				706A151C25457F350050C0C8 /* NewAccountStep3Controller.swift in Sources */,
 				70B4F93B25447CF7005CE631 /* ViewController.swift in Sources */,
 				706A1516254574B60050C0C8 /* AuthService.swift in Sources */,
@@ -366,12 +388,14 @@
 				70B4F94D25447E07005CE631 /* RootController.swift in Sources */,
 				706C5C382544829400A2FA96 /* LocalData.swift in Sources */,
 				701DBD342545B7810057C8D9 /* LoadingView.swift in Sources */,
+				7079A48C254CA36C001A18FF /* AnimalRegister1.swift in Sources */,
 				706C5C492544910300A2FA96 /* NewAccountStep1Controller.swift in Sources */,
 				706C5C4C2544927E00A2FA96 /* NavigationBackButton.swift in Sources */,
 				701DBD2C2545A47B0057C8D9 /* NewAccountStep5Controller.swift in Sources */,
 				706A1519254577690050C0C8 /* UserModel.swift in Sources */,
 				706C5C34254481D000A2FA96 /* LoginController.swift in Sources */,
 				701DBD302545AD880057C8D9 /* constants.swift in Sources */,
+				7079A42D254C96A7001A18FF /* FileService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
