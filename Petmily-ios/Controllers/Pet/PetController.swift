@@ -13,6 +13,7 @@ class PetController: UIViewController {
     // MARK: Properties
     private lazy var notYetView:NotYetPet = {
         let view = NotYetPet()
+        view.delegate = self
         return view
     }()
     
@@ -42,5 +43,12 @@ class PetController: UIViewController {
         
     }
     
+    
+}
+
+extension PetController:NotYetPetProtocol {
+    func notYetViewTapped() {
+        print("not yet tapped")
+    }
     
 }

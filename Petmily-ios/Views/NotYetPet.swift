@@ -7,9 +7,16 @@
 
 import UIKit
 
+protocol NotYetPetProtocol:class {
+    func notYetViewTapped()
+}
+
 class NotYetPet:UIView {
     
     // MARK: - Properties
+    
+    weak var delegate:NotYetPetProtocol?
+    
     private lazy var label:UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12)
@@ -39,5 +46,24 @@ class NotYetPet:UIView {
         label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -40).isActive = true
         label.leftAnchor.constraint(equalTo: leftAnchor, constant: 20).isActive = true
         label.rightAnchor.constraint(equalTo: rightAnchor, constant: -20).isActive = true
+        
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapSelector))
+        
+        addGestureRecognizer(tap)
+    }
+    
+    // MARK: - Selectors
+    @objc func tapSelector() {
+        delegate?.notYetViewTapped()
+    }
+    
+    // MARK: - Overrides
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        layer.opacity = 0.7
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        layer.opacity = 1
     }
 }
