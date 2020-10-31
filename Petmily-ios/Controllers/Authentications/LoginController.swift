@@ -10,9 +10,15 @@ import UIKit
 class LoginController:UIViewController {
     
     // MARK: - Properties
+    private lazy var loadingView:LoadingView = {
+        let loadingview = LoadingView()
+        return loadingview
+    }()
+    
     private lazy var idTextField:UITextField = {
         let idTextField = UITextField()
         idTextField.placeholder = "아이디"
+        idTextField.delegate = self
         return idTextField
     }()
     
@@ -23,10 +29,11 @@ class LoginController:UIViewController {
     }()
     
     private lazy var pwTextField:UITextField = {
-        let idTextField = UITextField()
-        idTextField.placeholder = "비밀번호"
-        idTextField.isSecureTextEntry = true
-        return idTextField
+        let pwTextField = UITextField()
+        pwTextField.placeholder = "비밀번호"
+        pwTextField.isSecureTextEntry = true
+        pwTextField.delegate = self
+        return pwTextField
     }()
     
     private lazy var pwTextContainer:UIView = {
@@ -37,6 +44,7 @@ class LoginController:UIViewController {
     private lazy var loginButton:UIButton = {
         let button = UIButton(type: UIButton.ButtonType.system)
         button.setTitle("로그인", for: UIControl.State.normal)
+        button.addTarget(self, action: #selector(login), for: UIControl.Event.touchUpInside)
         return button
     }()
     
@@ -109,6 +117,14 @@ class LoginController:UIViewController {
         buttonToNavigateToRegisterController.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
         buttonToNavigateToRegisterController.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
+        view.addSubview(loadingView)
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
+        loadingView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        loadingView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        loadingView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        loadingView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        loadingView.isHidden = true
+        
     }
     
     func configure(){
@@ -125,6 +141,33 @@ class LoginController:UIViewController {
     @objc func navigateToNewAccountStep1Controller() {
         let vc = NewAccountStep1Controller()
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc func login() {
+        guard let userId = idTextField.text else { return }
+        guard let pw = pwTextField.text else { return }
+        self.loadingView.isHidden = false
+        AuthService.shared.loginUser(userId: userId, password: pw) { (error, errorMessage, success, token) in
+            if let errorMessage = errorMessage {
+                self.renderPopupWithOkayButtonNoImage(title: "에러", message: errorMessage)
+                self.loadingView.isHidden = true
+                return
+            }
+            
+            if let error = error {
+                self.renderPopupWithOkayButtonNoImage(title: "에러", message: error.localizedDescription)
+                self.loadingView.isHidden = true
+                return
+            }
+            
+            if success {
+                guard let token = token else { return }
+                LocalData.shared.setting(key: "token", value: token)
+                self.dismiss(animated: true) {
+                    Root.shared.root.configureTabBar()
+                }
+            }
+        }
     }
     
     // MARK: - iOS dark mode change
@@ -157,5 +200,18 @@ class LoginController:UIViewController {
         
         buttonToNavigateToRegisterController.setAttributedTitle(firstString, for: UIControl.State.normal)
         // 아직 계정이 없으신가요? 텍스트 속성 변경
+    }
+}
+
+
+extension LoginController:UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let textFieldText = textField.text,
+                    let rangeOfTextToReplace = Range(range, in: textFieldText) else {
+                        return false
+                }
+                let substringToReplace = textFieldText[rangeOfTextToReplace]
+                let count = textFieldText.count - substringToReplace.count + string.count
+                return count <= 18
     }
 }

@@ -9,7 +9,10 @@ import UIKit
 
 class RootController: UITabBarController {
     // MARK: - Properties
-    
+    private lazy var loadingView:LoadingView = {
+        let lv = LoadingView()
+        return lv
+    }()
     
     // MARK: - Lifecycles
     override func viewDidLoad() {
@@ -25,9 +28,18 @@ class RootController: UITabBarController {
     func configureUI(){
         
         view.backgroundColor = .systemBackground
+        view.addSubview(loadingView)
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
+        loadingView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        loadingView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        loadingView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        loadingView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        loadingView.isHidden = true
     }
     
     func configureTabBar() {
+        
+        loadingView.isHidden = false
         
         let PresaleOfAnimals = UINavigationController(rootViewController: PresaleOfAnimalsController())
         let LostAnimals = UINavigationController(rootViewController: LostAnimalsController())
@@ -50,9 +62,21 @@ class RootController: UITabBarController {
         
         viewControllers = [PresaleOfAnimals, LostAnimals, Pet, Chat]
         
+        loadingView.isHidden = true
+        
     }
     
     
+    // MARK: Helpers
+    
+    func logout() {
+        LocalData.shared.remove(key: "token")
+        let loginController = UINavigationController(rootViewController: LoginController())
+        loginController.modalPresentationStyle = .fullScreen
+        self.viewControllers = []
+        self.present(loginController, animated: true, completion: nil)
+        
+    }
     
     func checkUserLoggedIn() {
         
@@ -61,6 +85,7 @@ class RootController: UITabBarController {
             if let token = token {
                 // 로그인이 되어져 있음.
                 Properties.token = token
+                self.configureTabBar()
             }else {
                 // 로그인이 되어져 있지 않음.
                 // 로그인 화면으로 쏴주기

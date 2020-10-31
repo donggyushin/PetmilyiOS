@@ -239,7 +239,9 @@ class NewAccountStep6Controller: UIViewController {
                         guard let token = token else { return }
                         LocalData.shared.setting(key: "token", value: token)
                         // TODO: - 메인화면
-                        self.dismiss(animated: true)
+                        self.dismiss(animated: true) {
+                            Root.shared.root.configureTabBar()
+                        }
                         
                     }
                     
