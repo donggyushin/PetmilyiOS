@@ -26,6 +26,7 @@
 		7079A42D254C96A7001A18FF /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7079A42C254C96A7001A18FF /* FileService.swift */; };
 		7079A48F254CA557001A18FF /* Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7079A48E254CA557001A18FF /* Root.swift */; };
 		7093E8C32545485E00B46B86 /* NewAccountStep2Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7093E8C22545485E00B46B86 /* NewAccountStep2Controller.swift */; };
+		70996B6E254D679E001A02D0 /* NotYetPet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70996B6D254D679E001A02D0 /* NotYetPet.swift */; };
 		70B3E465254D4CFB009461A3 /* PresaleOfAnimalsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B3E464254D4CFB009461A3 /* PresaleOfAnimalsController.swift */; };
 		70B3E469254D4D32009461A3 /* LostAnimalsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B3E468254D4D32009461A3 /* LostAnimalsController.swift */; };
 		70B3E46C254D4D65009461A3 /* PetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B3E46B254D4D65009461A3 /* PetController.swift */; };
@@ -64,6 +65,7 @@
 		7079A42C254C96A7001A18FF /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
 		7079A48E254CA557001A18FF /* Root.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Root.swift; sourceTree = "<group>"; };
 		7093E8C22545485E00B46B86 /* NewAccountStep2Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountStep2Controller.swift; sourceTree = "<group>"; };
+		70996B6D254D679E001A02D0 /* NotYetPet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotYetPet.swift; sourceTree = "<group>"; };
 		70B3E464254D4CFB009461A3 /* PresaleOfAnimalsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresaleOfAnimalsController.swift; sourceTree = "<group>"; };
 		70B3E468254D4D32009461A3 /* LostAnimalsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LostAnimalsController.swift; sourceTree = "<group>"; };
 		70B3E46B254D4D65009461A3 /* PetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetController.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				706C5C44254488D300A2FA96 /* TextContainer.swift */,
 				706C5C4B2544927E00A2FA96 /* NavigationBackButton.swift */,
 				701DBD332545B7810057C8D9 /* LoadingView.swift */,
+				70996B6D254D679E001A02D0 /* NotYetPet.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -409,6 +412,7 @@
 				70EE69FE2544B3B500C40970 /* VerificationService.swift in Sources */,
 				70B3E46F254D4D9A009461A3 /* ChatController.swift in Sources */,
 				70B4F93925447CF7005CE631 /* SceneDelegate.swift in Sources */,
+				70996B6E254D679E001A02D0 /* NotYetPet.swift in Sources */,
 				70B4F95225447E57005CE631 /* Properties.swift in Sources */,
 				70B4F94D25447E07005CE631 /* RootController.swift in Sources */,
 				706C5C382544829400A2FA96 /* LocalData.swift in Sources */,
