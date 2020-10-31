@@ -54,16 +54,20 @@ class NotYetPet:UIView {
     }
     
     // MARK: - Selectors
-    @objc func tapSelector() {
+    @objc func tapSelector(gesture: UIGestureRecognizer) {
+        
         delegate?.notYetViewTapped()
+        layer.opacity = 1
     }
     
     // MARK: - Overrides
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
         layer.opacity = 0.7
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         layer.opacity = 1
+        
     }
 }
