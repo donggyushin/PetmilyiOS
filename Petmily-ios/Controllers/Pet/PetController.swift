@@ -1,25 +1,25 @@
 //
-//  SecondTabController.swift
+//  PetController.swift
 //  Petmily-ios
 //
-//  Created by 신동규 on 2020/10/25.
+//  Created by 신동규 on 2020/10/31.
 //
 
 import UIKit
 
-class SecondTabController:UIViewController {
+class PetController: UIViewController {
     
-    
-    // MARK: - Lifecycles
+    // MARK: - Lifecylces
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
         
+        configureUI()
     }
     
     // MARK: - Configures
     func configureUI() {
         clearNavigationBar()
+        
         view.backgroundColor = .systemBackground
     }
 }

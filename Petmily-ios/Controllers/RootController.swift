@@ -28,33 +28,31 @@ class RootController: UITabBarController {
     }
     
     func configureTabBar() {
-        let firstNav = UINavigationController(rootViewController: FirstTabController())
-        let secondNav = UINavigationController(rootViewController: SecondTabController())
-        let thirdNav = UINavigationController(rootViewController: ThirdTabController())
         
-        firstNav.tabBarItem.title = "일번"
-        secondNav.tabBarItem.title = "이번"
-        thirdNav.tabBarItem.title = "삼번"
+        let PresaleOfAnimals = UINavigationController(rootViewController: PresaleOfAnimalsController())
+        let LostAnimals = UINavigationController(rootViewController: LostAnimalsController())
+        let Pet = UINavigationController(rootViewController: PetController())
+        let Chat = UINavigationController(rootViewController: ChatController())
         
-        viewControllers = [firstNav, secondNav, thirdNav]
+        
+        
+        PresaleOfAnimals.tabBarItem.title = "분양"
+        PresaleOfAnimals.tabBarItem.image = #imageLiteral(resourceName: "icons8-dog-house-100 1")
+        
+        LostAnimals.tabBarItem.title = "찾기"
+        LostAnimals.tabBarItem.image = #imageLiteral(resourceName: "icons8-search-100 1")
+        
+        Pet.tabBarItem.title = "반려"
+        Pet.tabBarItem.image = #imageLiteral(resourceName: "icons8-pet-commands-summon-100 1")
+        
+        Chat.tabBarItem.title = "채팅"
+        Chat.tabBarItem.image = #imageLiteral(resourceName: "icons8-chat-bubble-100 1")
+        
+        viewControllers = [PresaleOfAnimals, LostAnimals, Pet, Chat]
         
     }
     
-    // MARK: Helpers
-    func renderAlertWhenUserFirstLoggedInAndDoentHaveAnyAnimalsRegistered() {
-        let alert = UIAlertController(title: "팻밀리에 오신 걸 환영합니다", message: "현재 반려동물을 기르고 계신가요? 반려동물의 정보를 입력하면 유용한 정보에 대해서 받아보실 수 있으십니다. 기르고 계신 반려동물을 등록하시겠어요?", preferredStyle: .actionSheet)
-
-        alert.addAction(UIAlertAction(title: "네", style: .default, handler: { (action) in
-            
-            // 반려동물 기입 페이지로 이동시켜준다
-            let animalRegister = UINavigationController(rootViewController: AnimalRegister1())
-            animalRegister.modalPresentationStyle = .fullScreen
-            self.present(animalRegister, animated: true, completion: nil)
-        }))
-        alert.addAction(UIAlertAction(title: "아니요", style: .cancel, handler: nil))
-
-        self.present(alert, animated: true)
-    }
+    
     
     func checkUserLoggedIn() {
         

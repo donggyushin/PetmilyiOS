@@ -15,8 +15,6 @@
 		706A1516254574B60050C0C8 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706A1515254574B60050C0C8 /* AuthService.swift */; };
 		706A1519254577690050C0C8 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706A1518254577690050C0C8 /* UserModel.swift */; };
 		706A151C25457F350050C0C8 /* NewAccountStep3Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706A151B25457F350050C0C8 /* NewAccountStep3Controller.swift */; };
-		706C5C2825447FCE00A2FA96 /* SecondTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706C5C2725447FCE00A2FA96 /* SecondTabController.swift */; };
-		706C5C2B25447FEA00A2FA96 /* ThirdTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706C5C2A25447FEA00A2FA96 /* ThirdTabController.swift */; };
 		706C5C2F2544816600A2FA96 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706C5C2E2544816600A2FA96 /* Extensions.swift */; };
 		706C5C34254481D000A2FA96 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706C5C33254481D000A2FA96 /* LoginController.swift */; };
 		706C5C382544829400A2FA96 /* LocalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706C5C372544829400A2FA96 /* LocalData.swift */; };
@@ -26,9 +24,12 @@
 		706C5C4C2544927E00A2FA96 /* NavigationBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706C5C4B2544927E00A2FA96 /* NavigationBackButton.swift */; };
 		7079A3C9254C934C001A18FF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7079A3C8254C934C001A18FF /* GoogleService-Info.plist */; };
 		7079A42D254C96A7001A18FF /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7079A42C254C96A7001A18FF /* FileService.swift */; };
-		7079A48C254CA36C001A18FF /* AnimalRegister1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7079A48B254CA36C001A18FF /* AnimalRegister1.swift */; };
 		7079A48F254CA557001A18FF /* Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7079A48E254CA557001A18FF /* Root.swift */; };
 		7093E8C32545485E00B46B86 /* NewAccountStep2Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7093E8C22545485E00B46B86 /* NewAccountStep2Controller.swift */; };
+		70B3E465254D4CFB009461A3 /* PresaleOfAnimalsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B3E464254D4CFB009461A3 /* PresaleOfAnimalsController.swift */; };
+		70B3E469254D4D32009461A3 /* LostAnimalsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B3E468254D4D32009461A3 /* LostAnimalsController.swift */; };
+		70B3E46C254D4D65009461A3 /* PetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B3E46B254D4D65009461A3 /* PetController.swift */; };
+		70B3E46F254D4D9A009461A3 /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B3E46E254D4D9A009461A3 /* ChatController.swift */; };
 		70B4F93725447CF7005CE631 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B4F93625447CF7005CE631 /* AppDelegate.swift */; };
 		70B4F93925447CF7005CE631 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B4F93825447CF7005CE631 /* SceneDelegate.swift */; };
 		70B4F93B25447CF7005CE631 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B4F93A25447CF7005CE631 /* ViewController.swift */; };
@@ -37,7 +38,6 @@
 		70B4F94325447CFA005CE631 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70B4F94125447CFA005CE631 /* LaunchScreen.storyboard */; };
 		70B4F94D25447E07005CE631 /* RootController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B4F94C25447E07005CE631 /* RootController.swift */; };
 		70B4F95225447E57005CE631 /* Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B4F95125447E57005CE631 /* Properties.swift */; };
-		70B4F95525447F32005CE631 /* FirstTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B4F95425447F32005CE631 /* FirstTabController.swift */; };
 		70EE69FE2544B3B500C40970 /* VerificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70EE69FD2544B3B500C40970 /* VerificationService.swift */; };
 		70EE6A022544B89F00C40970 /* VerificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70EE6A012544B89F00C40970 /* VerificationModel.swift */; };
 		70F248692549BE6500716A93 /* NewAccountStep6Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F248682549BE6500716A93 /* NewAccountStep6Controller.swift */; };
@@ -53,8 +53,6 @@
 		706A1515254574B60050C0C8 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		706A1518254577690050C0C8 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		706A151B25457F350050C0C8 /* NewAccountStep3Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountStep3Controller.swift; sourceTree = "<group>"; };
-		706C5C2725447FCE00A2FA96 /* SecondTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondTabController.swift; sourceTree = "<group>"; };
-		706C5C2A25447FEA00A2FA96 /* ThirdTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdTabController.swift; sourceTree = "<group>"; };
 		706C5C2E2544816600A2FA96 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		706C5C33254481D000A2FA96 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		706C5C372544829400A2FA96 /* LocalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalData.swift; sourceTree = "<group>"; };
@@ -64,9 +62,12 @@
 		706C5C4B2544927E00A2FA96 /* NavigationBackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBackButton.swift; sourceTree = "<group>"; };
 		7079A3C8254C934C001A18FF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7079A42C254C96A7001A18FF /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
-		7079A48B254CA36C001A18FF /* AnimalRegister1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalRegister1.swift; sourceTree = "<group>"; };
 		7079A48E254CA557001A18FF /* Root.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Root.swift; sourceTree = "<group>"; };
 		7093E8C22545485E00B46B86 /* NewAccountStep2Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountStep2Controller.swift; sourceTree = "<group>"; };
+		70B3E464254D4CFB009461A3 /* PresaleOfAnimalsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresaleOfAnimalsController.swift; sourceTree = "<group>"; };
+		70B3E468254D4D32009461A3 /* LostAnimalsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LostAnimalsController.swift; sourceTree = "<group>"; };
+		70B3E46B254D4D65009461A3 /* PetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetController.swift; sourceTree = "<group>"; };
+		70B3E46E254D4D9A009461A3 /* ChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
 		70B4F93325447CF7005CE631 /* Petmily-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Petmily-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		70B4F93625447CF7005CE631 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		70B4F93825447CF7005CE631 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -77,7 +78,6 @@
 		70B4F94425447CFA005CE631 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		70B4F94C25447E07005CE631 /* RootController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootController.swift; sourceTree = "<group>"; };
 		70B4F95125447E57005CE631 /* Properties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Properties.swift; sourceTree = "<group>"; };
-		70B4F95425447F32005CE631 /* FirstTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTabController.swift; sourceTree = "<group>"; };
 		70EE69FD2544B3B500C40970 /* VerificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationService.swift; sourceTree = "<group>"; };
 		70EE6A012544B89F00C40970 /* VerificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationModel.swift; sourceTree = "<group>"; };
 		70F248682549BE6500716A93 /* NewAccountStep6Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountStep6Controller.swift; sourceTree = "<group>"; };
@@ -155,12 +155,36 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		7079A48A254CA351001A18FF /* AnimalRegister */ = {
+		70B3E460254D4CA4009461A3 /* PresaleOfAnimals */ = {
 			isa = PBXGroup;
 			children = (
-				7079A48B254CA36C001A18FF /* AnimalRegister1.swift */,
+				70B3E464254D4CFB009461A3 /* PresaleOfAnimalsController.swift */,
 			);
-			path = AnimalRegister;
+			path = PresaleOfAnimals;
+			sourceTree = "<group>";
+		};
+		70B3E461254D4CBD009461A3 /* LostAnimals */ = {
+			isa = PBXGroup;
+			children = (
+				70B3E468254D4D32009461A3 /* LostAnimalsController.swift */,
+			);
+			path = LostAnimals;
+			sourceTree = "<group>";
+		};
+		70B3E462254D4CD1009461A3 /* Pet */ = {
+			isa = PBXGroup;
+			children = (
+				70B3E46B254D4D65009461A3 /* PetController.swift */,
+			);
+			path = Pet;
+			sourceTree = "<group>";
+		};
+		70B3E463254D4CE3009461A3 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				70B3E46E254D4D9A009461A3 /* ChatController.swift */,
+			);
+			path = Chat;
 			sourceTree = "<group>";
 		};
 		70B4F92A25447CF7005CE631 = {
@@ -207,12 +231,12 @@
 		70B4F94B25447DED005CE631 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				7079A48A254CA351001A18FF /* AnimalRegister */,
+				70B3E463254D4CE3009461A3 /* Chat */,
+				70B3E462254D4CD1009461A3 /* Pet */,
+				70B3E461254D4CBD009461A3 /* LostAnimals */,
+				70B3E460254D4CA4009461A3 /* PresaleOfAnimals */,
 				706C5C32254481C200A2FA96 /* Authentications */,
 				70B4F94C25447E07005CE631 /* RootController.swift */,
-				70B4F95425447F32005CE631 /* FirstTabController.swift */,
-				706C5C2725447FCE00A2FA96 /* SecondTabController.swift */,
-				706C5C2A25447FEA00A2FA96 /* ThirdTabController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -367,28 +391,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				70B4F95525447F32005CE631 /* FirstTabController.swift in Sources */,
+				70B3E469254D4D32009461A3 /* LostAnimalsController.swift in Sources */,
 				706C5C45254488D300A2FA96 /* TextContainer.swift in Sources */,
 				70EE6A022544B89F00C40970 /* VerificationModel.swift in Sources */,
 				706C5C2F2544816600A2FA96 /* Extensions.swift in Sources */,
-				706C5C2B25447FEA00A2FA96 /* ThirdTabController.swift in Sources */,
 				7079A48F254CA557001A18FF /* Root.swift in Sources */,
+				70B3E465254D4CFB009461A3 /* PresaleOfAnimalsController.swift in Sources */,
 				706A151C25457F350050C0C8 /* NewAccountStep3Controller.swift in Sources */,
 				70B4F93B25447CF7005CE631 /* ViewController.swift in Sources */,
+				70B3E46C254D4D65009461A3 /* PetController.swift in Sources */,
 				706A1516254574B60050C0C8 /* AuthService.swift in Sources */,
 				70B4F93725447CF7005CE631 /* AppDelegate.swift in Sources */,
 				701DBD2925459F9E0057C8D9 /* NewAccountStep4Controller.swift in Sources */,
 				7093E8C32545485E00B46B86 /* NewAccountStep2Controller.swift in Sources */,
 				70F248692549BE6500716A93 /* NewAccountStep6Controller.swift in Sources */,
-				706C5C2825447FCE00A2FA96 /* SecondTabController.swift in Sources */,
 				706C5C422544874000A2FA96 /* Utilities.swift in Sources */,
 				70EE69FE2544B3B500C40970 /* VerificationService.swift in Sources */,
+				70B3E46F254D4D9A009461A3 /* ChatController.swift in Sources */,
 				70B4F93925447CF7005CE631 /* SceneDelegate.swift in Sources */,
 				70B4F95225447E57005CE631 /* Properties.swift in Sources */,
 				70B4F94D25447E07005CE631 /* RootController.swift in Sources */,
 				706C5C382544829400A2FA96 /* LocalData.swift in Sources */,
 				701DBD342545B7810057C8D9 /* LoadingView.swift in Sources */,
-				7079A48C254CA36C001A18FF /* AnimalRegister1.swift in Sources */,
 				706C5C492544910300A2FA96 /* NewAccountStep1Controller.swift in Sources */,
 				706C5C4C2544927E00A2FA96 /* NavigationBackButton.swift in Sources */,
 				701DBD2C2545A47B0057C8D9 /* NewAccountStep5Controller.swift in Sources */,

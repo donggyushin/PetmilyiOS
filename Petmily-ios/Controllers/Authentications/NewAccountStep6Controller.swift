@@ -239,11 +239,7 @@ class NewAccountStep6Controller: UIViewController {
                         guard let token = token else { return }
                         LocalData.shared.setting(key: "token", value: token)
                         // TODO: - 메인화면
-                        let rootVC = self.presentingViewController as? RootController
-                        self.dismiss(animated: true) {
-                            // TODO: - 애완동물이 있다면 애완동물을 등록하라는 팝업 띄우기
-                            rootVC?.renderAlertWhenUserFirstLoggedInAndDoentHaveAnyAnimalsRegistered()
-                        }
+                        self.dismiss(animated: true)
                         
                     }
                     
