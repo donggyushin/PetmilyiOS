@@ -22,7 +22,7 @@ class TextContainer:UIView {
         self.textField = textField
         super.init(frame: CGRect.zero)
         
-        heightAnchor.constraint(equalToConstant: 40).isActive = true 
+        heightAnchor.constraint(equalToConstant: 50).isActive = true 
         
         addSubview(textField)
         textField.translatesAutoresizingMaskIntoConstraints = false

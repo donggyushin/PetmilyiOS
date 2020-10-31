@@ -22,7 +22,7 @@ class PetController: UIViewController {
         super.viewDidLoad()
         
         configureUI()
-        
+        configureNavigation()
     
         
         
@@ -43,12 +43,16 @@ class PetController: UIViewController {
         
     }
     
+    func configureNavigation(){
+        navigationItem.backButtonTitle = "반려"
+    }
+    
     
 }
 
 extension PetController:NotYetPetProtocol {
     func notYetViewTapped() {
-        print("not yet tapped")
+        navigationController?.pushViewController(PetRegisterViewController(), animated: true)
     }
     
 }

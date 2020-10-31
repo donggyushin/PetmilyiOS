@@ -21,7 +21,6 @@
 		706C5C422544874000A2FA96 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706C5C412544874000A2FA96 /* Utilities.swift */; };
 		706C5C45254488D300A2FA96 /* TextContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706C5C44254488D300A2FA96 /* TextContainer.swift */; };
 		706C5C492544910300A2FA96 /* NewAccountStep1Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706C5C482544910300A2FA96 /* NewAccountStep1Controller.swift */; };
-		706C5C4C2544927E00A2FA96 /* NavigationBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706C5C4B2544927E00A2FA96 /* NavigationBackButton.swift */; };
 		7079A3C9254C934C001A18FF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7079A3C8254C934C001A18FF /* GoogleService-Info.plist */; };
 		7079A42D254C96A7001A18FF /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7079A42C254C96A7001A18FF /* FileService.swift */; };
 		7079A48F254CA557001A18FF /* Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7079A48E254CA557001A18FF /* Root.swift */; };
@@ -39,6 +38,10 @@
 		70B4F94325447CFA005CE631 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70B4F94125447CFA005CE631 /* LaunchScreen.storyboard */; };
 		70B4F94D25447E07005CE631 /* RootController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B4F94C25447E07005CE631 /* RootController.swift */; };
 		70B4F95225447E57005CE631 /* Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B4F95125447E57005CE631 /* Properties.swift */; };
+		70DD78F3254DAAB900168C82 /* PetRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DD78F2254DAAB900168C82 /* PetRegisterViewController.swift */; };
+		70DD78F6254DAC0D00168C82 /* TouchableUIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DD78F5254DAC0D00168C82 /* TouchableUIImageView.swift */; };
+		70DD78FE254DB85E00168C82 /* ViewMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DD78FD254DB85E00168C82 /* ViewMaker.swift */; };
+		70DD7901254DC57100168C82 /* ViewContainerWithImageIconAndUnderline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DD7900254DC57100168C82 /* ViewContainerWithImageIconAndUnderline.swift */; };
 		70EE69FE2544B3B500C40970 /* VerificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70EE69FD2544B3B500C40970 /* VerificationService.swift */; };
 		70EE6A022544B89F00C40970 /* VerificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70EE6A012544B89F00C40970 /* VerificationModel.swift */; };
 		70F248692549BE6500716A93 /* NewAccountStep6Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F248682549BE6500716A93 /* NewAccountStep6Controller.swift */; };
@@ -60,7 +63,6 @@
 		706C5C412544874000A2FA96 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		706C5C44254488D300A2FA96 /* TextContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextContainer.swift; sourceTree = "<group>"; };
 		706C5C482544910300A2FA96 /* NewAccountStep1Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountStep1Controller.swift; sourceTree = "<group>"; };
-		706C5C4B2544927E00A2FA96 /* NavigationBackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBackButton.swift; sourceTree = "<group>"; };
 		7079A3C8254C934C001A18FF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7079A42C254C96A7001A18FF /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
 		7079A48E254CA557001A18FF /* Root.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Root.swift; sourceTree = "<group>"; };
@@ -80,6 +82,10 @@
 		70B4F94425447CFA005CE631 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		70B4F94C25447E07005CE631 /* RootController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootController.swift; sourceTree = "<group>"; };
 		70B4F95125447E57005CE631 /* Properties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Properties.swift; sourceTree = "<group>"; };
+		70DD78F2254DAAB900168C82 /* PetRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetRegisterViewController.swift; sourceTree = "<group>"; };
+		70DD78F5254DAC0D00168C82 /* TouchableUIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchableUIImageView.swift; sourceTree = "<group>"; };
+		70DD78FD254DB85E00168C82 /* ViewMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewMaker.swift; sourceTree = "<group>"; };
+		70DD7900254DC57100168C82 /* ViewContainerWithImageIconAndUnderline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewContainerWithImageIconAndUnderline.swift; sourceTree = "<group>"; };
 		70EE69FD2544B3B500C40970 /* VerificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationService.swift; sourceTree = "<group>"; };
 		70EE6A012544B89F00C40970 /* VerificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationModel.swift; sourceTree = "<group>"; };
 		70F248682549BE6500716A93 /* NewAccountStep6Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountStep6Controller.swift; sourceTree = "<group>"; };
@@ -143,6 +149,7 @@
 				706C5C372544829400A2FA96 /* LocalData.swift */,
 				706C5C412544874000A2FA96 /* Utilities.swift */,
 				7079A48E254CA557001A18FF /* Root.swift */,
+				70DD78FD254DB85E00168C82 /* ViewMaker.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -151,9 +158,10 @@
 			isa = PBXGroup;
 			children = (
 				706C5C44254488D300A2FA96 /* TextContainer.swift */,
-				706C5C4B2544927E00A2FA96 /* NavigationBackButton.swift */,
 				701DBD332545B7810057C8D9 /* LoadingView.swift */,
 				70996B6D254D679E001A02D0 /* NotYetPet.swift */,
+				70DD78F5254DAC0D00168C82 /* TouchableUIImageView.swift */,
+				70DD7900254DC57100168C82 /* ViewContainerWithImageIconAndUnderline.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -178,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				70B3E46B254D4D65009461A3 /* PetController.swift */,
+				70DD78F2254DAAB900168C82 /* PetRegisterViewController.swift */,
 			);
 			path = Pet;
 			sourceTree = "<group>";
@@ -402,6 +411,7 @@
 				70B3E465254D4CFB009461A3 /* PresaleOfAnimalsController.swift in Sources */,
 				706A151C25457F350050C0C8 /* NewAccountStep3Controller.swift in Sources */,
 				70B4F93B25447CF7005CE631 /* ViewController.swift in Sources */,
+				70DD78F6254DAC0D00168C82 /* TouchableUIImageView.swift in Sources */,
 				70B3E46C254D4D65009461A3 /* PetController.swift in Sources */,
 				706A1516254574B60050C0C8 /* AuthService.swift in Sources */,
 				70B4F93725447CF7005CE631 /* AppDelegate.swift in Sources */,
@@ -409,17 +419,19 @@
 				7093E8C32545485E00B46B86 /* NewAccountStep2Controller.swift in Sources */,
 				70F248692549BE6500716A93 /* NewAccountStep6Controller.swift in Sources */,
 				706C5C422544874000A2FA96 /* Utilities.swift in Sources */,
+				70DD78F3254DAAB900168C82 /* PetRegisterViewController.swift in Sources */,
 				70EE69FE2544B3B500C40970 /* VerificationService.swift in Sources */,
 				70B3E46F254D4D9A009461A3 /* ChatController.swift in Sources */,
 				70B4F93925447CF7005CE631 /* SceneDelegate.swift in Sources */,
 				70996B6E254D679E001A02D0 /* NotYetPet.swift in Sources */,
+				70DD78FE254DB85E00168C82 /* ViewMaker.swift in Sources */,
 				70B4F95225447E57005CE631 /* Properties.swift in Sources */,
 				70B4F94D25447E07005CE631 /* RootController.swift in Sources */,
 				706C5C382544829400A2FA96 /* LocalData.swift in Sources */,
 				701DBD342545B7810057C8D9 /* LoadingView.swift in Sources */,
 				706C5C492544910300A2FA96 /* NewAccountStep1Controller.swift in Sources */,
-				706C5C4C2544927E00A2FA96 /* NavigationBackButton.swift in Sources */,
 				701DBD2C2545A47B0057C8D9 /* NewAccountStep5Controller.swift in Sources */,
+				70DD7901254DC57100168C82 /* ViewContainerWithImageIconAndUnderline.swift in Sources */,
 				706A1519254577690050C0C8 /* UserModel.swift in Sources */,
 				706C5C34254481D000A2FA96 /* LoginController.swift in Sources */,
 				701DBD302545AD880057C8D9 /* constants.swift in Sources */,
