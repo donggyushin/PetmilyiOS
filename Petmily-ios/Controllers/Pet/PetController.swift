@@ -44,7 +44,7 @@ class PetController: UIViewController {
     }
     
     func configureNavigation(){
-        navigationItem.backButtonTitle = "반려"
+        navigationItem.backButtonTitle = "이전"
     }
     
     

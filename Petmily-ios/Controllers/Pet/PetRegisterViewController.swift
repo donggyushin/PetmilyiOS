@@ -13,9 +13,11 @@ class PetRegisterViewController: UIViewController {
     let petBirthdayData = Utilities.shared.generateUserBirthList()
     let petBirthdayMonthData = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
     
+    
     let imagePickerController = UIImagePickerController()
     
     var petImage:UIImage?
+    var selectedGender:String?
     
     private lazy var petImageView:TouchableUIImageView = {
         let iv = TouchableUIImageView(image: #imageLiteral(resourceName: "5b7fdeab1900001d035028dc 1"))
@@ -32,72 +34,25 @@ class PetRegisterViewController: UIViewController {
     private lazy var petNameTextField:UITextField = {
         let tf = UITextField()
         tf.delegate = self
+        tf.placeholder = "이름을 입력해주세요"
         return tf
     }()
     
-    private lazy var petNameView = ViewContainerWithImageIconAndUnderline(viewToAdd: self.petNameTextField, image: #imageLiteral(resourceName: "dog-collar 1").withRenderingMode(UIImage.RenderingMode.alwaysTemplate), width: view.frame.width * 0.8, height: 50, darkMode: isDarkMode, text: "이름")
-    
-    private lazy var petKindLabel:UILabel = {
-        let label = UILabel()
-        return label
+    private lazy var petNameTextContainer:TextContainer = {
+        let tc = TextContainer(textField: petNameTextField)
+        return tc
     }()
     
-    private lazy var petKind:ViewContainerWithImageIconAndUnderline = {
-        let view = ViewContainerWithImageIconAndUnderline(viewToAdd: self.petKindLabel, image: #imageLiteral(resourceName: "icons8-pet-commands-summon-100 1").withRenderingMode(UIImage.RenderingMode.alwaysTemplate), width: self.view.frame.width, height: 50, darkMode: isDarkMode, text: "품종")
-        let tap = UITapGestureRecognizer(target: self, action: #selector(sendToPetKindRegister))
-        view.addGestureRecognizer(tap)
-        return view
-    }()
     
-    private lazy var birthdayImageView:UIImageView = {
-        let iv = UIImageView(image: #imageLiteral(resourceName: "gift 1").withRenderingMode(UIImage.RenderingMode.alwaysTemplate))
-        iv.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        iv.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        if isDarkMode {
-            iv.tintColor = .white
-        }else {
-            iv.tintColor = .black
-        }
-        return iv
-    }()
-    
-    private lazy var birthdayImageViewContainer:UIView = {
-        let view = UIView()
-        view.backgroundColor = .blue
-        let label = UILabel()
-        label.text = "생일"
-        label.font = UIFont.systemFont(ofSize: 9)
-        
-        view.addSubview(birthdayImageView)
-        birthdayImageView.translatesAutoresizingMaskIntoConstraints = false
-//        birthdayImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        birthdayImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10).isActive = true
-        birthdayImageView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        birthdayImageView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        
-        view.addSubview(label)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.centerXAnchor.constraint(equalTo: birthdayImageView.centerXAnchor).isActive = true
-        label.topAnchor.constraint(equalTo: birthdayImageView.bottomAnchor, constant: 8).isActive = true
-        
-        return view
-    }()
     
     private lazy var petBirthdayPicker = UIPickerView()
     
     private lazy var birthdayYearTextField:UITextField = {
         let tf = UITextField()
         petBirthdayPicker.delegate = self
-        tf.textAlignment = .center
         tf.inputView = petBirthdayPicker
-        
+        tf.placeholder = "생년월일을"
         return tf
-    }()
-    
-    private lazy var birthdayPickerView:TextContainer = {
-        let tc = TextContainer(textField: birthdayYearTextField)
-        
-        return tc
     }()
     
     private lazy var petBirthMonthPicker = UIPickerView()
@@ -105,19 +60,97 @@ class PetRegisterViewController: UIViewController {
     private lazy var birthdayMonthTextField:UITextField = {
         let tf = UITextField()
         petBirthMonthPicker.delegate = self
-        tf.textAlignment = .center
         tf.inputView = petBirthMonthPicker
-        tf.widthAnchor.constraint(equalToConstant: view.frame.width * 0.28).isActive = true
+        tf.placeholder = "입력해주세요"
         return tf
     }()
     
-    private lazy var birthdayMonthPickerView:TextContainer = {
-        let tc = TextContainer(textField: birthdayMonthTextField)
+    
+    private lazy var birthdayContainer:UIView = {
+        let view = UIView()
+        view.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        view.widthAnchor.constraint(equalToConstant: view.frame.width * 0.8).isActive = true
         
-        return tc
+        view.addSubview(birthdayYearTextField)
+        birthdayYearTextField.translatesAutoresizingMaskIntoConstraints = false
+        birthdayYearTextField.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        birthdayYearTextField.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        birthdayYearTextField.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        birthdayYearTextField.widthAnchor.constraint(equalToConstant: self.view.frame.width * 0.4).isActive = true
+        
+        let underlineForYear = UIView()
+        underlineForYear.backgroundColor = .secondarySystemBackground
+        underlineForYear.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        view.addSubview(underlineForYear)
+        underlineForYear.translatesAutoresizingMaskIntoConstraints = false
+        underlineForYear.leftAnchor.constraint(equalTo: birthdayYearTextField.leftAnchor).isActive = true
+        underlineForYear.bottomAnchor.constraint(equalTo: birthdayYearTextField.bottomAnchor).isActive = true
+        underlineForYear.rightAnchor.constraint(equalTo: birthdayYearTextField.rightAnchor).isActive = true
+        
+        view.addSubview(birthdayMonthTextField)
+        birthdayMonthTextField.translatesAutoresizingMaskIntoConstraints = false
+        birthdayMonthTextField.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        birthdayMonthTextField.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        birthdayMonthTextField.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        birthdayMonthTextField.widthAnchor.constraint(equalToConstant: self.view.frame.width * 0.4).isActive = true
+        
+        let underlineForMonth = UIView()
+        underlineForMonth.backgroundColor = .secondarySystemBackground
+        underlineForMonth.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        view.addSubview(underlineForMonth)
+        underlineForMonth.translatesAutoresizingMaskIntoConstraints = false
+        underlineForMonth.rightAnchor.constraint(equalTo: birthdayMonthTextField.rightAnchor).isActive = true
+        underlineForMonth.bottomAnchor.constraint(equalTo: birthdayMonthTextField.bottomAnchor).isActive = true
+        underlineForMonth.leftAnchor.constraint(equalTo: birthdayMonthTextField.leftAnchor).isActive = true
+        
+        
+        return view
     }()
     
     
+    
+    private lazy var maleButton:UIButton = {
+        let bt = UIButton(type: UIButton.ButtonType.system)
+        bt.setTitle("수컷", for: UIControl.State.normal)
+        bt.layer.borderWidth = 1
+        bt.layer.borderColor = UIColor.systemBlue.cgColor
+        bt.layer.cornerRadius = 8
+        
+        bt.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMinXMinYCorner]
+        bt.widthAnchor.constraint(equalToConstant: view.frame.width * 0.4).isActive = true
+        return bt
+    }()
+    
+    private lazy var femaleButton:UIButton = {
+        let bt = UIButton(type: UIButton.ButtonType.system)
+        bt.setTitle("암컷", for: UIControl.State.normal)
+        bt.layer.borderWidth = 1
+        bt.layer.borderColor = UIColor.systemBlue.cgColor
+        bt.layer.cornerRadius = 8
+        bt.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner]
+        bt.widthAnchor.constraint(equalToConstant: view.frame.width * 0.4).isActive = true
+        return bt
+    }()
+    
+    private lazy var genderButtonView:UIView = {
+        let view = UIView()
+        view.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        view.addSubview(maleButton)
+        maleButton.translatesAutoresizingMaskIntoConstraints = false
+        maleButton.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        maleButton.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        maleButton.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        
+        view.addSubview(femaleButton)
+        femaleButton.translatesAutoresizingMaskIntoConstraints = false
+        femaleButton.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        femaleButton.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        femaleButton.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        femaleButton.leftAnchor.constraint(equalTo: maleButton.rightAnchor).isActive = true
+        
+        return view
+    }()
     
 
     
@@ -143,36 +176,23 @@ class PetRegisterViewController: UIViewController {
     // MARK: - Configures
     func configureUI(){
         view.backgroundColor = .systemBackground
+        
         view.addSubview(petImageView)
         petImageView.translatesAutoresizingMaskIntoConstraints = false
+        petImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
         petImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        petImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
         
-        let yearLabel = UILabel()
-        yearLabel.text = "년"
+        let verticalStack = UIStackView(arrangedSubviews: [ petNameTextContainer, birthdayContainer, genderButtonView])
         
-        let monthLabel = UILabel()
-        monthLabel.text = "월"
-        
-        let stack2 = UIStackView(arrangedSubviews: [self.birthdayImageViewContainer, self.birthdayPickerView, yearLabel, self.birthdayMonthPickerView, monthLabel])
-        stack2.spacing = 12
-        stack2.axis = .horizontal
-        stack2.distribution = .fill
-        stack2.alignment = .bottom
+        verticalStack.spacing = 40
+        verticalStack.axis = .vertical
         
         
-        let stack1 = UIStackView(arrangedSubviews: [self.petNameView, self.petKind, stack2])
-        stack1.axis = .vertical
-        stack1.spacing = 30
-        
-        
-        
-        
-        view.addSubview(stack1)
-        stack1.translatesAutoresizingMaskIntoConstraints = false
-        stack1.topAnchor.constraint(equalTo: petImageView.bottomAnchor, constant: 30).isActive = true
-        stack1.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        stack1.widthAnchor.constraint(equalToConstant: view.frame.width * 0.8).isActive = true
+        view.addSubview(verticalStack)
+        verticalStack.translatesAutoresizingMaskIntoConstraints = false
+        verticalStack.topAnchor.constraint(equalTo: petImageView.bottomAnchor, constant: 20).isActive = true
+        verticalStack.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        verticalStack.widthAnchor.constraint(equalToConstant: view.frame.width * 0.8).isActive = true
         
         
     }
@@ -188,11 +208,7 @@ class PetRegisterViewController: UIViewController {
     }
     // MARK: - Overrides
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        if isDarkMode {
-            self.birthdayImageView.tintColor = .white
-        }else {
-            self.birthdayImageView.tintColor = .black
-        }
+        
     }
     
     // MARK: - Selectors
@@ -248,36 +264,37 @@ extension PetRegisterViewController:UIImagePickerControllerDelegate & UINavigati
 
 extension PetRegisterViewController:UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
+        return 2
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if pickerView == self.petBirthdayPicker {
+        
+        if component == 0 {
             return self.petBirthdayData.count
-        }else if pickerView == self.petBirthMonthPicker {
+        }else {
             return self.petBirthdayMonthData.count
         }
-        return 0
+        
     }
     
     func pickerView( _ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if pickerView == self.petBirthdayPicker {
+        
+        if component == 0 {
             return self.petBirthdayData[row]
-        }else if pickerView == self.petBirthMonthPicker {
+        }else {
             return self.petBirthdayMonthData[row]
         }
-        return ""
+        
         
     }
 
     func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
-        if pickerView == self.petBirthdayPicker {
-            self.birthdayYearTextField.text = self.petBirthdayData[row]
-        }else if pickerView == self.petBirthMonthPicker {
-            self.birthdayMonthTextField.text = self.petBirthdayMonthData[row]
+        if component == 0 {
+            self.birthdayYearTextField.text = self.petBirthdayData[row] + " 년"
+        }else {
+            self.birthdayMonthTextField.text = self.petBirthdayMonthData[row] + " 월"
         }
-        
         
     }
     
