@@ -44,6 +44,44 @@ class PetRegisterViewController: UIViewController {
     }()
     
     
+    private lazy var petKindLabel:UILabel = {
+        let label = UILabel()
+        label.text = "품종을 선택해주세요"
+        label.textColor = .placeholderText
+        return label
+    }()
+    
+    private lazy var petKindLabelContainer:UIView = {
+        let view = UIView()
+        
+        view.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        view.widthAnchor.constraint(equalToConstant: view.frame.width * 0.8).isActive = true
+        
+        view.addSubview(petKindLabel)
+        petKindLabel.translatesAutoresizingMaskIntoConstraints = false
+        petKindLabel.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        petKindLabel.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        petKindLabel.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        petKindLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        
+        
+        let underline = UIView()
+        underline.backgroundColor = .secondarySystemBackground
+        underline.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        view.addSubview(underline)
+        underline.translatesAutoresizingMaskIntoConstraints = false
+        underline.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        underline.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        underline.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(sendToPetKindRegister))
+        
+        view.addGestureRecognizer(tap)
+        
+        
+        return view
+    }()
     
     private lazy var petBirthdayPicker = UIPickerView()
     
@@ -118,6 +156,8 @@ class PetRegisterViewController: UIViewController {
         
         bt.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMinXMinYCorner]
         bt.widthAnchor.constraint(equalToConstant: view.frame.width * 0.4).isActive = true
+        
+        bt.addTarget(self, action: #selector(genderButtonTapped), for: UIControl.Event.touchUpInside)
         return bt
     }()
     
@@ -129,6 +169,7 @@ class PetRegisterViewController: UIViewController {
         bt.layer.cornerRadius = 8
         bt.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner]
         bt.widthAnchor.constraint(equalToConstant: view.frame.width * 0.4).isActive = true
+        bt.addTarget(self, action: #selector(genderButtonTapped), for: UIControl.Event.touchUpInside)
         return bt
     }()
     
@@ -150,6 +191,13 @@ class PetRegisterViewController: UIViewController {
         femaleButton.leftAnchor.constraint(equalTo: maleButton.rightAnchor).isActive = true
         
         return view
+    }()
+    
+    private lazy var doneButton:UIButton = {
+        let bt = UIButton(type: UIButton.ButtonType.system)
+        bt.setTitle("등록", for: UIControl.State.normal)
+        bt.addTarget(self, action: #selector(registPet), for: UIControl.Event.touchUpInside)
+        return bt
     }()
     
 
@@ -182,7 +230,7 @@ class PetRegisterViewController: UIViewController {
         petImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
         petImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
-        let verticalStack = UIStackView(arrangedSubviews: [ petNameTextContainer, birthdayContainer, genderButtonView])
+        let verticalStack = UIStackView(arrangedSubviews: [ petNameTextContainer, petKindLabelContainer, birthdayContainer, genderButtonView])
         
         verticalStack.spacing = 40
         verticalStack.axis = .vertical
@@ -205,6 +253,9 @@ class PetRegisterViewController: UIViewController {
         dismissKeyboardWhenTappingAround()
         
         navigationItem.backButtonTitle = "이전"
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: doneButton)
+        
     }
     // MARK: - Overrides
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -212,9 +263,34 @@ class PetRegisterViewController: UIViewController {
     }
     
     // MARK: - Selectors
+    
+    @objc func registPet() {
+        print("반려동물 등록하기")
+    }
+    
+    @objc func genderButtonTapped(sender:UIButton) {
+        if sender == self.maleButton {
+            self.selectedGender = "male"
+            self.maleButton.backgroundColor = .systemBlue
+            self.maleButton.setTitleColor(UIColor.white, for: UIControl.State.normal)
+            self.femaleButton.backgroundColor = .systemBackground
+            self.femaleButton.setTitleColor(UIColor.systemBlue, for: UIControl.State.normal)
+        }else {
+            self.selectedGender = "female"
+            self.femaleButton.backgroundColor = .systemBlue
+            self.femaleButton.setTitleColor(UIColor.white, for: UIControl.State.normal)
+            self.maleButton.backgroundColor = .systemBackground
+            self.maleButton.setTitleColor(UIColor.systemBlue, for: UIControl.State.normal)
+        }
+    }
+    
     @objc func sendToPetKindRegister() {
         print("품종 선택 컨트롤러로 이동하기")
         dismissKeyboard()
+        
+        let selectPetKindController = SelectKindController()
+        navigationController?.pushViewController(selectPetKindController, animated: true)
+        
     }
     
 

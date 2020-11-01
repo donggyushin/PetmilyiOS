@@ -12,6 +12,8 @@
 		701DBD2C2545A47B0057C8D9 /* NewAccountStep5Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701DBD2B2545A47B0057C8D9 /* NewAccountStep5Controller.swift */; };
 		701DBD302545AD880057C8D9 /* constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701DBD2F2545AD880057C8D9 /* constants.swift */; };
 		701DBD342545B7810057C8D9 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701DBD332545B7810057C8D9 /* LoadingView.swift */; };
+		704F2702254EA5520035B6C3 /* SelectKindController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704F2701254EA5520035B6C3 /* SelectKindController.swift */; };
+		704F2705254EA6070035B6C3 /* PetKindModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704F2704254EA6070035B6C3 /* PetKindModel.swift */; };
 		706A1516254574B60050C0C8 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706A1515254574B60050C0C8 /* AuthService.swift */; };
 		706A1519254577690050C0C8 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706A1518254577690050C0C8 /* UserModel.swift */; };
 		706A151C25457F350050C0C8 /* NewAccountStep3Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706A151B25457F350050C0C8 /* NewAccountStep3Controller.swift */; };
@@ -54,6 +56,8 @@
 		701DBD2B2545A47B0057C8D9 /* NewAccountStep5Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountStep5Controller.swift; sourceTree = "<group>"; };
 		701DBD2F2545AD880057C8D9 /* constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = constants.swift; sourceTree = "<group>"; };
 		701DBD332545B7810057C8D9 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		704F2701254EA5520035B6C3 /* SelectKindController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectKindController.swift; sourceTree = "<group>"; };
+		704F2704254EA6070035B6C3 /* PetKindModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetKindModel.swift; sourceTree = "<group>"; };
 		706A1515254574B60050C0C8 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		706A1518254577690050C0C8 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		706A151B25457F350050C0C8 /* NewAccountStep3Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountStep3Controller.swift; sourceTree = "<group>"; };
@@ -187,6 +191,7 @@
 			children = (
 				70B3E46B254D4D65009461A3 /* PetController.swift */,
 				70DD78F2254DAAB900168C82 /* PetRegisterViewController.swift */,
+				704F2701254EA5520035B6C3 /* SelectKindController.swift */,
 			);
 			path = Pet;
 			sourceTree = "<group>";
@@ -276,6 +281,7 @@
 			children = (
 				70EE6A012544B89F00C40970 /* VerificationModel.swift */,
 				706A1518254577690050C0C8 /* UserModel.swift */,
+				704F2704254EA6070035B6C3 /* PetKindModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -430,8 +436,10 @@
 				706C5C382544829400A2FA96 /* LocalData.swift in Sources */,
 				701DBD342545B7810057C8D9 /* LoadingView.swift in Sources */,
 				706C5C492544910300A2FA96 /* NewAccountStep1Controller.swift in Sources */,
+				704F2702254EA5520035B6C3 /* SelectKindController.swift in Sources */,
 				701DBD2C2545A47B0057C8D9 /* NewAccountStep5Controller.swift in Sources */,
 				70DD7901254DC57100168C82 /* ViewContainerWithImageIconAndUnderline.swift in Sources */,
+				704F2705254EA6070035B6C3 /* PetKindModel.swift in Sources */,
 				706A1519254577690050C0C8 /* UserModel.swift in Sources */,
 				706C5C34254481D000A2FA96 /* LoginController.swift in Sources */,
 				701DBD302545AD880057C8D9 /* constants.swift in Sources */,
