@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: scene)
         
         window?.rootViewController = RootController()
-        
+//        
 //        let vc = NewAccountStep6Controller(userId: "Donggyu9410", phoneNumber: "01090411019", password: "Nlcfjb1129!", nickname: "동규")
 //        window?.rootViewController = UINavigationController(rootViewController: vc)
         

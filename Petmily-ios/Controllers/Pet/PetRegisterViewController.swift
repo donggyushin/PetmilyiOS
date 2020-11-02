@@ -11,7 +11,8 @@ class PetRegisterViewController: UIViewController {
     
     // MARK: - Properties
     let petBirthdayData = Utilities.shared.generateUserBirthList()
-    let petBirthdayMonthData = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+    let petBirthdayMonthData = Utilities.shared.generateMonths()
+    let petBirthdayDayData = Utilities.shared.generateDays()
     
     
     let imagePickerController = UIImagePickerController()
@@ -103,6 +104,15 @@ class PetRegisterViewController: UIViewController {
         return tf
     }()
     
+    private lazy var petBirthdayDayPicker = UIPickerView()
+    
+    private lazy var petBirthdayDayTextField:UITextField = {
+        let tf = UITextField()
+        petBirthdayDayPicker.delegate = self
+        tf.inputView = petBirthdayDayPicker
+        return tf
+    }()
+    
     
     private lazy var birthdayContainer:UIView = {
         let view = UIView()
@@ -114,32 +124,38 @@ class PetRegisterViewController: UIViewController {
         birthdayYearTextField.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         birthdayYearTextField.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         birthdayYearTextField.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        birthdayYearTextField.widthAnchor.constraint(equalToConstant: self.view.frame.width * 0.4).isActive = true
+        birthdayYearTextField.widthAnchor.constraint(equalToConstant: self.view.frame.width * 0.3).isActive = true
+        
+        
+        
+        
+        view.addSubview(birthdayMonthTextField)
+        birthdayMonthTextField.translatesAutoresizingMaskIntoConstraints = false
+        birthdayMonthTextField.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        birthdayMonthTextField.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        birthdayMonthTextField.leftAnchor.constraint(equalTo: birthdayYearTextField.rightAnchor).isActive = true
+        birthdayMonthTextField.widthAnchor.constraint(equalToConstant: self.view.frame.width * 0.3).isActive = true
+        
+        
+        view.addSubview(petBirthdayDayTextField)
+        petBirthdayDayTextField.translatesAutoresizingMaskIntoConstraints = false
+        
+        petBirthdayDayTextField.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        petBirthdayDayTextField.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        petBirthdayDayTextField.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        petBirthdayDayTextField.leftAnchor.constraint(equalTo: birthdayMonthTextField.rightAnchor).isActive = true
+        
+        
+        
         
         let underlineForYear = UIView()
         underlineForYear.backgroundColor = .secondarySystemBackground
         underlineForYear.heightAnchor.constraint(equalToConstant: 1).isActive = true
         view.addSubview(underlineForYear)
         underlineForYear.translatesAutoresizingMaskIntoConstraints = false
-        underlineForYear.leftAnchor.constraint(equalTo: birthdayYearTextField.leftAnchor).isActive = true
-        underlineForYear.bottomAnchor.constraint(equalTo: birthdayYearTextField.bottomAnchor).isActive = true
-        underlineForYear.rightAnchor.constraint(equalTo: birthdayYearTextField.rightAnchor).isActive = true
-        
-        view.addSubview(birthdayMonthTextField)
-        birthdayMonthTextField.translatesAutoresizingMaskIntoConstraints = false
-        birthdayMonthTextField.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        birthdayMonthTextField.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        birthdayMonthTextField.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        birthdayMonthTextField.widthAnchor.constraint(equalToConstant: self.view.frame.width * 0.4).isActive = true
-        
-        let underlineForMonth = UIView()
-        underlineForMonth.backgroundColor = .secondarySystemBackground
-        underlineForMonth.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        view.addSubview(underlineForMonth)
-        underlineForMonth.translatesAutoresizingMaskIntoConstraints = false
-        underlineForMonth.rightAnchor.constraint(equalTo: birthdayMonthTextField.rightAnchor).isActive = true
-        underlineForMonth.bottomAnchor.constraint(equalTo: birthdayMonthTextField.bottomAnchor).isActive = true
-        underlineForMonth.leftAnchor.constraint(equalTo: birthdayMonthTextField.leftAnchor).isActive = true
+        underlineForYear.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        underlineForYear.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        underlineForYear.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         
         
         return view
@@ -150,8 +166,7 @@ class PetRegisterViewController: UIViewController {
     private lazy var maleButton:UIButton = {
         let bt = UIButton(type: UIButton.ButtonType.system)
         bt.setTitle("수컷", for: UIControl.State.normal)
-        bt.layer.borderWidth = 1
-        bt.layer.borderColor = UIColor.systemBlue.cgColor
+
         bt.layer.cornerRadius = 8
         
         bt.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMinXMinYCorner]
@@ -164,8 +179,7 @@ class PetRegisterViewController: UIViewController {
     private lazy var femaleButton:UIButton = {
         let bt = UIButton(type: UIButton.ButtonType.system)
         bt.setTitle("암컷", for: UIControl.State.normal)
-        bt.layer.borderWidth = 1
-        bt.layer.borderColor = UIColor.systemBlue.cgColor
+
         bt.layer.cornerRadius = 8
         bt.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner]
         bt.widthAnchor.constraint(equalToConstant: view.frame.width * 0.4).isActive = true
@@ -176,6 +190,9 @@ class PetRegisterViewController: UIViewController {
     private lazy var genderButtonView:UIView = {
         let view = UIView()
         view.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        view.layer.cornerRadius = 8
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor.systemBlue.cgColor
         view.addSubview(maleButton)
         maleButton.translatesAutoresizingMaskIntoConstraints = false
         maleButton.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
@@ -198,6 +215,11 @@ class PetRegisterViewController: UIViewController {
         bt.setTitle("등록", for: UIControl.State.normal)
         bt.addTarget(self, action: #selector(registPet), for: UIControl.Event.touchUpInside)
         return bt
+    }()
+    
+    private lazy var loadingView:LoadingView = {
+        let lv = LoadingView()
+        return lv
     }()
     
 
@@ -238,10 +260,17 @@ class PetRegisterViewController: UIViewController {
         
         view.addSubview(verticalStack)
         verticalStack.translatesAutoresizingMaskIntoConstraints = false
-        verticalStack.topAnchor.constraint(equalTo: petImageView.bottomAnchor, constant: 20).isActive = true
+        verticalStack.topAnchor.constraint(equalTo: petImageView.bottomAnchor, constant: 40).isActive = true
         verticalStack.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         verticalStack.widthAnchor.constraint(equalToConstant: view.frame.width * 0.8).isActive = true
         
+        view.addSubview(loadingView)
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
+        loadingView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        loadingView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        loadingView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        loadingView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        loadingView.isHidden = true
         
     }
     
@@ -266,6 +295,7 @@ class PetRegisterViewController: UIViewController {
     
     @objc func registPet() {
         print("반려동물 등록하기")
+        self.loadingView.isHidden = false
     }
     
     @objc func genderButtonTapped(sender:UIButton) {
@@ -340,15 +370,17 @@ extension PetRegisterViewController:UIImagePickerControllerDelegate & UINavigati
 
 extension PetRegisterViewController:UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 2
+        return 3
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         
         if component == 0 {
             return self.petBirthdayData.count
-        }else {
+        }else if component == 1 {
             return self.petBirthdayMonthData.count
+        }else{
+            return self.petBirthdayDayData.count
         }
         
     }
@@ -357,8 +389,10 @@ extension PetRegisterViewController:UIPickerViewDelegate, UIPickerViewDataSource
         
         if component == 0 {
             return self.petBirthdayData[row]
-        }else {
+        }else if component == 1 {
             return self.petBirthdayMonthData[row]
+        }else {
+            return self.petBirthdayDayData[row]
         }
         
         
@@ -368,8 +402,10 @@ extension PetRegisterViewController:UIPickerViewDelegate, UIPickerViewDataSource
         
         if component == 0 {
             self.birthdayYearTextField.text = self.petBirthdayData[row] + " 년"
-        }else {
+        }else if component == 1 {
             self.birthdayMonthTextField.text = self.petBirthdayMonthData[row] + " 월"
+        }else {
+            self.petBirthdayDayTextField.text = self.petBirthdayDayData[row] + " 일"
         }
         
     }

@@ -14,23 +14,97 @@ class NewAccountStep6Controller: UIViewController {
     let phoneNumber:String
     let password:String
     let nickname:String
+    var profileImage:UIImage?
+    
+    var userBirthString:String = ""
     
     let picker = UIImagePickerController()
     
     let myPickerData:[String]
+    let myPickerMonthData = Utilities.shared.generateMonths()
+    let myPickerDayData = Utilities.shared.generateDays()
     
     var selectedGender:String?
     
+    let userBirthPicker = UIPickerView()
+    
     private lazy var UserBirthTextField:UITextField = {
         let tf = UITextField()
-        let userBirthPicker = UIPickerView()
+        
         userBirthPicker.delegate = self
-        tf.placeholder = "생년월일을 입력해주세요"
+        tf.placeholder = "생년월일을"
         tf.textAlignment = .center
         tf.inputView = userBirthPicker
         tf.font = UIFont.systemFont(ofSize: 20)
-        tf.textColor = UIColor.systemBlue
         return tf
+    }()
+    
+    let userBirthdayMonthPicker = UIPickerView()
+    
+    private lazy var UserBirthdayMonthTextField:UITextField = {
+        let tf = UITextField()
+        
+        userBirthdayMonthPicker.delegate = self
+        tf.placeholder = "입력해주세요"
+        tf.textAlignment = .center
+        tf.inputView = userBirthdayMonthPicker
+        tf.font = UIFont.systemFont(ofSize: 20)
+        return tf
+    }()
+    
+    let userBirthdayDayPicker = UIPickerView()
+    private lazy var UserBirthdayDayTextField:UITextField = {
+        let tf = UITextField()
+        
+        userBirthdayDayPicker.delegate = self
+        tf.textAlignment = .center
+        tf.inputView = userBirthdayDayPicker
+        tf.font = UIFont.systemFont(ofSize: 20)
+        return tf
+    }()
+    
+    private lazy var BirthdayContainer:UIView = {
+        let view = UIView()
+        view.widthAnchor.constraint(equalToConstant: self.view.frame.width * 0.8).isActive = true
+        view.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        view.addSubview(UserBirthTextField)
+        UserBirthTextField.translatesAutoresizingMaskIntoConstraints = false
+        UserBirthTextField.widthAnchor.constraint(equalToConstant: self.view.frame.width * 0.3).isActive = true
+        UserBirthTextField.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        UserBirthTextField.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        UserBirthTextField.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        
+        
+        view.addSubview(UserBirthdayMonthTextField)
+        UserBirthdayMonthTextField.translatesAutoresizingMaskIntoConstraints = false
+        UserBirthdayMonthTextField.widthAnchor.constraint(equalToConstant: self.view.frame.width * 0.3).isActive = true
+        UserBirthdayMonthTextField.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        UserBirthdayMonthTextField.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        UserBirthdayMonthTextField.leftAnchor.constraint(equalTo: UserBirthTextField.rightAnchor).isActive = true
+        
+        view.addSubview(UserBirthdayDayTextField)
+        UserBirthdayDayTextField.translatesAutoresizingMaskIntoConstraints = false
+        UserBirthdayDayTextField.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        UserBirthdayDayTextField.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        UserBirthdayDayTextField.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        UserBirthdayDayTextField.leftAnchor.constraint(equalTo: UserBirthdayMonthTextField.rightAnchor).isActive = true
+        
+        
+        return view
+    }()
+    
+    
+    private lazy var profileImageView:TouchableUIImageView = {
+        let iv = TouchableUIImageView(image: #imageLiteral(resourceName: "5b7fdeab1900001d035028dc 1"))
+        iv.widthAnchor.constraint(equalToConstant: 126).isActive = true
+        iv.heightAnchor.constraint(equalToConstant: 126).isActive = true
+        iv.layer.cornerRadius = 63
+        iv.clipsToBounds = true
+        iv.delegate = self
+        iv.isUserInteractionEnabled = true
+        iv.contentMode = .scaleAspectFill
+        return iv
     }()
     
     private lazy var UserProfileButton:UIButton = {
@@ -41,16 +115,7 @@ class NewAccountStep6Controller: UIViewController {
         return bt
     }()
     
-    private lazy var profileImageView:UIImageView = {
-        let iv = UIImageView()
-        iv.heightAnchor.constraint(equalToConstant: 80).isActive = true
-        iv.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        iv.layer.cornerRadius = 40
-        let tap = UITapGestureRecognizer(target: self, action: #selector(selectImage))
-        iv.addGestureRecognizer(tap)
-        iv.clipsToBounds = true
-        return iv
-    }()
+
     
     private lazy var maleButton:UIButton = {
         let bt = UIButton(type: UIButton.ButtonType.system)
@@ -93,15 +158,6 @@ class NewAccountStep6Controller: UIViewController {
         femaleButton.bottomAnchor.constraint(equalTo: v.bottomAnchor).isActive = true
         femaleButton.leftAnchor.constraint(equalTo: maleButton.rightAnchor).isActive = true
         
-        let line = UIView()
-        line.widthAnchor.constraint(equalToConstant: 1).isActive = true
-        line.backgroundColor = .systemBlue
-        
-        v.addSubview(line)
-        line.translatesAutoresizingMaskIntoConstraints = false
-        line.topAnchor.constraint(equalTo: v.topAnchor).isActive = true
-        line.bottomAnchor.constraint(equalTo: v.bottomAnchor).isActive = true
-        line.centerXAnchor.constraint(equalTo: v.centerXAnchor).isActive = true
         
         v.layer.cornerRadius = 10
         v.layer.borderWidth = 1
@@ -156,17 +212,13 @@ class NewAccountStep6Controller: UIViewController {
     // MARK: - Configures
     func configureUI() {
         view.backgroundColor = .systemBackground
-        
-        view.addSubview(UserProfileButton)
-        UserProfileButton.translatesAutoresizingMaskIntoConstraints = false
-        UserProfileButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100).isActive = true
-        UserProfileButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+
         
         view.addSubview(profileImageView)
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
         profileImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
         profileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        profileImageView.isHidden = true
+//        profileImageView.isHidden = true
         
         view.addSubview(buttonContainer)
         buttonContainer.translatesAutoresizingMaskIntoConstraints = false
@@ -174,10 +226,11 @@ class NewAccountStep6Controller: UIViewController {
         buttonContainer.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         
-        view.addSubview(UserBirthTextField)
-        UserBirthTextField.translatesAutoresizingMaskIntoConstraints = false
-        UserBirthTextField.topAnchor.constraint(equalTo: buttonContainer.bottomAnchor, constant: 70).isActive = true
-        UserBirthTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        view.addSubview(BirthdayContainer)
+        BirthdayContainer.translatesAutoresizingMaskIntoConstraints = false
+        BirthdayContainer.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        BirthdayContainer.topAnchor.constraint(equalTo: buttonContainer.bottomAnchor, constant: 50).isActive = true
         
         view.addSubview(makeNewAccountButton)
         makeNewAccountButton.translatesAutoresizingMaskIntoConstraints = false
@@ -258,7 +311,7 @@ class NewAccountStep6Controller: UIViewController {
     
     @objc func startButtonTapped() {
         var message = ""
-        if self.profileImageView.image == nil {
+        if self.profileImage == nil {
             message = message + "프로필 이미지, "
         }
         
@@ -266,9 +319,11 @@ class NewAccountStep6Controller: UIViewController {
             message = message + "성별, "
         }
         
-        if self.UserBirthTextField.text == "" {
+        
+        if self.userBirthString.count == 0 {
             message = message + "태어난 날, "
         }
+        
         let index = message.lastIndex(of: ",") ?? message.endIndex
         message = String(message[..<index])
         
@@ -314,19 +369,45 @@ class NewAccountStep6Controller: UIViewController {
 
 extension NewAccountStep6Controller:UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
+        return 3
     }
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return myPickerData.count
+        if component == 0 {
+            return myPickerData.count
+        }else if component == 1{
+            return self.myPickerMonthData.count
+        }else {
+            return self.myPickerDayData.count
+        }
+        
     }
 
     func pickerView( _ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return myPickerData[row]
+        if component == 0 {
+            return myPickerData[row]
+        }else if component == 1 {
+            return myPickerMonthData[row]
+        }else {
+            return myPickerDayData[row]
+        }
+        
     }
 
     func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        UserBirthTextField.text = myPickerData[row]
+        if component == 0 {
+            UserBirthTextField.text = myPickerData[row] + " 년"
+            self.userBirthString += myPickerData[row] + " 년"
+        }else if component == 1{
+            UserBirthdayMonthTextField.text = myPickerMonthData[row] + " 월"
+            self.userBirthString += " " + myPickerMonthData[row] + " 월"
+        }else {
+            UserBirthdayDayTextField.text = myPickerDayData[row] + " 일"
+            self.userBirthString += " " + myPickerDayData[row] + " 일"
+        }
+        
+        
+        
     }
     
     
@@ -345,12 +426,20 @@ extension NewAccountStep6Controller:UIImagePickerControllerDelegate, UINavigatio
         
         if newImage != nil {
             self.profileImageView.image = newImage
-            self.profileImageView.isHidden = false
-            self.UserProfileButton.isHidden = true
+            self.profileImage = newImage
         }
         
         picker.dismiss(animated: true, completion: nil)
         
     }
+    
+}
+
+
+extension NewAccountStep6Controller:TouchableUIImageViewProtocol {
+    func touchableUIImageViewTapped() {
+        self.present(self.picker, animated: true, completion: nil)
+    }
+    
     
 }

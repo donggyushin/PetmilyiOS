@@ -12,6 +12,23 @@ import UIKit
 class Utilities {
     static let shared = Utilities()
     
+    func generateDays() -> [String] {
+        var days:[String] = []
+        for index in 1...32 {
+            days.append(String(index))
+        }
+        return days
+    }
+    
+    func generateMonths() -> [String] {
+        var months:[String] = []
+        for index in 1...12 {
+            months.append(String(index))
+        }
+        
+        return months
+    }
+    
     func generateUserBirthList() -> [String] {
         var result:[String] = []
         let date = Date()
