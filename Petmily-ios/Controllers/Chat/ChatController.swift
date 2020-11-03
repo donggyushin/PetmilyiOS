@@ -9,6 +9,15 @@ import UIKit
 
 class ChatController:UIViewController {
     
+    // MARK: Properties
+    
+    private lazy var titleLabel:UILabel = {
+        let label = UILabel()
+        label.text = "채팅"
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        return label
+    }()
+    
     // MARK: - Lifecycles
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +28,7 @@ class ChatController:UIViewController {
     // MARK: - Configures
     func configureUI() {
         clearNavigationBar()
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
         
         view.backgroundColor = .systemBackground
     }

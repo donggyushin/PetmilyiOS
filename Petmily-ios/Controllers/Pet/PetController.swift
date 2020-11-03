@@ -11,6 +11,13 @@ class PetController: UIViewController {
     
 
     // MARK: Properties
+    private lazy var titleLabel:UILabel = {
+        let label = UILabel()
+        label.text = "반려"
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        return label
+    }()
+    
     private lazy var notYetView:NotYetPet = {
         let view = NotYetPet()
         view.delegate = self
@@ -44,7 +51,9 @@ class PetController: UIViewController {
     }
     
     func configureNavigation(){
-        navigationItem.backButtonTitle = "이전"
+        navigationItem.backButtonTitle = "반려"
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
+        
     }
     
     

@@ -46,18 +46,12 @@ class RootController: UITabBarController {
         let Pet = UINavigationController(rootViewController: PetController())
         let Chat = UINavigationController(rootViewController: ChatController())
         
-        
-        
-        PresaleOfAnimals.tabBarItem.title = "분양"
         PresaleOfAnimals.tabBarItem.image = #imageLiteral(resourceName: "icons8-dog-house-100 1")
         
-        LostAnimals.tabBarItem.title = "찾기"
         LostAnimals.tabBarItem.image = #imageLiteral(resourceName: "icons8-search-100 1")
         
-        Pet.tabBarItem.title = "반려"
         Pet.tabBarItem.image = #imageLiteral(resourceName: "icons8-pet-commands-summon-100 1")
         
-        Chat.tabBarItem.title = "채팅"
         Chat.tabBarItem.image = #imageLiteral(resourceName: "icons8-chat-bubble-100 1")
         
         viewControllers = [PresaleOfAnimals, LostAnimals, Pet, Chat]
