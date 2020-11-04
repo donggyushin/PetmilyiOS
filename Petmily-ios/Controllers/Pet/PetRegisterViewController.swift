@@ -315,7 +315,7 @@ class PetRegisterViewController: UIViewController {
     }
     
     @objc func sendToPetKindRegister() {
-        print("품종 선택 컨트롤러로 이동하기")
+        
         dismissKeyboard()
         
         let selectPetKindController = SelectKindController()

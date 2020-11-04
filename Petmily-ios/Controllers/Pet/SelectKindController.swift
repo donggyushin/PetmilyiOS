@@ -13,7 +13,11 @@ class SelectKindController: UICollectionViewController {
 
     // MARK: - Properties
     let searchController = UISearchController(searchResultsController: nil)
-    var kindDatas = ["1", "2", "3"]
+    var kindDatas:[PetListModel] = [] {
+        didSet {
+            self.collectionView.reloadData()
+        }
+    }
     
     // MARK: - Lifecycles
     
@@ -30,6 +34,21 @@ class SelectKindController: UICollectionViewController {
 
         configureUI()
         configure()
+        
+        PetListService.shared.fetchPetList { (error, errorString, success, petlist) in
+            if let errorString = errorString {
+                self.renderPopupWithOkayButtonNoImage(title: "에러", message: errorString)
+            }
+            
+            if let error = error {
+                self.renderPopupWithOkayButtonNoImage(title: "에러", message: error.localizedDescription)
+            }
+            
+            if success == true {
+                guard let petlist = petlist else { return }
+                self.kindDatas = petlist
+            }
+        }
     }
     
     // MARK: - Configures

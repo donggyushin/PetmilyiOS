@@ -13,6 +13,8 @@
 		701DBD302545AD880057C8D9 /* constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701DBD2F2545AD880057C8D9 /* constants.swift */; };
 		701DBD342545B7810057C8D9 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701DBD332545B7810057C8D9 /* LoadingView.swift */; };
 		70484C1F2552F713003C22DF /* KindView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70484C1E2552F713003C22DF /* KindView.swift */; };
+		70484C242552FFD5003C22DF /* PetListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70484C232552FFD5003C22DF /* PetListService.swift */; };
+		70484C272553005E003C22DF /* PetListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70484C262553005E003C22DF /* PetListModel.swift */; };
 		704F2702254EA5520035B6C3 /* SelectKindController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704F2701254EA5520035B6C3 /* SelectKindController.swift */; };
 		704F2705254EA6070035B6C3 /* PetKindModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704F2704254EA6070035B6C3 /* PetKindModel.swift */; };
 		706A1516254574B60050C0C8 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706A1515254574B60050C0C8 /* AuthService.swift */; };
@@ -58,6 +60,8 @@
 		701DBD2F2545AD880057C8D9 /* constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = constants.swift; sourceTree = "<group>"; };
 		701DBD332545B7810057C8D9 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		70484C1E2552F713003C22DF /* KindView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KindView.swift; sourceTree = "<group>"; };
+		70484C232552FFD5003C22DF /* PetListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetListService.swift; sourceTree = "<group>"; };
+		70484C262553005E003C22DF /* PetListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetListModel.swift; sourceTree = "<group>"; };
 		704F2701254EA5520035B6C3 /* SelectKindController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectKindController.swift; sourceTree = "<group>"; };
 		704F2704254EA6070035B6C3 /* PetKindModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetKindModel.swift; sourceTree = "<group>"; };
 		706A1515254574B60050C0C8 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
@@ -275,6 +279,7 @@
 				70EE69FD2544B3B500C40970 /* VerificationService.swift */,
 				706A1515254574B60050C0C8 /* AuthService.swift */,
 				7079A42C254C96A7001A18FF /* FileService.swift */,
+				70484C232552FFD5003C22DF /* PetListService.swift */,
 			);
 			path = APIs;
 			sourceTree = "<group>";
@@ -285,6 +290,7 @@
 				70EE6A012544B89F00C40970 /* VerificationModel.swift */,
 				706A1518254577690050C0C8 /* UserModel.swift */,
 				704F2704254EA6070035B6C3 /* PetKindModel.swift */,
+				70484C262553005E003C22DF /* PetListModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -412,6 +418,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				70484C242552FFD5003C22DF /* PetListService.swift in Sources */,
 				70B3E469254D4D32009461A3 /* LostAnimalsController.swift in Sources */,
 				706C5C45254488D300A2FA96 /* TextContainer.swift in Sources */,
 				70EE6A022544B89F00C40970 /* VerificationModel.swift in Sources */,
@@ -426,6 +433,7 @@
 				70B4F93725447CF7005CE631 /* AppDelegate.swift in Sources */,
 				701DBD2925459F9E0057C8D9 /* NewAccountStep4Controller.swift in Sources */,
 				7093E8C32545485E00B46B86 /* NewAccountStep2Controller.swift in Sources */,
+				70484C272553005E003C22DF /* PetListModel.swift in Sources */,
 				70F248692549BE6500716A93 /* NewAccountStep6Controller.swift in Sources */,
 				706C5C422544874000A2FA96 /* Utilities.swift in Sources */,
 				70DD78F3254DAAB900168C82 /* PetRegisterViewController.swift in Sources */,
