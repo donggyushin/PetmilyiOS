@@ -9,14 +9,22 @@ import UIKit
 
 let reuseIdentifierForKindView = "reuseIdentifierForKindView"
 
-class SelectKindController: UIViewController {
+class SelectKindController: UICollectionViewController {
 
     // MARK: - Properties
     let searchController = UISearchController(searchResultsController: nil)
-    let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
     var kindDatas = ["1", "2", "3"]
     
     // MARK: - Lifecycles
+    
+    init() {
+        super.init(collectionViewLayout: UICollectionViewFlowLayout())
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -28,21 +36,11 @@ class SelectKindController: UIViewController {
     func configureUI() {
         view.backgroundColor = .systemBackground
         
-        view.addSubview(collectionView)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
-        collectionView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        collectionView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
 
     }
     
     func configure() {
 
-        
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        
         collectionView.register(KindView.self, forCellWithReuseIdentifier: reuseIdentifierForKindView)
         
         
@@ -58,10 +56,22 @@ class SelectKindController: UIViewController {
         definesPresentationContext = true
     }
     
+    // MARK: Collectionview
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.kindDatas.count
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifierForKindView, for: indexPath) as! KindView
+        return cell
+    }
+    
 
 }
 
 extension SelectKindController: UISearchResultsUpdating {
+    
+    
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchText = searchController.searchBar.text else { return }
         print(searchText)
@@ -70,19 +80,9 @@ extension SelectKindController: UISearchResultsUpdating {
     
 }
 
-extension SelectKindController:UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.kindDatas.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifierForKindView, for: indexPath) as! KindView
-        return cell
-    }
-    
+extension SelectKindController:UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 50)
+        return CGSize(width: view.frame.width, height: 60)
     }
-    
-    
 }
+
