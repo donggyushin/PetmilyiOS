@@ -15,6 +15,9 @@ class Properties {
     public static let passwordRegex = "^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8,20}$"
     // 한글로 2자이상 5자이하
     public static let nicknameRegex = "^[가-힣//s]{2,5}$"
+    
+    public static let petnameRegex = "^[가-힣//s]{1,12}$"
+    
     // 특수문자 사용 불가 8자 이상 20자 이하
     public static let userIdRegex = "^[a-zA-Z0-9]{8,20}$"
 }

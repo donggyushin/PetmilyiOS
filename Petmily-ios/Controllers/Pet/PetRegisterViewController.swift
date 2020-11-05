@@ -14,7 +14,6 @@ class PetRegisterViewController: UIViewController {
     let petBirthdayMonthData = Utilities.shared.generateMonths()
     let petBirthdayDayData = Utilities.shared.generateDays()
     
-    
     let imagePickerController = UIImagePickerController()
     
     var petImage:UIImage?
@@ -295,6 +294,46 @@ class PetRegisterViewController: UIViewController {
     
     @objc func registPet() {
         print("반려동물 등록하기")
+        guard let petimage = self.petImage else {
+            renderPopupWithOkayButtonNoImage(title: "에러", message: "이미지를 등록해주세요!")
+            return
+        }
+        
+        guard let selectedGender = self.selectedGender else {
+            renderPopupWithOkayButtonNoImage(title: "에러", message: "성별을 입력해주세요!")
+            return
+        }
+        
+        guard let petname = self.petNameTextField.text else {
+            renderPopupWithOkayButtonNoImage(title: "에러", message: "이름을 입력해주세요!")
+            return
+        }
+        
+        guard let birthdayYear = self.birthdayYearTextField.text, let birthdayMonth = self.birthdayMonthTextField.text, let birthdayDay = self.petBirthdayDayTextField.text else {
+            renderPopupWithOkayButtonNoImage(title: "에러", message: "이름을 입력해주세요!")
+            return
+        }
+        
+        if birthdayYear.isEmpty || birthdayMonth.isEmpty || birthdayDay.isEmpty {
+            renderPopupWithOkayButtonNoImage(title: "에러", message: "생년월일을 입력해주세요!")
+            return
+        }
+        
+        if petname.isEmpty {
+            renderPopupWithOkayButtonNoImage(title: "에러", message: "이름을 입력해주세요!")
+            return
+        }
+        
+        if petKindLabel.textColor == UIColor.placeholderText {
+            renderPopupWithOkayButtonNoImage(title: "에러", message: "품종을 등록해주세요!")
+            return
+        }
+        
+        if !Utilities.shared.regularExpressionCheckFunction(text: petname, regularExpress: Properties.petnameRegex) {
+            renderPopupWithOkayButtonNoImage(title: "에러", message: "이름을 한글로 입력해주세요!")
+            return
+        }
+        
         self.loadingView.isHidden = false
     }
     
@@ -319,6 +358,7 @@ class PetRegisterViewController: UIViewController {
         dismissKeyboard()
         
         let selectPetKindController = SelectKindController()
+        selectPetKindController.delegate = self
         navigationController?.pushViewController(selectPetKindController, animated: true)
         
     }
@@ -408,6 +448,19 @@ extension PetRegisterViewController:UIPickerViewDelegate, UIPickerViewDataSource
             self.petBirthdayDayTextField.text = self.petBirthdayDayData[row] + " 일"
         }
         
+    }
+    
+    
+}
+
+extension PetRegisterViewController:SelectKindControllerDelegate {
+    func setKind(kind: String) {
+        self.petKindLabel.text = kind
+        if traitCollection.userInterfaceStyle == .dark {
+            self.petKindLabel.textColor = .white
+        }else {
+            self.petKindLabel.textColor = .black
+        }
     }
     
     

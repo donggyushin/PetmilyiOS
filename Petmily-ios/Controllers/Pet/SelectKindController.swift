@@ -9,11 +9,22 @@ import UIKit
 
 let reuseIdentifierForKindView = "reuseIdentifierForKindView"
 
+protocol SelectKindControllerDelegate:class {
+    func setKind(kind:String )
+}
+
 class SelectKindController: UICollectionViewController {
 
     // MARK: - Properties
+    weak var delegate:SelectKindControllerDelegate?
     let searchController = UISearchController(searchResultsController: nil)
     var kindDatas:[PetListModel] = [] {
+        didSet {
+            self.filteredKindDatas = kindDatas
+        }
+    }
+    
+    var filteredKindDatas:[PetListModel] = [] {
         didSet {
             self.collectionView.reloadData()
         }
@@ -59,6 +70,8 @@ class SelectKindController: UICollectionViewController {
     }
     
     func configure() {
+        
+        collectionView.alwaysBounceVertical = true
 
         collectionView.register(KindView.self, forCellWithReuseIdentifier: reuseIdentifierForKindView)
         
@@ -77,15 +90,16 @@ class SelectKindController: UICollectionViewController {
     
     // MARK: Collectionview
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.kindDatas.count
+        return self.filteredKindDatas.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifierForKindView, for: indexPath) as! KindView
+        cell.petKind = self.filteredKindDatas[indexPath.row]
+        cell.delegate = self
         return cell
     }
     
-
 }
 
 extension SelectKindController: UISearchResultsUpdating {
@@ -93,7 +107,14 @@ extension SelectKindController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchText = searchController.searchBar.text else { return }
-        print(searchText)
+        if searchText.isEmpty {
+            self.filteredKindDatas = self.kindDatas
+        }else {
+            let datas:[PetListModel] = self.kindDatas.filter { (petkind) -> Bool in
+                return petkind.name.contains(searchText)
+            }
+            self.filteredKindDatas = datas
+        }
     }
     
     
@@ -105,3 +126,11 @@ extension SelectKindController:UICollectionViewDelegateFlowLayout {
     }
 }
 
+extension SelectKindController:KindViewDelegate {
+    func cellSelected(petKind: PetListModel) {
+        self.delegate?.setKind(kind: petKind.name)
+        navigationController?.popViewController(animated: true)
+    }
+    
+    
+}

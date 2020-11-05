@@ -329,6 +329,7 @@ PODS:
     - nanopb/encode (= 1.30906.0)
   - nanopb/decode (1.30906.0)
   - nanopb/encode (1.30906.0)
+  - Nuke (9.1.2)
   - PopupDialog (1.1.1):
     - DynamicBlurView (~> 4.0)
   - PromisesObjC (1.2.10)
@@ -339,6 +340,7 @@ DEPENDENCIES:
   - Firebase/Analytics
   - Firebase/Firestore
   - Firebase/Storage
+  - Nuke (~> 9.0)
   - PopupDialog (~> 1.1)
   - SwiftyJSON (~> 4.0)
 
@@ -363,6 +365,7 @@ SPEC REPOS:
     - GTMSessionFetcher
     - leveldb-library
     - nanopb
+    - Nuke
     - PopupDialog
     - PromisesObjC
     - SwiftyJSON
@@ -387,10 +390,11 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
+  Nuke: dd2e6be6a34c042a7861e190632781d11f253026
   PopupDialog: 720c92befd8bc23c13442254945213db5612f149
   PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 113ce904b386378ca8e091cefea62d814b275cac
+PODFILE CHECKSUM: 7cc6acdd658506ef3dee74b6e496e5e2b3819e1c
 
 COCOAPODS: 1.9.3

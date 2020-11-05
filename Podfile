@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
- platform :ios, '10.0'
+ platform :ios, '11.0'
 
 target 'Petmily-ios' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -12,4 +12,5 @@ target 'Petmily-ios' do
 	pod 'Firebase/Analytics'
 	pod 'Firebase/Firestore'
 	pod 'Firebase/Storage'
+	pod 'Nuke', '~> 9.0'
 end
