@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Firebase
+import UserNotificationsUI
 
 class RootController: UITabBarController {
     // MARK: - Properties
@@ -21,6 +23,7 @@ class RootController: UITabBarController {
         configureUI()
         configureTabBar()
         checkUserLoggedIn()
+        
         
     }
     
@@ -61,7 +64,13 @@ class RootController: UITabBarController {
     }
     
     
+    
+    
     // MARK: Helpers
+    func receiveInfoFromPushNotification(info:[AnyHashable : Any]) {
+        print(info)
+    }
+    
     
     func logout() {
         LocalData.shared.remove(key: "token")
@@ -74,10 +83,12 @@ class RootController: UITabBarController {
     
     func checkUserLoggedIn() {
         
-        // 이후에 로그인이 되어져 있는지 되어져 있지 않은지 판별하는 코드를 추가해주어야 함.
+        
         LocalData.shared.getting(key: "token") { (token) in
             if let token = token {
                 // 로그인이 되어져 있음.
+                
+                // TODO: - 로그인 할때, fcmToken을 user db에 저장해준다.
                 Properties.token = token
                 self.configureTabBar()
             }else {
@@ -94,3 +105,4 @@ class RootController: UITabBarController {
         
     }
 }
+

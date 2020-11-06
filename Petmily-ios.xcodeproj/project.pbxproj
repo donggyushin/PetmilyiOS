@@ -96,6 +96,7 @@
 		70DD78F5254DAC0D00168C82 /* TouchableUIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchableUIImageView.swift; sourceTree = "<group>"; };
 		70DD78FD254DB85E00168C82 /* ViewMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewMaker.swift; sourceTree = "<group>"; };
 		70DD7900254DC57100168C82 /* ViewContainerWithImageIconAndUnderline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewContainerWithImageIconAndUnderline.swift; sourceTree = "<group>"; };
+		70E39F4E25558550002BF64C /* Petmily-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Petmily-ios.entitlements"; sourceTree = "<group>"; };
 		70EE69FD2544B3B500C40970 /* VerificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationService.swift; sourceTree = "<group>"; };
 		70EE6A012544B89F00C40970 /* VerificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationModel.swift; sourceTree = "<group>"; };
 		70F248682549BE6500716A93 /* NewAccountStep6Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountStep6Controller.swift; sourceTree = "<group>"; };
@@ -232,6 +233,7 @@
 		70B4F93525447CF7005CE631 /* Petmily-ios */ = {
 			isa = PBXGroup;
 			children = (
+				70E39F4E25558550002BF64C /* Petmily-ios.entitlements */,
 				701DBD2E2545AD780057C8D9 /* Constants */,
 				70EE6A002544B89400C40970 /* Models */,
 				70EE69FC2544B3A800C40970 /* APIs */,
@@ -603,6 +605,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Petmily-ios/Petmily-ios.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YV58Q28W8Z;
 				INFOPLIST_FILE = "Petmily-ios/Info.plist";
@@ -623,6 +626,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Petmily-ios/Petmily-ios.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YV58Q28W8Z;
 				INFOPLIST_FILE = "Petmily-ios/Info.plist";

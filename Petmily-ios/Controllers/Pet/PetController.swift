@@ -47,7 +47,6 @@ class PetController: UIViewController {
         notYetView.widthAnchor.constraint(equalToConstant: view.frame.width * 0.8).isActive = true
         notYetView.heightAnchor.constraint(equalToConstant: 300).isActive = true
         
-        
     }
     
     func configureNavigation(){

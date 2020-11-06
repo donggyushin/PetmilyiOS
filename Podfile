@@ -13,4 +13,5 @@ target 'Petmily-ios' do
 	pod 'Firebase/Firestore'
 	pod 'Firebase/Storage'
 	pod 'Nuke', '~> 9.0'
+	pod 'Firebase/Messaging'
 end

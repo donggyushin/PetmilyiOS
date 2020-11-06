@@ -7,20 +7,50 @@
 
 import UIKit
 import Firebase
+import UserNotificationsUI
 
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
+        
+        // TabBarItem title 폰트 변경하는 부분
 //        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13)], for: .normal)
+        
+        
+        Messaging.messaging().delegate = self
+        
+
+        
+        // [START register_for_notifications]
+            if #available(iOS 10.0, *) {
+              // For iOS 10 display notification (sent via APNS)
+              UNUserNotificationCenter.current().delegate = self
+
+              let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+              UNUserNotificationCenter.current().requestAuthorization(
+                options: authOptions,
+                completionHandler: {_, _ in })
+            } else {
+              let settings: UIUserNotificationSettings =
+              UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+              application.registerUserNotificationSettings(settings)
+            }
+
+            application.registerForRemoteNotifications()
+
+            // [END register_for_notifications]
+        
+        
         
         return true
     }
+    
 
     // MARK: UISceneSession Lifecycle
 
@@ -39,3 +69,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+extension AppDelegate:MessagingDelegate {
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        let rootController = application.windows[0].rootViewController as! RootController
+        rootController.receiveInfoFromPushNotification(info: userInfo)
+    }
+}
