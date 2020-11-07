@@ -17,6 +17,7 @@
 		70484C272553005E003C22DF /* PetListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70484C262553005E003C22DF /* PetListModel.swift */; };
 		704F2702254EA5520035B6C3 /* SelectKindController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704F2701254EA5520035B6C3 /* SelectKindController.swift */; };
 		704F2705254EA6070035B6C3 /* PetKindModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704F2704254EA6070035B6C3 /* PetKindModel.swift */; };
+		705638762556837D00ED84EC /* PetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705638752556837D00ED84EC /* PetService.swift */; };
 		706A1516254574B60050C0C8 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706A1515254574B60050C0C8 /* AuthService.swift */; };
 		706A1519254577690050C0C8 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706A1518254577690050C0C8 /* UserModel.swift */; };
 		706A151C25457F350050C0C8 /* NewAccountStep3Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706A151B25457F350050C0C8 /* NewAccountStep3Controller.swift */; };
@@ -64,6 +65,7 @@
 		70484C262553005E003C22DF /* PetListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetListModel.swift; sourceTree = "<group>"; };
 		704F2701254EA5520035B6C3 /* SelectKindController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectKindController.swift; sourceTree = "<group>"; };
 		704F2704254EA6070035B6C3 /* PetKindModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetKindModel.swift; sourceTree = "<group>"; };
+		705638752556837D00ED84EC /* PetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetService.swift; sourceTree = "<group>"; };
 		706A1515254574B60050C0C8 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		706A1518254577690050C0C8 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		706A151B25457F350050C0C8 /* NewAccountStep3Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountStep3Controller.swift; sourceTree = "<group>"; };
@@ -282,6 +284,7 @@
 				706A1515254574B60050C0C8 /* AuthService.swift */,
 				7079A42C254C96A7001A18FF /* FileService.swift */,
 				70484C232552FFD5003C22DF /* PetListService.swift */,
+				705638752556837D00ED84EC /* PetService.swift */,
 			);
 			path = APIs;
 			sourceTree = "<group>";
@@ -423,6 +426,7 @@
 				70484C242552FFD5003C22DF /* PetListService.swift in Sources */,
 				70B3E469254D4D32009461A3 /* LostAnimalsController.swift in Sources */,
 				706C5C45254488D300A2FA96 /* TextContainer.swift in Sources */,
+				705638762556837D00ED84EC /* PetService.swift in Sources */,
 				70EE6A022544B89F00C40970 /* VerificationModel.swift in Sources */,
 				706C5C2F2544816600A2FA96 /* Extensions.swift in Sources */,
 				7079A48F254CA557001A18FF /* Root.swift in Sources */,

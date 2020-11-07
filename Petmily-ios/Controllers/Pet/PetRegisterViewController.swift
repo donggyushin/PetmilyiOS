@@ -7,9 +7,15 @@
 
 import UIKit
 
+protocol PetRegisterViewControllerDelegate:class {
+    func registerDone()
+}
+
 class PetRegisterViewController: UIViewController {
     
     // MARK: - Properties
+    var delegate:PetRegisterViewControllerDelegate?
+    
     let petBirthdayData = Utilities.shared.generateUserBirthList()
     let petBirthdayMonthData = Utilities.shared.generateMonths()
     let petBirthdayDayData = Utilities.shared.generateDays()
@@ -18,6 +24,10 @@ class PetRegisterViewController: UIViewController {
     
     var petImage:UIImage?
     var selectedGender:String?
+    
+    var petSort:String?
+    var kind:String?
+    var personality:[String]?
     
     private lazy var petImageView:TouchableUIImageView = {
         let iv = TouchableUIImageView(image: #imageLiteral(resourceName: "5b7fdeab1900001d035028dc 1"))
@@ -334,7 +344,47 @@ class PetRegisterViewController: UIViewController {
             return
         }
         
+        guard let kind = self.kind else {
+            renderPopupWithOkayButtonNoImage(title: "에러", message: "품종을 등록해주세요!")
+            return
+        }
+        
+        let birth = birthdayYear + birthdayMonth + birthdayDay
+        
         self.loadingView.isHidden = false
+        
+        FileService.shared.uploadImageFile(image: petimage) { (error, errorString, imageUrl) in
+            if let errorString = errorString {
+                return self.renderPopupWithOkayButtonNoImage(title: "에러", message: errorString)
+            }
+            if let error = error {
+                return self.renderPopupWithOkayButtonNoImage(title: "에러", message: error.localizedDescription)
+            }
+            guard let imageUrl = imageUrl else {
+                
+                return self.renderPopupWithOkayButtonNoImage(title: "에러", message: "알 수 없는 에러 발생")
+            }
+            
+            
+            PetService.shared.postNewPet(petSort: self.petSort, name:petname, kind: kind, personality: self.personality, photourl: imageUrl, gender: selectedGender, birth: birth) { (error, errorMessage, success) in
+                if let errorString = errorString {
+                    return self.renderPopupWithOkayButtonNoImage(title: "에러", message: errorString)
+                }
+                if let error = error {
+                    return self.renderPopupWithOkayButtonNoImage(title: "에러", message: error.localizedDescription)
+                }
+                if success == false {
+                    print("여기인가")
+                    return self.renderPopupWithOkayButtonNoImage(title: "에러", message: "알 수 없는 에러 발생")
+                }
+                // 새로운 반려동물 등록 성공. 성공했으니 이전페이지로 돌려준다.
+                // TODO: - 이전 페이지로 돌려주고, 반려동물을 서버로부터 호출해주는 함수를 다시 한 번 호출한다.
+                self.delegate?.registerDone()
+                self.navigationController?.popViewController(animated: true)
+            }
+            
+        }
+        
     }
     
     @objc func genderButtonTapped(sender:UIButton) {
@@ -454,13 +504,18 @@ extension PetRegisterViewController:UIPickerViewDelegate, UIPickerViewDataSource
 }
 
 extension PetRegisterViewController:SelectKindControllerDelegate {
-    func setKind(kind: String) {
-        self.petKindLabel.text = kind
+    func setKind(kind: PetListModel) {
+        self.petKindLabel.text = kind.name
         if traitCollection.userInterfaceStyle == .dark {
             self.petKindLabel.textColor = .white
         }else {
             self.petKindLabel.textColor = .black
         }
+        
+        self.petSort = kind.petSort
+        self.kind = kind.name
+        self.personality = kind.personality
+        
     }
     
     

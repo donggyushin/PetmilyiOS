@@ -60,7 +60,20 @@ class PetController: UIViewController {
 
 extension PetController:NotYetPetProtocol {
     func notYetViewTapped() {
-        navigationController?.pushViewController(PetRegisterViewController(), animated: true)
+        
+        let petRegisterViewController = PetRegisterViewController()
+        petRegisterViewController.delegate = self
+        
+        navigationController?.pushViewController(petRegisterViewController, animated: true)
     }
+    
+}
+
+extension PetController:PetRegisterViewControllerDelegate {
+    func registerDone() {
+        print("반려동물 등록완료")
+        // TODO: - 나중에 여기서 반려동물들을 호출하는 함수를 한 번 호출해줘야함!
+    }
+    
     
 }

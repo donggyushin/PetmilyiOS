@@ -85,8 +85,15 @@ class RootController: UITabBarController {
         
         
         LocalData.shared.getting(key: "token") { (token) in
+                
+            
+            
             if let token = token {
                 // 로그인이 되어져 있음.
+                print("token: \(token)")
+                if let fcm = Messaging.messaging().fcmToken {
+                    print("fcm: \(fcm)")
+                }
                 
                 // TODO: - 로그인 할때, fcmToken을 user db에 저장해준다.
                 Properties.token = token

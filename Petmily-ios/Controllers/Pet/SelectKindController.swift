@@ -10,7 +10,7 @@ import UIKit
 let reuseIdentifierForKindView = "reuseIdentifierForKindView"
 
 protocol SelectKindControllerDelegate:class {
-    func setKind(kind:String )
+    func setKind(kind:PetListModel )
 }
 
 class SelectKindController: UICollectionViewController {
@@ -128,7 +128,7 @@ extension SelectKindController:UICollectionViewDelegateFlowLayout {
 
 extension SelectKindController:KindViewDelegate {
     func cellSelected(petKind: PetListModel) {
-        self.delegate?.setKind(kind: petKind.name)
+        self.delegate?.setKind(kind: petKind)
         navigationController?.popViewController(animated: true)
     }
     
