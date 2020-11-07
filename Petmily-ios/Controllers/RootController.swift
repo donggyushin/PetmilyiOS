@@ -57,7 +57,7 @@ class RootController: UITabBarController {
         
         Chat.tabBarItem.image = #imageLiteral(resourceName: "icons8-chat-bubble-100 1")
         
-        viewControllers = [PresaleOfAnimals, LostAnimals, Pet, Chat]
+        viewControllers = [PresaleOfAnimals, Pet,  Chat]
         
         loadingView.isHidden = true
         
