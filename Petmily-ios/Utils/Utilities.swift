@@ -80,4 +80,16 @@ class Utilities {
                 return nil
             }
     }
+    
+    func calculatePhotoHeight(imageUrl:String, viewWidth:CGFloat, defaultHeight:CGFloat) -> CGFloat {
+        if let url = URL(string: imageUrl) {
+            let data = try! Data(contentsOf: url)
+            guard let image = UIImage(data: data) else { return defaultHeight }
+            let imageWidth = image.size.width
+            let imageHeight = image.size.height
+            let heightIWant = imageHeight * viewWidth / imageWidth
+            return heightIWant
+        }
+        return defaultHeight
+    }
 }

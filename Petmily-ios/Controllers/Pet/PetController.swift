@@ -7,7 +7,7 @@
 
 import UIKit
 
-let reuseIdentifier = "PetCell"
+private let reuseIdentifier = "PetCell"
 
 class PetController: UIViewController {
     
@@ -29,7 +29,7 @@ class PetController: UIViewController {
     
     private lazy var titleLabel:UILabel = {
         let label = UILabel()
-        label.text = "반려"
+        label.text = "반려동물"
         label.font = UIFont.boldSystemFont(ofSize: 20)
         return label
     }()
@@ -127,7 +127,7 @@ class PetController: UIViewController {
     }
     
     func configureNavigation(){
-        navigationItem.backButtonTitle = "반려"
+        navigationItem.backButtonTitle = "반려동물"
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
         
     }
@@ -194,6 +194,11 @@ extension PetController:UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PetCell
+        cell.delegate = self
+        let pet = self.petlist[indexPath.row]
+        cell.pet = pet
+        
+        
         return cell
     }
     
@@ -211,5 +216,22 @@ extension PetController:UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+    }
+}
+
+
+
+extension PetController:PetCellDelegate {
+    func cellTapped(petCell: PetCell) {
+//        let petDetailController = PetDetailController()
+//        petDetailController.pet = petCell.pet
+//        navigationController?.pushViewController(petDetailController, animated: true)
+        guard let pet = petCell.pet else { return }
+        let petDetailCollectionViewController = PetDetailCollectionViewController(pet: pet)
+        navigationController?.pushViewController(petDetailCollectionViewController, animated: true)
     }
 }

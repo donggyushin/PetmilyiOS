@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import Nuke
+import SDWebImage
 
 protocol KindViewDelegate:class {
     func cellSelected(petKind:PetListModel)
@@ -79,7 +79,7 @@ class KindView: UICollectionViewCell {
         guard let petKind = petKind else { return }
         if let urlString = petKind.photourl {
             if let url = URL(string: urlString) {
-                Nuke.loadImage(with: url, into: self.photo)
+                self.photo.sd_setImage(with: url, completed: nil)
             }
             
         }

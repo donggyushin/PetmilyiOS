@@ -14,4 +14,5 @@ target 'Petmily-ios' do
 	pod 'Firebase/Storage'
 	pod 'Nuke', '~> 9.0'
 	pod 'Firebase/Messaging'
+	pod 'SDWebImage', '~> 5.0'
 end
