@@ -8,6 +8,7 @@
 import UIKit
 import SDWebImage
 
+
 class PetProfileDetailHeaderCell: UICollectionViewCell {
     
     // MARK: Properties
@@ -56,13 +57,64 @@ class PetProfileDetailHeaderCell: UICollectionViewCell {
     
     private lazy var kind:UILabel = {
         let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 12)
         return label
     }()
     
     private lazy var birth:UILabel = {
         let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 12)
         label.text = "🎉"
         return label
+    }()
+    
+    private var selectedButton = "Photos"
+    
+    private lazy var photosButton:UIButton = {
+        let button = UIButton(type: UIButton.ButtonType.system)
+        button.setTitle("Photos", for: UIControl.State.normal)
+        button.addTarget(self, action: #selector(buttonTapped), for: UIControl.Event.touchUpInside)
+        return button
+    }()
+    
+    private lazy var favoriteButton:UIButton = {
+        let bt = UIButton(type: UIButton.ButtonType.system)
+        bt.setTitle("Favorites", for: UIControl.State.normal)
+        bt.addTarget(self, action: #selector(buttonTapped), for: UIControl.Event.touchUpInside)
+        return bt
+    }()
+    
+    private lazy var selectedBar:UIView = {
+        let view = UIView()
+        view.heightAnchor.constraint(equalToConstant: 2).isActive = true
+        view.backgroundColor = .systemBlue
+        return view
+    }()
+    
+    private lazy var buttonContainer:UIView = {
+        let view = UIView()
+        view.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        view.addSubview(photosButton)
+        photosButton.translatesAutoresizingMaskIntoConstraints = false
+        photosButton.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        photosButton.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        photosButton.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        photosButton.widthAnchor.constraint(equalToConstant: self.frame.width / 2).isActive = true
+        
+        view.addSubview(favoriteButton)
+        favoriteButton.translatesAutoresizingMaskIntoConstraints = false
+        favoriteButton.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        favoriteButton.leftAnchor.constraint(equalTo: photosButton.rightAnchor).isActive = true
+        favoriteButton.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        favoriteButton.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        
+        view.addSubview(selectedBar)
+        selectedBar.translatesAutoresizingMaskIntoConstraints = false
+        selectedBar.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        selectedBar.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        selectedBar.widthAnchor.constraint(equalToConstant: self.frame.width / 2).isActive = true
+        return view
     }()
     
     private lazy var grayLine:UIView = {
@@ -103,6 +155,12 @@ class PetProfileDetailHeaderCell: UICollectionViewCell {
         verticalStack.topAnchor.constraint(equalTo: profileImage.topAnchor, constant: 60).isActive = true
         verticalStack.leftAnchor.constraint(equalTo: profileImage.rightAnchor, constant: 40).isActive = true
         
+        addSubview(buttonContainer)
+        buttonContainer.translatesAutoresizingMaskIntoConstraints = false
+        buttonContainer.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        buttonContainer.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        buttonContainer.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        
         addSubview(grayLine)
         grayLine.translatesAutoresizingMaskIntoConstraints = false
         grayLine.rightAnchor.constraint(equalTo: rightAnchor, constant: -20).isActive = true
@@ -128,6 +186,23 @@ class PetProfileDetailHeaderCell: UICollectionViewCell {
             self.genderIcon.image = #imageLiteral(resourceName: "icons8-female-96")
         }
         
+    }
+    
+    // MARK: Selectors
+    @objc func buttonTapped(sender:UIButton) {
+        if selectedButton == "Photos" && sender == self.favoriteButton {
+            UIView.animate(withDuration: 0.3) {
+                self.selectedBar.frame.origin.x += self.frame.width / 2
+            }
+            
+            self.selectedButton = "Favorites"
+        }else if selectedButton == "Favorites" && sender == self.photosButton {
+            UIView.animate(withDuration: 0.3) {
+                self.selectedBar.frame.origin.x -= self.frame.width / 2
+            }
+            
+            self.selectedButton = "Photos"
+        }
     }
     
 }
