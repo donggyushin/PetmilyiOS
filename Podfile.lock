@@ -350,10 +350,15 @@ PODS:
     - DynamicBlurView (~> 4.0)
   - PromisesObjC (1.2.10)
   - Protobuf (3.13.0)
+  - PryntTrimmerView (4.0.0)
   - SDWebImage (5.9.0):
     - SDWebImage/Core (= 5.9.0)
   - SDWebImage/Core (5.9.0)
+  - SteviaLayout (4.7.3)
   - SwiftyJSON (4.3.0)
+  - YPImagePicker (4.3.1):
+    - PryntTrimmerView (~> 4.0.0)
+    - SteviaLayout (~> 4.7.3)
 
 DEPENDENCIES:
   - Alamofire (~> 5.2)
@@ -365,6 +370,7 @@ DEPENDENCIES:
   - PopupDialog (~> 1.1)
   - SDWebImage (~> 5.0)
   - SwiftyJSON (~> 4.0)
+  - YPImagePicker
 
 SPEC REPOS:
   trunk:
@@ -393,8 +399,11 @@ SPEC REPOS:
     - PopupDialog
     - PromisesObjC
     - Protobuf
+    - PryntTrimmerView
     - SDWebImage
+    - SteviaLayout
     - SwiftyJSON
+    - YPImagePicker
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
@@ -422,9 +431,12 @@ SPEC CHECKSUMS:
   PopupDialog: 720c92befd8bc23c13442254945213db5612f149
   PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
   Protobuf: 3dac39b34a08151c6d949560efe3f86134a3f748
+  PryntTrimmerView: 67e67573ffd4c073f1308effa66aefd0cfa667a0
   SDWebImage: 62ae4a18473520c67b79e9724c31a63599cc9423
+  SteviaLayout: c2ecdcff57d44e38fd2f65e54ad52aeae28ca0c4
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
+  YPImagePicker: 08bbb809ed62bf4149fc015c97249eb4b9463ff9
 
-PODFILE CHECKSUM: 6f3c37614a08c1e2ee6d9c76dea8aa977fdc1144
+PODFILE CHECKSUM: 5a532cfd34fc565905988d7d58e45807cad6ecc7
 
 COCOAPODS: 1.9.3

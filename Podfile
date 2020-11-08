@@ -15,4 +15,7 @@ target 'Petmily-ios' do
 	pod 'Nuke', '~> 9.0'
 	pod 'Firebase/Messaging'
 	pod 'SDWebImage', '~> 5.0'
+	pod 'YPImagePicker'
+
+	use_frameworks!
 end

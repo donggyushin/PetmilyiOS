@@ -27,6 +27,7 @@
 		706C5C422544874000A2FA96 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706C5C412544874000A2FA96 /* Utilities.swift */; };
 		706C5C45254488D300A2FA96 /* TextContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706C5C44254488D300A2FA96 /* TextContainer.swift */; };
 		706C5C492544910300A2FA96 /* NewAccountStep1Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706C5C482544910300A2FA96 /* NewAccountStep1Controller.swift */; };
+		7071514825580ED8005CD284 /* TouchableUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7071514725580ED8005CD284 /* TouchableUIView.swift */; };
 		7079A3C9254C934C001A18FF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7079A3C8254C934C001A18FF /* GoogleService-Info.plist */; };
 		7079A42D254C96A7001A18FF /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7079A42C254C96A7001A18FF /* FileService.swift */; };
 		7079A48F254CA557001A18FF /* Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7079A48E254CA557001A18FF /* Root.swift */; };
@@ -84,6 +85,7 @@
 		706C5C412544874000A2FA96 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		706C5C44254488D300A2FA96 /* TextContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextContainer.swift; sourceTree = "<group>"; };
 		706C5C482544910300A2FA96 /* NewAccountStep1Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountStep1Controller.swift; sourceTree = "<group>"; };
+		7071514725580ED8005CD284 /* TouchableUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchableUIView.swift; sourceTree = "<group>"; };
 		7079A3C8254C934C001A18FF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7079A42C254C96A7001A18FF /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
 		7079A48E254CA557001A18FF /* Root.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Root.swift; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 				707B0C622557DC5200AE47DA /* PetProfileDetailHeaderCell.swift */,
 				707B0C652557DD3200AE47DA /* PetImageCell.swift */,
 				707B0C682557E41600AE47DA /* PetProfileDetailFooterCell.swift */,
+				7071514725580ED8005CD284 /* TouchableUIView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -453,6 +456,7 @@
 				70484C242552FFD5003C22DF /* PetListService.swift in Sources */,
 				70B3E469254D4D32009461A3 /* LostAnimalsController.swift in Sources */,
 				706C5C45254488D300A2FA96 /* TextContainer.swift in Sources */,
+				7071514825580ED8005CD284 /* TouchableUIView.swift in Sources */,
 				70895AB925569E4C003EF5F7 /* PetCell.swift in Sources */,
 				707B0C662557DD3200AE47DA /* PetImageCell.swift in Sources */,
 				70895AB525569711003EF5F7 /* PetModel.swift in Sources */,
