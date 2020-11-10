@@ -6,6 +6,23 @@
 //
 
 import Foundation
+
+struct PetPhoto {
+    var url:String
+    var favorite:Bool
+    var _id:String
+    
+    init(dictionary:[String:Any]) {
+        let url = dictionary["url"] as? String ?? ""
+        let favorite = dictionary["favorite"] as? Bool ?? false
+        let _id = dictionary["_id"] as? String ?? ""
+        
+        self.url = url
+        self.favorite = favorite
+        self._id = _id
+    }
+}
+
 struct PetModel {
     let userIdentifier:String
     var petSort:String?
@@ -15,6 +32,8 @@ struct PetModel {
     let photourl:String
     let gender:String
     let birth:String
+    var photos:[PetPhoto]
+    let _id:String
     
     init(dictionary:[String:AnyObject]) {
         let userIdentifier = dictionary["userIdentifier"] as? String ?? ""
@@ -25,7 +44,20 @@ struct PetModel {
         let photourl = dictionary["photourl"] as? String ?? ""
         let gender = dictionary["gender"] as? String ?? ""
         let birth = dictionary["birth"] as? String ?? ""
+        let _id = dictionary["_id"] as? String ?? ""
         
+        var photos:[PetPhoto] = []
+        let photosDictionary = dictionary["photos"] as? [[String:AnyObject]] ?? []
+        for photoDic in photosDictionary {
+            let photo = PetPhoto(dictionary: photoDic)
+            photos.append(photo)
+        }
+        
+        
+        
+        
+        self.photos = photos
+        self._id = _id
         self.userIdentifier = userIdentifier
         self.petSort = petSort
         self.kind = kind

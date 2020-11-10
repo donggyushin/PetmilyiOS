@@ -155,17 +155,19 @@ class PetProfileDetailHeaderCell: UICollectionViewCell {
         verticalStack.topAnchor.constraint(equalTo: profileImage.topAnchor, constant: 60).isActive = true
         verticalStack.leftAnchor.constraint(equalTo: profileImage.rightAnchor, constant: 40).isActive = true
         
+        addSubview(grayLine)
+        grayLine.translatesAutoresizingMaskIntoConstraints = false
+        grayLine.rightAnchor.constraint(equalTo: rightAnchor, constant: -20).isActive = true
+        grayLine.leftAnchor.constraint(equalTo: leftAnchor, constant: 20).isActive = true
+        grayLine.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        
         addSubview(buttonContainer)
         buttonContainer.translatesAutoresizingMaskIntoConstraints = false
         buttonContainer.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         buttonContainer.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         buttonContainer.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         
-        addSubview(grayLine)
-        grayLine.translatesAutoresizingMaskIntoConstraints = false
-        grayLine.rightAnchor.constraint(equalTo: rightAnchor, constant: -20).isActive = true
-        grayLine.leftAnchor.constraint(equalTo: leftAnchor, constant: 20).isActive = true
-        grayLine.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true 
+         
     }
     
     func configurePet() {

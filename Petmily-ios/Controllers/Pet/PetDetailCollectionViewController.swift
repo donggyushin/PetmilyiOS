@@ -12,11 +12,31 @@ private let reuseIdentifier = "cell"
 private let reuseIdentifierForHeader = "header"
 private let reuseIdentifierForFooter = "footer"
 
+
+protocol PetDetailCollectionViewControllerDelegate: class {
+    func didUploadPetPhotos()
+}
+
 class PetDetailCollectionViewController: UICollectionViewController {
     // MARK: - Properties
-    let pet:PetModel
-    var petImages:[String] = []
+    weak var delegate:PetDetailCollectionViewControllerDelegate?
+    var pet:PetModel {
+        didSet {
+            if self.pet.photos.count == 0 {
+                self.footerVisible = true
+            }else {
+                self.footerVisible = false
+            }
+            
+            self.collectionView.reloadData()
+        }
+    }
     var footerVisible = true
+    
+    private lazy var loadingView:LoadingView = {
+        let lv = LoadingView()
+        return lv
+    }()
     
     private var picker:YPImagePicker?
     
@@ -35,6 +55,8 @@ class PetDetailCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        configureUI()
         configurePicker()
 
         self.collectionView!.register(PetProfileDetailHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader , withReuseIdentifier: reuseIdentifierForHeader)
@@ -44,6 +66,17 @@ class PetDetailCollectionViewController: UICollectionViewController {
     }
     
     // MARK: Configures
+    func configureUI(){
+        view.addSubview(loadingView)
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
+        loadingView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        loadingView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        loadingView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        loadingView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        loadingView.isHidden = true
+    }
+    
+    
     func configurePicker() {
         var config = YPImagePickerConfiguration()
         config.wordings.libraryTitle = "앨범"
@@ -67,13 +100,12 @@ class PetDetailCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return self.petImages.count
+        return self.pet.photos.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PetImageCell
-    
-    
+        cell.photo = self.pet.photos[indexPath.row]
         return cell
     }
     
@@ -89,18 +121,31 @@ class PetDetailCollectionViewController: UICollectionViewController {
         header.pet = self.pet
         return header
     }
-
-
+ 
 }
 
 extension PetDetailCollectionViewController:UICollectionViewDelegateFlowLayout {
+    
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: self.view.frame.width / 3 - 2, height: self.view.frame.width / 3 - 2)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 1
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: view.frame.width, height: 300)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         
-        if footerVisible {
+        if self.pet.photos.count == 0 {
             return CGSize(width: view.frame.width, height: 400)
         }
         
@@ -127,8 +172,49 @@ extension PetDetailCollectionViewController:TouchableViewDelegate {
                 }
             }
             picker.dismiss(animated: true, completion: nil)
+            FileService.shared.uploadImageFiles(images: photos) { (error, errorMessage, photourls) in
+                if let errorMessage = errorMessage {
+                    self.renderPopupWithOkayButtonNoImage(title: "에러", message: errorMessage)
+                    return
+                }
+                
+                if let error = error {
+                    self.renderPopupWithOkayButtonNoImage(title: "에러", message: error.localizedDescription)
+                    return
+                }
+                
+                guard let photourls = photourls else { return }
+                
+                var petPhotos:[PetPhoto] = []
+                
+                for photourl in photourls {
+                    let petPhoto = PetPhoto(dictionary: ["url": photourl])
+                    petPhotos.append(petPhoto)
+                }
+                
+                
+                PetService.shared.uploadPetPhotos(petId: self.pet._id, petPhotoUrls: photourls) { (error, errorMessage, success) in
+                    self.loadingView.isHidden = true
+                    if let errorMessage = errorMessage {
+                        return self.renderPopupWithOkayButtonNoImage(title: "에러", message: errorMessage)
+                    }
+                    
+                    if let error = error {
+                        return self.renderPopupWithOkayButtonNoImage(title: "에러", message: error.localizedDescription)
+                    }
+                    
+                    if success {
+                        self.delegate?.didUploadPetPhotos()
+                        return self.pet.photos = petPhotos + self.pet.photos
+                    }else {
+                        return self.renderPopupWithOkayButtonNoImage(title: "에러", message: "알 수 없는 에러가 발생하였습니다")
+                    }
+                    
+                }
+                
+            }
         }
-        
+        self.loadingView.isHidden = false
         present(picker, animated: true, completion: nil)
     }
 }

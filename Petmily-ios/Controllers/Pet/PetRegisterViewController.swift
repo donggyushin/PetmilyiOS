@@ -14,7 +14,7 @@ protocol PetRegisterViewControllerDelegate:class {
 class PetRegisterViewController: UIViewController {
     
     // MARK: - Properties
-    var delegate:PetRegisterViewControllerDelegate?
+    weak var delegate:PetRegisterViewControllerDelegate?
     
     let petBirthdayData = Utilities.shared.generateUserBirthList()
     let petBirthdayMonthData = Utilities.shared.generateMonths()

@@ -232,6 +232,14 @@ extension PetController:PetCellDelegate {
 //        navigationController?.pushViewController(petDetailController, animated: true)
         guard let pet = petCell.pet else { return }
         let petDetailCollectionViewController = PetDetailCollectionViewController(pet: pet)
+        petDetailCollectionViewController.delegate = self
         navigationController?.pushViewController(petDetailCollectionViewController, animated: true)
+    }
+}
+
+
+extension PetController:PetDetailCollectionViewControllerDelegate {
+    func didUploadPetPhotos() {
+        self.fetchMyPets()
     }
 }
