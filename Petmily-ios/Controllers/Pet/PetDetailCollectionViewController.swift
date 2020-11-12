@@ -28,10 +28,27 @@ class PetDetailCollectionViewController: UICollectionViewController {
                 self.footerVisible = false
             }
             
+            for item in self.pet.photos {
+                if item.favorite {
+                    self.favoritePhotos.append(item)
+                }
+            }
+            
             self.collectionView.reloadData()
         }
     }
     var footerVisible = true
+    var selectedCategory = "Photos" {
+        didSet {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                self.collectionView.reloadData()
+            }
+        }
+    }
+    
+    var favoritePhotos:[PetPhoto] = []
+    
+    private lazy var favoriteCollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
     
     private lazy var loadingView:LoadingView = {
         let lv = LoadingView()
@@ -58,11 +75,10 @@ class PetDetailCollectionViewController: UICollectionViewController {
         
         configureUI()
         configurePicker()
+        configureUINavigation()
+        configureCollectionViews()
 
-        self.collectionView!.register(PetProfileDetailHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader , withReuseIdentifier: reuseIdentifierForHeader)
-        self.collectionView!.register(PetProfileDetailFooterCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: reuseIdentifierForFooter)
-        self.collectionView!.register(PetImageCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
+        
     }
     
     // MARK: Configures
@@ -88,6 +104,24 @@ class PetDetailCollectionViewController: UICollectionViewController {
         config.startOnScreen = YPPickerScreen.library
         self.picker = YPImagePicker(configuration: config)
     }
+    
+    func configureUINavigation(){
+        navigationItem.backButtonTitle = self.pet.name
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.compose, target: self, action: #selector(rightBarButtonItemTapped))
+    }
+    
+    func configureCollectionViews(){
+        self.collectionView!.register(PetProfileDetailHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader , withReuseIdentifier: reuseIdentifierForHeader)
+        self.collectionView!.register(PetProfileDetailFooterCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: reuseIdentifierForFooter)
+        self.collectionView!.register(PetImageCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+    }
+    
+    // MARK: Selectors
+    @objc func rightBarButtonItemTapped(){
+        let petSettingController = UINavigationController(rootViewController: PetSettingsController())
+        petSettingController.modalPresentationStyle = .fullScreen
+        present(petSettingController, animated: true, completion: nil)
+    }
 
 
     // MARK: UICollectionViewDataSource
@@ -100,12 +134,22 @@ class PetDetailCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
+        if self.selectedCategory == "Favorites" {
+            return self.favoritePhotos.count
+        }
+        
         return self.pet.photos.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PetImageCell
-        cell.photo = self.pet.photos[indexPath.row]
+        
+        if self.selectedCategory == "Favorites" {
+            cell.photo = self.favoritePhotos[indexPath.row]
+        }else {
+            cell.photo = self.pet.photos[indexPath.row]
+        }
+        
         return cell
     }
     
@@ -119,6 +163,7 @@ class PetDetailCollectionViewController: UICollectionViewController {
         
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: reuseIdentifierForHeader, for: indexPath) as! PetProfileDetailHeaderCell
         header.pet = self.pet
+        header.delegate = self
         return header
     }
  
@@ -140,7 +185,7 @@ extension PetDetailCollectionViewController:UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: view.frame.width, height: 300)
+        return CGSize(width: view.frame.width, height: 230)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
@@ -217,4 +262,17 @@ extension PetDetailCollectionViewController:TouchableViewDelegate {
         self.loadingView.isHidden = false
         present(picker, animated: true, completion: nil)
     }
+}
+
+
+extension PetDetailCollectionViewController:PetProfileDetailHeaderCellDelegate {
+    func selectFavorite() {
+        self.selectedCategory = "Favorites"
+    }
+    
+    func selectPhotos() {
+        self.selectedCategory = "Photos"
+    }
+    
+    
 }

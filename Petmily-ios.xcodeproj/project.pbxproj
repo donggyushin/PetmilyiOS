@@ -54,6 +54,9 @@
 		70B4F94325447CFA005CE631 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70B4F94125447CFA005CE631 /* LaunchScreen.storyboard */; };
 		70B4F94D25447E07005CE631 /* RootController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B4F94C25447E07005CE631 /* RootController.swift */; };
 		70B4F95225447E57005CE631 /* Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B4F95125447E57005CE631 /* Properties.swift */; };
+		70B52C7F255D6142002E9D7F /* PetSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B52C7E255D6142002E9D7F /* PetSettingsController.swift */; };
+		70B52C82255D6450002E9D7F /* GrayLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B52C81255D6450002E9D7F /* GrayLineView.swift */; };
+		70B52C85255D6728002E9D7F /* NoticeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B52C84255D6728002E9D7F /* NoticeItem.swift */; };
 		70DD78F3254DAAB900168C82 /* PetRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DD78F2254DAAB900168C82 /* PetRegisterViewController.swift */; };
 		70DD78F6254DAC0D00168C82 /* TouchableUIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DD78F5254DAC0D00168C82 /* TouchableUIImageView.swift */; };
 		70DD78FE254DB85E00168C82 /* ViewMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DD78FD254DB85E00168C82 /* ViewMaker.swift */; };
@@ -114,6 +117,9 @@
 		70B4F94425447CFA005CE631 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		70B4F94C25447E07005CE631 /* RootController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootController.swift; sourceTree = "<group>"; };
 		70B4F95125447E57005CE631 /* Properties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Properties.swift; sourceTree = "<group>"; };
+		70B52C7E255D6142002E9D7F /* PetSettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetSettingsController.swift; sourceTree = "<group>"; };
+		70B52C81255D6450002E9D7F /* GrayLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrayLineView.swift; sourceTree = "<group>"; };
+		70B52C84255D6728002E9D7F /* NoticeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeItem.swift; sourceTree = "<group>"; };
 		70DD78F2254DAAB900168C82 /* PetRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetRegisterViewController.swift; sourceTree = "<group>"; };
 		70DD78F5254DAC0D00168C82 /* TouchableUIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchableUIImageView.swift; sourceTree = "<group>"; };
 		70DD78FD254DB85E00168C82 /* ViewMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewMaker.swift; sourceTree = "<group>"; };
@@ -202,6 +208,8 @@
 				707B0C652557DD3200AE47DA /* PetImageCell.swift */,
 				707B0C682557E41600AE47DA /* PetProfileDetailFooterCell.swift */,
 				7071514725580ED8005CD284 /* TouchableUIView.swift */,
+				70B52C81255D6450002E9D7F /* GrayLineView.swift */,
+				70B52C84255D6728002E9D7F /* NoticeItem.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -231,6 +239,7 @@
 				707B0C562557B63900AE47DA /* PetDetailController.swift */,
 				707B0C5C2557D0AC00AE47DA /* PetProfileImageViewController.swift */,
 				707B0C5F2557DBC100AE47DA /* PetDetailCollectionViewController.swift */,
+				70B52C7E255D6142002E9D7F /* PetSettingsController.swift */,
 			);
 			path = Pet;
 			sourceTree = "<group>";
@@ -453,9 +462,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				70B52C7F255D6142002E9D7F /* PetSettingsController.swift in Sources */,
 				70484C242552FFD5003C22DF /* PetListService.swift in Sources */,
 				70B3E469254D4D32009461A3 /* LostAnimalsController.swift in Sources */,
 				706C5C45254488D300A2FA96 /* TextContainer.swift in Sources */,
+				70B52C85255D6728002E9D7F /* NoticeItem.swift in Sources */,
 				7071514825580ED8005CD284 /* TouchableUIView.swift in Sources */,
 				70895AB925569E4C003EF5F7 /* PetCell.swift in Sources */,
 				707B0C662557DD3200AE47DA /* PetImageCell.swift in Sources */,
@@ -492,6 +503,7 @@
 				706C5C382544829400A2FA96 /* LocalData.swift in Sources */,
 				701DBD342545B7810057C8D9 /* LoadingView.swift in Sources */,
 				706C5C492544910300A2FA96 /* NewAccountStep1Controller.swift in Sources */,
+				70B52C82255D6450002E9D7F /* GrayLineView.swift in Sources */,
 				704F2702254EA5520035B6C3 /* SelectKindController.swift in Sources */,
 				701DBD2C2545A47B0057C8D9 /* NewAccountStep5Controller.swift in Sources */,
 				70DD7901254DC57100168C82 /* ViewContainerWithImageIconAndUnderline.swift in Sources */,

@@ -227,9 +227,6 @@ extension PetController:UICollectionViewDelegateFlowLayout {
 
 extension PetController:PetCellDelegate {
     func cellTapped(petCell: PetCell) {
-//        let petDetailController = PetDetailController()
-//        petDetailController.pet = petCell.pet
-//        navigationController?.pushViewController(petDetailController, animated: true)
         guard let pet = petCell.pet else { return }
         let petDetailCollectionViewController = PetDetailCollectionViewController(pet: pet)
         petDetailCollectionViewController.delegate = self

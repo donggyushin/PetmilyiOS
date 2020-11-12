@@ -8,10 +8,15 @@
 import UIKit
 import SDWebImage
 
+protocol PetProfileDetailHeaderCellDelegate:class {
+    func selectFavorite()
+    func selectPhotos()
+}
 
 class PetProfileDetailHeaderCell: UICollectionViewCell {
     
     // MARK: Properties
+    weak var delegate:PetProfileDetailHeaderCellDelegate?
     var pet:PetModel? {
         didSet {
             configurePet()
@@ -180,7 +185,7 @@ class PetProfileDetailHeaderCell: UICollectionViewCell {
         self.kind.text = pet.kind
         let birthdayText = pet.birth.replacingOccurrences(of: " ", with: "")
         let res = birthdayText.components(separatedBy: CharacterSet(charactersIn: "년월일"))
-        self.birth.text = "\(self.birth.text!) \(res[0])년 \(res[1])월 \(res[2])일"
+        self.birth.text = "🎉 \(res[0])년 \(res[1])월 \(res[2])일"
         
         if pet.gender == "male" {
             self.genderIcon.image = #imageLiteral(resourceName: "icons8-male-96")
@@ -198,12 +203,14 @@ class PetProfileDetailHeaderCell: UICollectionViewCell {
             }
             
             self.selectedButton = "Favorites"
+            self.delegate?.selectFavorite()
         }else if selectedButton == "Favorites" && sender == self.photosButton {
             UIView.animate(withDuration: 0.3) {
                 self.selectedBar.frame.origin.x -= self.frame.width / 2
             }
             
             self.selectedButton = "Photos"
+            self.delegate?.selectPhotos()
         }
     }
     
