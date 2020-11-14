@@ -12,6 +12,15 @@ import UIKit
 class Utilities {
     static let shared = Utilities()
     
+    func convertStringDateToDate(stringDate:String) -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
+        
+        let date:Date = dateFormatter.date(from: stringDate)!
+        return date
+    }
+    
     func generateDays() -> [String] {
         var days:[String] = []
         for index in 1...32 {

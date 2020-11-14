@@ -10,6 +10,22 @@ import UIKit
 class PetSettingsController: UIViewController {
     
     // MARK: Properties
+    let pet:PetModel
+    
+    var notifications:[NotificationModel] = [] {
+        didSet {
+            
+            if let birthNotification = self.filterNotification(filter: "birth") {
+                self.birthNoticeView.switchButton.isOn = birthNotification.isOn
+            }else {
+                self.birthNoticeView.switchButton.isOn = true
+            }
+            
+        }
+    }
+    
+    
+    
     private lazy var backButton:UIButton = {
         let bt = UIButton(type: UIButton.ButtonType.system)
         bt.setTitle("나가기", for: UIControl.State.normal)
@@ -82,13 +98,50 @@ class PetSettingsController: UIViewController {
         return view
     }()
     
+    private lazy var loadingView:LoadingViewWithoutBackground = {
+        let lv = LoadingViewWithoutBackground()
+        return lv
+    }()
+    
 
     // MARK: Lifecycles
+    
+    init(pet:PetModel) {
+        self.pet = pet
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureUI()
         configureNav()
+        fetchNotifications()
+    }
+    
+    // MARK: APIs
+    func fetchNotifications(){
+        NotificationService.shared.fetchNotifications(petId: self.pet._id) { (error, errorMessage, success, notifications) in
+            self.loadingView.isHidden = true
+            if let errorMessage = errorMessage {
+                return self.renderPopupWithOkayButtonNoImage(title: "에러", message: errorMessage)
+            }
+            
+            if let error = error {
+                return self.renderPopupWithOkayButtonNoImage(title: "에러", message: error.localizedDescription)
+            }
+            
+            if success == false {
+                return self.renderPopupWithOkayButtonNoImage(title: "에러", message: "알 수 없는 에러가 발생하였습니다.")
+            }
+            
+            guard let notifications = notifications else { return }
+            self.notifications = notifications
+        }
     }
     
     // MARK: Configures
@@ -120,11 +173,37 @@ class PetSettingsController: UIViewController {
         noticeStack.topAnchor.constraint(equalTo: noticeContainer.bottomAnchor, constant: 50).isActive = true
         noticeStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
         noticeStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
+        
+        
+        view.addSubview(loadingView)
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
+        loadingView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        loadingView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        loadingView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        loadingView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
          
     }
     
     func configureNav(){
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: self.backButton)
+    }
+    
+    // MARK: Helpers
+    func filterNotification(filter:String) -> NotificationModel?{
+        let filteredNotifications = notifications.filter { (item) -> Bool in
+            if item.name == filter {
+                return true
+            }else {
+                return false
+            }
+        }
+        
+        if filteredNotifications.count == 0 {
+            return nil
+        }else {
+            return filteredNotifications[0]
+        }
     }
     
     // MARK: Selectors

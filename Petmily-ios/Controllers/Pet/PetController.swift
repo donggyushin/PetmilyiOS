@@ -40,8 +40,8 @@ class PetController: UIViewController {
         return view
     }()
     
-    private lazy var loadingView:LoadingView = {
-        let lv = LoadingView()
+    private lazy var loadingView:LoadingViewWithoutBackground = {
+        let lv = LoadingViewWithoutBackground()
         return lv
     }()
     
@@ -85,6 +85,8 @@ class PetController: UIViewController {
     // MARK: - Configures
     func configureUI() {
         clearNavigationBar()
+        
+        self.petCollectionView.backgroundColor = .systemBackground
         
         view.backgroundColor = .systemBackground
         view.addSubview(notYetView)

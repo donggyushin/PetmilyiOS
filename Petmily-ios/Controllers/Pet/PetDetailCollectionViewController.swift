@@ -84,6 +84,7 @@ class PetDetailCollectionViewController: UICollectionViewController {
     // MARK: Configures
     func configureUI(){
         view.addSubview(loadingView)
+        collectionView.backgroundColor = .systemBackground
         loadingView.translatesAutoresizingMaskIntoConstraints = false
         loadingView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         loadingView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
@@ -118,7 +119,8 @@ class PetDetailCollectionViewController: UICollectionViewController {
     
     // MARK: Selectors
     @objc func rightBarButtonItemTapped(){
-        let petSettingController = UINavigationController(rootViewController: PetSettingsController())
+        
+        let petSettingController = UINavigationController(rootViewController: PetSettingsController(pet: self.pet))
         petSettingController.modalPresentationStyle = .fullScreen
         present(petSettingController, animated: true, completion: nil)
     }
