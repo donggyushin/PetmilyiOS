@@ -120,6 +120,7 @@ class PetSettingsController: UIViewController {
     private lazy var helminthicView:NoticeItem = {
         let view = NoticeItem()
         view.label.text = "구충제 알림"
+        view.delegate = self 
         view.heightAnchor.constraint(equalToConstant: 50).isActive = true
         return view
     }()
@@ -127,6 +128,7 @@ class PetSettingsController: UIViewController {
     private lazy var DirofilariaImmitisView:NoticeItem = {
         let view = NoticeItem()
         view.label.text = "심장사상충 알림"
+        view.delegate = self 
         view.heightAnchor.constraint(equalToConstant: 50).isActive = true
         return view
     }()
@@ -220,6 +222,7 @@ class PetSettingsController: UIViewController {
     
     func configureNav(){
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: self.backButton)
+        navigationItem.backButtonTitle = "설정"
     }
     
     // MARK: Helpers
@@ -293,6 +296,8 @@ extension PetSettingsController:NoticeItemDelegate {
         
         if sender == self.DirofilariaImmitisView {
             print("심장사상충 알림 버튼 클릭")
+            let notificationFormController = NotificationFormController(notificationName: "Dirofilaria-immitis")
+            navigationController?.pushViewController(notificationFormController, animated: true)
         }
     }
     
