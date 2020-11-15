@@ -367,12 +367,16 @@ class PetRegisterViewController: UIViewController {
             
             
             PetService.shared.postNewPet(petSort: self.petSort, name:petname, kind: kind, personality: self.personality, photourl: imageUrl, gender: selectedGender, birth: birth) { (error, errorMessage, success) in
-                if let errorString = errorString {
+    
+                if let errorString = errorMessage {
                     return self.renderPopupWithOkayButtonNoImage(title: "에러", message: errorString)
                 }
                 if let error = error {
                     return self.renderPopupWithOkayButtonNoImage(title: "에러", message: error.localizedDescription)
                 }
+                
+                
+                
                 if success == false {
                     print("여기인가")
                     return self.renderPopupWithOkayButtonNoImage(title: "에러", message: "알 수 없는 에러 발생")

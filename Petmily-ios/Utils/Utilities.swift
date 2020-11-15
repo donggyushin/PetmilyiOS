@@ -14,7 +14,7 @@ class Utilities {
     
     func convertStringDateToDate(stringDate:String) -> Date {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
         dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
         
         let date:Date = dateFormatter.date(from: stringDate)!

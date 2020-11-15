@@ -9,6 +9,7 @@ import UIKit
 
 protocol NoticeItemDelegate:class {
     func noticeItemTapped(sender:NoticeItem)
+    func birthdayValueChanges(sender:NoticeItem, changedValue:Bool)
 }
 
 class NoticeItem: UIView {
@@ -24,6 +25,7 @@ class NoticeItem: UIView {
         let bt = UISwitch()
         bt.isOn = false
         bt.isUserInteractionEnabled = false
+        bt.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
         return bt
     }()
 
@@ -53,6 +55,12 @@ class NoticeItem: UIView {
         switchButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         switchButton.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         
+    }
+    
+    // MARK: Selectors
+    @objc func switchChanged(sender:UISwitch){
+        
+        self.delegate?.birthdayValueChanges(sender: self, changedValue: sender.isOn)
     }
     
     // MARK: Overrides

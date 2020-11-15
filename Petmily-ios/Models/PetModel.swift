@@ -34,6 +34,7 @@ struct PetModel {
     let birth:String
     var photos:[PetPhoto]
     let _id:String
+    let birthDate:Date
     
     init(dictionary:[String:AnyObject]) {
         let userIdentifier = dictionary["userIdentifier"] as? String ?? ""
@@ -45,6 +46,10 @@ struct PetModel {
         let gender = dictionary["gender"] as? String ?? ""
         let birth = dictionary["birth"] as? String ?? ""
         let _id = dictionary["_id"] as? String ?? ""
+        let birthDateString = dictionary["birthDate"] as? String ?? ""
+        let birthDate = Utilities.shared.convertStringDateToDate(stringDate: birthDateString)
+        
+        
         
         var photos:[PetPhoto] = []
         let photosDictionary = dictionary["photos"] as? [[String:AnyObject]] ?? []
@@ -66,6 +71,7 @@ struct PetModel {
         self.photourl = photourl
         self.gender = gender
         self.birth = birth
+        self.birthDate = birthDate
         
     }
 }

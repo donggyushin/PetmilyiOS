@@ -21,6 +21,30 @@ class PetSettingsController: UIViewController {
                 self.birthNoticeView.switchButton.isOn = true
             }
             
+            if let DirofilariaImmitisNotification = self.filterNotification(filter: "Dirofilaria-immitis") {
+                self.DirofilariaImmitisView.switchButton.isOn = DirofilariaImmitisNotification.isOn
+            }else {
+                self.DirofilariaImmitisView.switchButton.isOn = false
+            }
+            
+            if let miteNoticeNotification = self.filterNotification(filter: "mite-eating") {
+                self.miteNoticeView.switchButton.isOn = miteNoticeNotification.isOn
+            }else {
+                self.miteNoticeView.switchButton.isOn = false
+            }
+            
+            if let miteNoticeNotification = self.filterNotification(filter: "mite-cover") {
+                self.miteNoticeView.switchButton.isOn = miteNoticeNotification.isOn
+            }else {
+                self.miteNoticeView.switchButton.isOn = false
+            }
+            
+            if let helminthicNotification = self.filterNotification(filter: "helminthic") {
+                self.helminthicView.switchButton.isOn = helminthicNotification.isOn
+            }else {
+                self.helminthicView.switchButton.isOn = false
+            }
+            
         }
     }
     
@@ -85,8 +109,10 @@ class PetSettingsController: UIViewController {
     
     private lazy var birthNoticeView:NoticeItem = {
         let view = NoticeItem()
+        view.delegate = self
         view.label.text = "생일 알림"
         view.switchButton.isOn = true
+        view.switchButton.isUserInteractionEnabled = true
         view.heightAnchor.constraint(equalToConstant: 50).isActive = true
         return view
     }()
@@ -94,6 +120,13 @@ class PetSettingsController: UIViewController {
     private lazy var helminthicView:NoticeItem = {
         let view = NoticeItem()
         view.label.text = "구충제 알림"
+        view.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        return view
+    }()
+    
+    private lazy var DirofilariaImmitisView:NoticeItem = {
+        let view = NoticeItem()
+        view.label.text = "심장사상충 알림"
         view.heightAnchor.constraint(equalToConstant: 50).isActive = true
         return view
     }()
@@ -163,7 +196,7 @@ class PetSettingsController: UIViewController {
         noticeContainer.heightAnchor.constraint(equalToConstant: 34).isActive = true
         
         
-        let noticeStack = UIStackView(arrangedSubviews: [self.birthNoticeView, self.miteNoticeView,  self.helminthicView])
+        let noticeStack = UIStackView(arrangedSubviews: [self.birthNoticeView, self.DirofilariaImmitisView, self.miteNoticeView,  self.helminthicView])
         noticeStack.axis = .vertical
         noticeStack.spacing = 6
         noticeStack.distribution = .fill
@@ -220,12 +253,46 @@ class PetSettingsController: UIViewController {
 
 
 extension PetSettingsController:NoticeItemDelegate {
+    func birthdayValueChanges(sender: NoticeItem, changedValue: Bool) {
+        
+        
+        // TODO: - 서버에 생일 알림 버튼을 클릭했을때 생일 알림 업데이트를 진행해주고 뷰에서는 isOn 을 false로 준다.
+        let calendar = Calendar.current
+        let petId = self.pet._id
+        let birthYear = calendar.component(Calendar.Component.year, from: self.pet.birthDate)
+        let birthMonth = calendar.component(Calendar.Component.month, from: self.pet.birthDate)
+        let birthDate = calendar.component(Calendar.Component.day, from: self.pet.birthDate)
+        
+        
+        
+        NotificationService.shared.createOrUpdateNotification(petId: petId, notificationName: "birth", isOn: changedValue, firstNotifiedYear: String(birthYear), firstNotifiedMonth: String(birthMonth), firstNotifiedDate: String(birthDate)) { (error, errorMessage, success) in
+            if let errorMessage = errorMessage {
+                self.birthNoticeView.switchButton.isOn = !self.birthNoticeView.switchButton.isOn
+                return self.renderPopupWithOkayButtonNoImage(title: "에러", message: errorMessage)
+            }
+            
+            if let error = error {
+                self.birthNoticeView.switchButton.isOn = !self.birthNoticeView.switchButton.isOn
+                return self.renderPopupWithOkayButtonNoImage(title: "에러", message: error.localizedDescription)
+            }
+            
+            if success == false {
+                self.birthNoticeView.switchButton.isOn = !self.birthNoticeView.switchButton.isOn
+                self.renderPopupWithOkayButtonNoImage(title: "에러", message: "알 수 없는 이유로 인해서 알림 설정을 변경하지 못하였습니다. 잠시 후에 다시 시도해주세요")
+            }
+        }
+    }
+    
     func noticeItemTapped(sender: NoticeItem) {
         if sender == self.miteNoticeView {
             print("진드기 예방약 버튼 클릭")
         }
         if sender == self.helminthicView {
             print("구충제 예방 버튼 클릭")
+        }
+        
+        if sender == self.DirofilariaImmitisView {
+            print("심장사상충 알림 버튼 클릭")
         }
     }
     

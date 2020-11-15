@@ -65,7 +65,7 @@ class SelectKindController: UICollectionViewController {
     // MARK: - Configures
     func configureUI() {
         view.backgroundColor = .systemBackground
-        
+        collectionView.backgroundColor = .systemBackground
 
     }
     

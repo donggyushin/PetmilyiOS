@@ -89,13 +89,7 @@ class PetController: UIViewController {
         self.petCollectionView.backgroundColor = .systemBackground
         
         view.backgroundColor = .systemBackground
-        view.addSubview(notYetView)
-        notYetView.translatesAutoresizingMaskIntoConstraints = false
-        notYetView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        notYetView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 70).isActive = true
-        notYetView.widthAnchor.constraint(equalToConstant: view.frame.width * 0.8).isActive = true
-        notYetView.heightAnchor.constraint(equalToConstant: 300).isActive = true
-        notYetView.isHidden = true
+        
         
         
         view.addSubview(petCollectionView)
@@ -110,6 +104,16 @@ class PetController: UIViewController {
         addingButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -15).isActive = true
         addingButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15).isActive = true
         addingButton.isHidden = true
+        
+        view.addSubview(notYetView)
+        notYetView.translatesAutoresizingMaskIntoConstraints = false
+        notYetView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        notYetView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 70).isActive = true
+        notYetView.widthAnchor.constraint(equalToConstant: view.frame.width * 0.8).isActive = true
+        notYetView.heightAnchor.constraint(equalToConstant: 300).isActive = true
+        notYetView.isHidden = true
+        
+        
         
         view.addSubview(loadingView)
         loadingView.translatesAutoresizingMaskIntoConstraints = false
@@ -177,6 +181,7 @@ extension PetController:PetRegisterViewControllerDelegate {
     func registerDone() {
         print("반려동물 등록완료")
         // TODO: - 나중에 여기서 반려동물들을 호출하는 함수를 한 번 호출해줘야함!
+        self.notYetView.isHidden = true 
         self.loadingView.isHidden = false
         self.fetchMyPets()
     }

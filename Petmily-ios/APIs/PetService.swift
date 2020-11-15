@@ -110,6 +110,9 @@ class PetService {
                     return completion(error, error.localizedDescription, false)
                 case .success(let value):
                     
+                    print("value")
+                    print(value)
+                    
                     guard let value = value as? [String:AnyObject] else {
                         return completion(nil, "알 수 없는 에러가 발생하였습니다.", false)
                         
@@ -119,12 +122,14 @@ class PetService {
                         return completion(nil, "알 수 없는 에러가 발생하였습니다.", false)
                     }
                     
-                    if ok {
+                    if ok == true {
                         return completion(nil, nil, ok)
                     }else {
                         guard let message = value["message"] as? String else {
+                            print("here????")
                             return completion(nil, "알 수 없는 에러가 발생하였습니다.", false)
                         }
+                        print(message)
                         return completion(nil, message, ok)
                     }
                     
