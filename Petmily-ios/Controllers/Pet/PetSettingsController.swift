@@ -336,7 +336,6 @@ extension PetSettingsController:NoticeItemDelegate {
         }
         
         if sender == self.DirofilariaImmitisView {
-            print("심장사상충 알림 버튼 클릭")
             let notificationFormController = NotificationFormController(notificationName: "Dirofilaria-immitis", pet: self.pet)
             notificationFormController.delegate = self
             navigationController?.pushViewController(notificationFormController, animated: true)

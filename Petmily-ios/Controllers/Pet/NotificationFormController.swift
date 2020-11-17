@@ -27,6 +27,14 @@ class NotificationFormController: UIViewController {
         return sv
     }()
     
+    private lazy var cancleButton:UIButton = {
+        let bt = UIButton(type: UIButton.ButtonType.system)
+        bt.setTitle("알림 끄기", for: UIControl.State.normal)
+        bt.setTitleColor(UIColor.systemRed, for: UIControl.State.normal)
+        bt.addTarget(self, action: #selector(cancleButtonTapped), for: UIControl.Event.touchUpInside)
+        return bt
+    }()
+    
     private lazy var titleLabel:UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20)
@@ -137,6 +145,7 @@ class NotificationFormController: UIViewController {
         configureUI()
         configureKeyboard()
         fetchNotification()
+        configureNav()
     }
     
     // MARK: APIs
@@ -179,6 +188,11 @@ class NotificationFormController: UIViewController {
         dismissKeyboardWhenTappingAround()
         moveViewWhenKeyboardIsShown()
     }
+    
+    func configureNav() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.cancleButton)
+    }
+    
     func configureUI() {
         view.backgroundColor = .systemBackground
         self.scrollView.backgroundColor = .systemBackground
@@ -242,6 +256,9 @@ class NotificationFormController: UIViewController {
     }
     
     // MARK: Selectors
+    @objc func cancleButtonTapped(sender:UIButton) {
+        print("알림 끄기 버튼")
+    }
     @objc func doneButtonTapped(sender:UIButton) {
         guard let selectedYear = self.selectedYear else {
             return self.renderPopupWithOkayButtonNoImage(title: "알림", message: "년도를 입력해주세요")

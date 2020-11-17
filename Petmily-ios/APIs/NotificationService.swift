@@ -84,7 +84,6 @@ class NotificationService {
     
     func fetchNotifications(petId:String, completion:@escaping(Error?, String?, Bool, [NotificationModel]?) -> Void) {
         
-        print("\(url)/\(petId)")
         guard let url = URL(string: "\(url)/\(petId)") else {
             return completion(nil, "URL 객체를 만들다 실패하였습니다.", false, nil)
         }
