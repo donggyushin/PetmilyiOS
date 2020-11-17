@@ -7,11 +7,20 @@
 
 import UIKit
 
+
+protocol NotificationFormDelegate:class {
+    func toggleNotificationValue(notificationName:String, value:Bool)
+}
+
 class NotificationFormController: UIViewController {
     
     
     // MARK: Properties
+    weak var delegate:NotificationFormDelegate?
+    
     let notificationName:String
+    let pet:PetModel
+    
     
     let scrollView:UIScrollView = {
         let sv = UIScrollView()
@@ -111,8 +120,9 @@ class NotificationFormController: UIViewController {
     }()
     
     // MARK: Lifecycles
-    init(notificationName:String) {
+    init(notificationName:String, pet:PetModel) {
         self.notificationName = notificationName
+        self.pet = pet
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -126,6 +136,42 @@ class NotificationFormController: UIViewController {
         // Do any additional setup after loading the view.
         configureUI()
         configureKeyboard()
+        fetchNotification()
+    }
+    
+    // MARK: APIs
+    func fetchNotification() {
+        NotificationService.shared.findNotificationByPetIdAndNotificationName(petId: pet._id, notificationName: notificationName) { (error, errorMessage, success, notification) in
+            self.loadingView.isHidden = true
+            if let errorMessage = errorMessage {
+                return self.renderPopupWithOkayButtonNoImage(title: "에러", message: errorMessage)
+            }
+            
+            if let error = error {
+                return self.renderPopupWithOkayButtonNoImage(title: "에러", message: error.localizedDescription)
+            }
+            
+            if success {
+                if let notification = notification {
+                    
+                    let calendar = Calendar.current
+                    let year = calendar.component(Calendar.Component.year, from: notification.firstNotified)
+                    let month = calendar.component(Calendar.Component.month, from: notification.firstNotified)
+                    let day = calendar.component(Calendar.Component.day, from: notification.firstNotified)
+                    
+                    
+                    self.selectedYear = String(year)
+                    self.selectedMonth = String(month)
+                    self.selectedDay = String(day)
+                    
+                    self.yearPickerTextField.text = "\(year) 년"
+                    self.monthPickerTextField.text = "\(month) 월"
+                    self.dayPickerTextField.text = "\(day) 일"
+                }
+            }else {
+                self.renderPopupWithOkayButtonNoImage(title: "에러", message: "알 수 없는 에러 발생")
+            }
+        }
     }
     
     // MARK: Configures
@@ -191,13 +237,41 @@ class NotificationFormController: UIViewController {
         loadingView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         loadingView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         loadingView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        loadingView.isHidden = true
+        
         
     }
     
     // MARK: Selectors
     @objc func doneButtonTapped(sender:UIButton) {
+        guard let selectedYear = self.selectedYear else {
+            return self.renderPopupWithOkayButtonNoImage(title: "알림", message: "년도를 입력해주세요")
+        }
+        guard let selectedMonth = self.selectedMonth else {
+            return self.renderPopupWithOkayButtonNoImage(title: "알림", message: "월 을 입력해주세요")
+        }
+        guard let selectedDay = self.selectedDay else {
+            return self.renderPopupWithOkayButtonNoImage(title: "알림", message: "일 을 입력해주세요")
+        }
         self.loadingView.isHidden = false
+        NotificationService.shared.createOrUpdateNotification(petId: self.pet._id, notificationName: "Dirofilaria-immitis", isOn: true, firstNotifiedYear: selectedYear, firstNotifiedMonth: selectedMonth, firstNotifiedDate: selectedDay) { (error, errorMessage, success) in
+            self.loadingView.isHidden = true
+            if let errorMessage = errorMessage {
+                return self.renderPopupWithOkayButtonNoImage(title: "에러", message: errorMessage)
+            }
+            
+            if let error = error {
+                return self.renderPopupWithOkayButtonNoImage(title: "에러", message: error.localizedDescription)
+            }
+            
+            if success == false {
+                self.renderPopupWithOkayButtonNoImage(title: "에러", message: "알 수 없는 에러 발생")
+                return
+            }
+            
+            LocalData.shared.setting(key: "Dirofilaria-immitis", value: "true")
+            self.delegate?.toggleNotificationValue(notificationName: self.notificationName, value: true)
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     

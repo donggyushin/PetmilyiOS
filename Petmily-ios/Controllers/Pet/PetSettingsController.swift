@@ -48,6 +48,7 @@ class PetSettingsController: UIViewController {
         }
     }
     
+
     
     
     private lazy var backButton:UIButton = {
@@ -156,6 +157,7 @@ class PetSettingsController: UIViewController {
         configureUI()
         configureNav()
         fetchNotifications()
+        configureNotifications()
     }
     
     // MARK: APIs
@@ -216,13 +218,40 @@ class PetSettingsController: UIViewController {
         loadingView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         loadingView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         loadingView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        
+        loadingView.isHidden = true
          
     }
     
     func configureNav(){
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: self.backButton)
         navigationItem.backButtonTitle = "설정"
+        
+    }
+    
+    func configureNotifications(){
+        LocalData.shared.getting(key: "birth") { (token) in
+            if let token = token {
+                if token == "true" {
+                    self.birthNoticeView.switchButton.isOn = true
+                }else {
+                    self.birthNoticeView.switchButton.isOn = false
+                }
+            }else {
+                self.birthNoticeView.switchButton.isOn = true
+            }
+        }
+        
+        LocalData.shared.getting(key: "Dirofilaria-immitis") { (token) in
+            if let token = token {
+                if token == "true" {
+                    self.DirofilariaImmitisView.switchButton.isOn = true
+                }else {
+                    self.DirofilariaImmitisView.switchButton.isOn = false
+                }
+            }else {
+                self.DirofilariaImmitisView.switchButton.isOn = false
+            }
+        }
     }
     
     // MARK: Helpers
@@ -243,6 +272,8 @@ class PetSettingsController: UIViewController {
     }
     
     // MARK: Selectors
+
+    
     @objc func backButtonTapped(){
         self.dismiss(animated: true, completion: nil)
     }
@@ -282,11 +313,21 @@ extension PetSettingsController:NoticeItemDelegate {
             if success == false {
                 self.birthNoticeView.switchButton.isOn = !self.birthNoticeView.switchButton.isOn
                 self.renderPopupWithOkayButtonNoImage(title: "에러", message: "알 수 없는 이유로 인해서 알림 설정을 변경하지 못하였습니다. 잠시 후에 다시 시도해주세요")
+                return
             }
+            if changedValue == true {
+                LocalData.shared.setting(key: "birthNotification", value: "true")
+            }else {
+                LocalData.shared.setting(key: "birthNotification", value: "false")
+            }
+            
         }
+        
+        
     }
     
     func noticeItemTapped(sender: NoticeItem) {
+        
         if sender == self.miteNoticeView {
             print("진드기 예방약 버튼 클릭")
         }
@@ -296,8 +337,23 @@ extension PetSettingsController:NoticeItemDelegate {
         
         if sender == self.DirofilariaImmitisView {
             print("심장사상충 알림 버튼 클릭")
-            let notificationFormController = NotificationFormController(notificationName: "Dirofilaria-immitis")
+            let notificationFormController = NotificationFormController(notificationName: "Dirofilaria-immitis", pet: self.pet)
+            notificationFormController.delegate = self
             navigationController?.pushViewController(notificationFormController, animated: true)
+        }
+    }
+    
+}
+
+
+extension PetSettingsController:NotificationFormDelegate {
+    func toggleNotificationValue(notificationName: String, value: Bool) {
+        switch notificationName {
+        case "Dirofilaria-immitis":
+            self.DirofilariaImmitisView.switchButton.isOn = value
+            break
+        default:
+            break
         }
     }
     
