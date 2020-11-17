@@ -229,7 +229,7 @@ class PetSettingsController: UIViewController {
     }
     
     func configureNotifications(){
-        LocalData.shared.getting(key: "birth") { (token) in
+        LocalData.shared.getting(key: "birthNotification") { (token) in
             if let token = token {
                 if token == "true" {
                     self.birthNoticeView.switchButton.isOn = true
