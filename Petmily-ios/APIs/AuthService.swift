@@ -54,6 +54,11 @@ class AuthService {
                     return
                 }
                 
+                print(userId)
+                print(password)
+                print(nickname)
+                print(phoneNumber)
+                
                 guard let proflieImageUrl = profileImageUrl else { return }
                 AF.request(url, method: HTTPMethod.post, parameters: ["userId":userId, "password":password, "nickname":nickname, "phoneNumber":phoneNumber, "birth":birth ?? "", "gender": gender ?? "", "profileImage":proflieImageUrl], encoding: JSONEncoding.default, headers: nil, interceptor: nil, requestModifier: nil).responseJSON { (response) in
                     switch response.result {
@@ -63,6 +68,7 @@ class AuthService {
                     case .success(let value):
                         guard let value = value as? [String:Any] else { return }
                         guard let ok = value["ok"] as? Bool else { return }
+                        print(value)
                         if !ok {
                             guard let errorMessage = value["message"] as? String else { return }
                             completion(nil, errorMessage, false)

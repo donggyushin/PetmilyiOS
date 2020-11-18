@@ -115,7 +115,7 @@ class NewAccountStep5Controller:UIViewController {
         self.nicknameTextField.endEditing(true)
         
         // TODO: - NewAccountStep6Controller 로 보내주기
-        let vc = NewAccountStep6Controller(userId: "Donggyu9410", phoneNumber: "01090411019", password: "~Nlcfjb1129!", nickname: nickname)
+        let vc = NewAccountStep6Controller(userId: self.userId, phoneNumber: self.phoneNumber, password: self.password, nickname: nickname)
         navigationController?.pushViewController(vc, animated: true)
         
         
