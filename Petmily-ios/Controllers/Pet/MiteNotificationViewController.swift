@@ -1,26 +1,18 @@
 //
-//  NotificationFormController.swift
+//  MiteNotificationViewController.swift
 //  Petmily-ios
 //
-//  Created by 신동규 on 2020/11/15.
+//  Created by 신동규 on 2020/11/19.
 //
 
 import UIKit
 
 
-protocol NotificationFormDelegate:class {
-    func toggleNotificationValue(notificationName:String, value:Bool)
-}
-
-class NotificationFormController: UIViewController {
-    
-    
+class MiteNotificationViewController: UIViewController {
     // MARK: Properties
     weak var delegate:NotificationFormDelegate?
-    
-    let notificationName:String
+    var notificationName:String
     let pet:PetModel
-    
     
     let scrollView:UIScrollView = {
         let sv = UIScrollView()
@@ -45,6 +37,12 @@ class NotificationFormController: UIViewController {
         case NotificationNameEnum.shared.helminthic:
             label.text = "구충제 알림"
             break
+        case NotificationNameEnum.shared.miteCover:
+            label.text = "진드기 알림"
+            break
+        case NotificationNameEnum.shared.miteEating:
+            label.text = "진드기 알림"
+            break
         default:
             label.text = "??"
         }
@@ -66,6 +64,12 @@ class NotificationFormController: UIViewController {
             break
         case NotificationNameEnum.shared.helminthic:
             label.text = "반려견들에게 산책만큼 큰 즐거움이 또 있을까요? 하지만, 공원, 산 등 풀이 있는 곳으로 산책을 다녀온 뒤 각종 내외부 기생충에 감염될 수 있어 주의가 필요하답니다. 진드기와 같이 눈에 띄는 외부 기생충의 경우 직접 제거해줄 수 있지만, 눈에 보이지 않는 내부 기생충의 경우 심한 경우 혈관을 막아 반려견을 사망에까지 이르게 할 수 있어 매우 위험해요!\n구충제는 한 번 투약하고 마는 것이 아니라 주기적인 투약이 필요해요. 생후 4주가 지났다면 수의사에게 구충제 복용에 대해 상담하고 처방을 받는 것이 좋습니다.\n\n구충제를 가장 마지막으로 먹인 날, 혹은 가장 빠른 시일내에 먹일날을 입력해주시면 구충제를 먹일 주기인 한달에 한 번씩 푸쉬 알림으로 반려동물의 구충제 약을 먹일 날을 미리 알려드려요!"
+            break
+        case NotificationNameEnum.shared.miteCover:
+            label.text = "진드기 관련 내용"
+            break
+        case NotificationNameEnum.shared.miteEating:
+            label.text = "진드기 관련 내용"
             break
         default:
             label.text = "??"
@@ -133,60 +137,25 @@ class NotificationFormController: UIViewController {
         return lv
     }()
     
+    
     // MARK: Lifecycles
-    init(notificationName:String, pet:PetModel) {
-        self.notificationName = notificationName
+    init(pet:PetModel, notificationName:String) {
         self.pet = pet
+        self.notificationName = notificationName
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         configureUI()
         configureKeyboard()
-        fetchNotification()
         configureNav()
-    }
-    
-    // MARK: APIs
-    func fetchNotification() {
-        NotificationService.shared.findNotificationByPetIdAndNotificationName(petId: pet._id, notificationName: notificationName) { (error, errorMessage, success, notification) in
-            self.loadingView.isHidden = true
-            if let errorMessage = errorMessage {
-                return self.renderPopupWithOkayButtonNoImage(title: "에러", message: errorMessage)
-            }
-            
-            if let error = error {
-                return self.renderPopupWithOkayButtonNoImage(title: "에러", message: error.localizedDescription)
-            }
-            
-            if success {
-                if let notification = notification {
-                    
-                    let calendar = Calendar.current
-                    let year = calendar.component(Calendar.Component.year, from: notification.firstNotified)
-                    let month = calendar.component(Calendar.Component.month, from: notification.firstNotified)
-                    let day = calendar.component(Calendar.Component.day, from: notification.firstNotified)
-                    
-                    
-                    self.selectedYear = String(year)
-                    self.selectedMonth = String(month)
-                    self.selectedDay = String(day)
-                    
-                    self.yearPickerTextField.text = "\(year) 년"
-                    self.monthPickerTextField.text = "\(month) 월"
-                    self.dayPickerTextField.text = "\(day) 일"
-                }
-            }else {
-                self.renderPopupWithOkayButtonNoImage(title: "에러", message: "알 수 없는 에러 발생")
-            }
-        }
+        fetchNotification()
     }
     
     // MARK: Configures
@@ -199,8 +168,9 @@ class NotificationFormController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.cancleButton)
     }
     
-    func configureUI() {
+    func configureUI(){
         view.backgroundColor = .systemBackground
+        
         self.scrollView.backgroundColor = .systemBackground
         
         view.addSubview(scrollView)
@@ -257,8 +227,41 @@ class NotificationFormController: UIViewController {
         loadingView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         loadingView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         loadingView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        
-        
+    }
+    
+    // MARK: APIs
+    func fetchNotification() {
+        NotificationService.shared.findNotificationByPetIdAndNotificationName(petId: pet._id, notificationName: notificationName) { (error, errorMessage, success, notification) in
+            self.loadingView.isHidden = true
+            if let errorMessage = errorMessage {
+                return self.renderPopupWithOkayButtonNoImage(title: "에러", message: errorMessage)
+            }
+            
+            if let error = error {
+                return self.renderPopupWithOkayButtonNoImage(title: "에러", message: error.localizedDescription)
+            }
+            
+            if success {
+                if let notification = notification {
+                    
+                    let calendar = Calendar.current
+                    let year = calendar.component(Calendar.Component.year, from: notification.firstNotified)
+                    let month = calendar.component(Calendar.Component.month, from: notification.firstNotified)
+                    let day = calendar.component(Calendar.Component.day, from: notification.firstNotified)
+                    
+                    
+                    self.selectedYear = String(year)
+                    self.selectedMonth = String(month)
+                    self.selectedDay = String(day)
+                    
+                    self.yearPickerTextField.text = "\(year) 년"
+                    self.monthPickerTextField.text = "\(month) 월"
+                    self.dayPickerTextField.text = "\(day) 일"
+                }
+            }else {
+                self.renderPopupWithOkayButtonNoImage(title: "에러", message: "알 수 없는 에러 발생")
+            }
+        }
     }
     
     // MARK: Selectors
@@ -324,22 +327,22 @@ class NotificationFormController: UIViewController {
         }
     }
     
-    
-    
+
+
 }
 
 
-extension NotificationFormController:UIPickerViewDelegate, UIPickerViewDataSource {
+extension MiteNotificationViewController:UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        
+
         return 3
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if component == 0 {
             return self.years.count
         }
-        
+
         if component == 1 {
             return self.months.count
         }
@@ -348,7 +351,7 @@ extension NotificationFormController:UIPickerViewDelegate, UIPickerViewDataSourc
         }
         return 0
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if component == 0 {
             return self.years[row]
@@ -361,7 +364,7 @@ extension NotificationFormController:UIPickerViewDelegate, UIPickerViewDataSourc
         }
         return nil
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if component == 0 {
             let selectedValue = self.years[row]
@@ -379,6 +382,6 @@ extension NotificationFormController:UIPickerViewDelegate, UIPickerViewDataSourc
             self.dayPickerTextField.text = "\(selectedValue) 일"
         }
     }
-    
-    
+
+
 }

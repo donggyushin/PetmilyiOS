@@ -7,6 +7,15 @@
 
 import Foundation
 
+struct NotificationNameEnum {
+    static let shared = NotificationNameEnum()
+    let birth = "birth"
+    let miteEating = "mite-eating"
+    let helminthic = "helminthic"
+    let miteCover = "mite-cover"
+    let DirofilariaImmitis = "Dirofilaria-immitis"
+}
+
 struct NotificationModel {
     var petIdentifier:String
     var userFcmToken:String?

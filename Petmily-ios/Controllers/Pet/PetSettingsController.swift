@@ -229,6 +229,19 @@ class PetSettingsController: UIViewController {
     }
     
     func configureNotifications(){
+        
+        LocalData.shared.getting(key: NotificationNameEnum.shared.helminthic) { (token) in
+            if let token = token {
+                if token == "true" {
+                    self.helminthicView.switchButton.isOn = true 
+                }else {
+                    self.helminthicView.switchButton.isOn = false
+                }
+            }else {
+                self.helminthicView.switchButton.isOn = false
+            }
+        }
+        
         LocalData.shared.getting(key: "birthNotification") { (token) in
             if let token = token {
                 if token == "true" {
@@ -330,9 +343,16 @@ extension PetSettingsController:NoticeItemDelegate {
         
         if sender == self.miteNoticeView {
             print("진드기 예방약 버튼 클릭")
+            let notificationName = NotificationNameEnum.shared.miteEating
+            let notificationFormController = MiteNotificationViewController(pet: self.pet, notificationName: notificationName)
+            navigationController?.pushViewController(notificationFormController, animated: true)
         }
         if sender == self.helminthicView {
             print("구충제 예방 버튼 클릭")
+            let notificationName = NotificationNameEnum.shared.helminthic
+            let notificationFormController = NotificationFormController(notificationName: notificationName, pet: self.pet)
+            notificationFormController.delegate = self 
+            navigationController?.pushViewController(notificationFormController, animated: true)
         }
         
         if sender == self.DirofilariaImmitisView {
@@ -350,6 +370,9 @@ extension PetSettingsController:NotificationFormDelegate {
         switch notificationName {
         case "Dirofilaria-immitis":
             self.DirofilariaImmitisView.switchButton.isOn = value
+            break
+        case NotificationNameEnum.shared.helminthic:
+            self.helminthicView.switchButton.isOn = value
             break
         default:
             break

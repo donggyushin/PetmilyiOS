@@ -12,6 +12,31 @@ class NotificationService {
     static let shared = NotificationService()
     let url = "\(Properties.PETMILY_API)/v1/notification/list"
     
+    func turnOffNotification(petId:String, notificationName:String, completion:@escaping(Error?, String?, Bool) -> Void) {
+        guard let url = URL(string: "\(Properties.PETMILY_API)/v1/notification/turnOff") else {
+            return completion(nil, "url 객체를 만드는데 실패하였습니다.", false)
+        }
+        AF.request(url, method: HTTPMethod.put, parameters: ["petId":petId, "notificationName":notificationName], encoding: JSONEncoding.default, headers: nil, interceptor: nil, requestModifier: nil).responseJSON { (response) in
+            switch response.result {
+            case .failure(let error):
+                return completion(error, nil, false)
+            case .success(let value):
+                guard let value = value as? [String:Any] else {
+                    return completion(nil, "알 수 없는 에러 발생", false)
+                }
+                guard let ok = value["ok"] as? Bool else {
+                    return completion(nil, "알 수 없는 에러 발생", false)
+                }
+                if ok {
+                    return completion(nil, nil, true)
+                }else {
+                    guard let message = value["message"] as? String else { return }
+                    return completion(nil, message, false)
+                }
+            }
+        }
+    }
+    
     func findNotificationByPetIdAndNotificationName(petId:String, notificationName:String, completion:@escaping(Error?, String?, Bool, NotificationModel?) -> Void) {
         guard let url = URL(string: "\(Properties.PETMILY_API)/v1/notification/\(petId)/\(notificationName)") else {
             
