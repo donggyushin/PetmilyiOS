@@ -93,6 +93,9 @@ class RootController: UITabBarController {
                 print("token: \(token)")
                 if let fcm = Messaging.messaging().fcmToken {
                     print("fcm: \(fcm)")
+                    UserService.shared.setUserFcmToken(fcm: fcm) { (error, errorMessage, success) in
+                        print("fcm 저장 결과: \(success)")
+                    }
                 }
                 
                 // TODO: - 로그인 할때, fcmToken을 user db에 저장해준다.

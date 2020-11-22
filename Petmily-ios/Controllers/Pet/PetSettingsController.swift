@@ -15,6 +15,7 @@ class PetSettingsController: UIViewController {
     var notifications:[NotificationModel] = [] {
         didSet {
             
+            
             if let birthNotification = self.filterNotification(filter: "birth") {
                 self.birthNoticeView.switchButton.isOn = birthNotification.isOn
             }else {
@@ -31,13 +32,14 @@ class PetSettingsController: UIViewController {
                 self.miteNoticeView.switchButton.isOn = miteNoticeNotification.isOn
             }else {
                 self.miteNoticeView.switchButton.isOn = false
+                if let miteNoticeNotification = self.filterNotification(filter: "mite-cover") {
+                    self.miteNoticeView.switchButton.isOn = miteNoticeNotification.isOn
+                }else {
+                    self.miteNoticeView.switchButton.isOn = false
+                }
             }
             
-            if let miteNoticeNotification = self.filterNotification(filter: "mite-cover") {
-                self.miteNoticeView.switchButton.isOn = miteNoticeNotification.isOn
-            }else {
-                self.miteNoticeView.switchButton.isOn = false
-            }
+            
             
             if let helminthicNotification = self.filterNotification(filter: "helminthic") {
                 self.helminthicView.switchButton.isOn = helminthicNotification.isOn
@@ -230,6 +232,28 @@ class PetSettingsController: UIViewController {
     
     func configureNotifications(){
         
+        LocalData.shared.getting(key: NotificationNameEnum.shared.miteEating) { (token) in
+            if let token = token {
+                if token == "true" {
+                    self.miteNoticeView.switchButton.isOn = true
+                }else {
+                    self.miteNoticeView.switchButton.isOn = false
+                }
+            }else {
+                LocalData.shared.getting(key: NotificationNameEnum.shared.miteCover) { (token) in
+                    if let token = token {
+                        if token == "true" {
+                            self.miteNoticeView.switchButton.isOn = true
+                        }else {
+                            self.miteNoticeView.switchButton.isOn = false
+                        }
+                    }else {
+                        self.miteNoticeView.switchButton.isOn = false
+                    }
+                }
+            }
+        }
+        
         LocalData.shared.getting(key: NotificationNameEnum.shared.helminthic) { (token) in
             if let token = token {
                 if token == "true" {
@@ -312,7 +336,7 @@ extension PetSettingsController:NoticeItemDelegate {
         
         
         
-        NotificationService.shared.createOrUpdateNotification(petId: petId, notificationName: "birth", isOn: changedValue, firstNotifiedYear: String(birthYear), firstNotifiedMonth: String(birthMonth), firstNotifiedDate: String(birthDate)) { (error, errorMessage, success) in
+        NotificationService.shared.createOrUpdateNotification(petId: petId, notificationName: "birth", isOn: changedValue, firstNotifiedYear: String(birthYear), firstNotifiedMonth: String(birthMonth), firstNotifiedDate: String(birthDate), type: nil) { (error, errorMessage, success) in
             if let errorMessage = errorMessage {
                 self.birthNoticeView.switchButton.isOn = !self.birthNoticeView.switchButton.isOn
                 return self.renderPopupWithOkayButtonNoImage(title: "에러", message: errorMessage)
@@ -342,13 +366,12 @@ extension PetSettingsController:NoticeItemDelegate {
     func noticeItemTapped(sender: NoticeItem) {
         
         if sender == self.miteNoticeView {
-            print("진드기 예방약 버튼 클릭")
             let notificationName = NotificationNameEnum.shared.miteEating
             let notificationFormController = MiteNotificationViewController(pet: self.pet, notificationName: notificationName)
+            notificationFormController.delegate = self 
             navigationController?.pushViewController(notificationFormController, animated: true)
         }
         if sender == self.helminthicView {
-            print("구충제 예방 버튼 클릭")
             let notificationName = NotificationNameEnum.shared.helminthic
             let notificationFormController = NotificationFormController(notificationName: notificationName, pet: self.pet)
             notificationFormController.delegate = self 
@@ -373,6 +396,9 @@ extension PetSettingsController:NotificationFormDelegate {
             break
         case NotificationNameEnum.shared.helminthic:
             self.helminthicView.switchButton.isOn = value
+            break
+        case NotificationNameEnum.shared.miteEating:
+            self.miteNoticeView.switchButton.isOn = value
             break
         default:
             break

@@ -66,16 +66,65 @@ class MiteNotificationViewController: UIViewController {
             label.text = "반려견들에게 산책만큼 큰 즐거움이 또 있을까요? 하지만, 공원, 산 등 풀이 있는 곳으로 산책을 다녀온 뒤 각종 내외부 기생충에 감염될 수 있어 주의가 필요하답니다. 진드기와 같이 눈에 띄는 외부 기생충의 경우 직접 제거해줄 수 있지만, 눈에 보이지 않는 내부 기생충의 경우 심한 경우 혈관을 막아 반려견을 사망에까지 이르게 할 수 있어 매우 위험해요!\n구충제는 한 번 투약하고 마는 것이 아니라 주기적인 투약이 필요해요. 생후 4주가 지났다면 수의사에게 구충제 복용에 대해 상담하고 처방을 받는 것이 좋습니다.\n\n구충제를 가장 마지막으로 먹인 날, 혹은 가장 빠른 시일내에 먹일날을 입력해주시면 구충제를 먹일 주기인 한달에 한 번씩 푸쉬 알림으로 반려동물의 구충제 약을 먹일 날을 미리 알려드려요!"
             break
         case NotificationNameEnum.shared.miteCover:
-            label.text = "진드기 관련 내용"
+            label.text = "왜인지 모르게 산책하고 왔는데, 우리 강아지가 아파하면 바로 의심해봐야되는게 진드기인데요, 진드기가 위험한 이유는 숙주의 피를 빨아먹고 질병을 옮기기 때문이에요. 작은 사이즈로 보이지만, 그대로 방치하게 되면 피를 빨아 먹어서 점점 커지기도 하고, 염증이나 기타 질병으로도 이어질 수 있는 위험한 녀석들입니다. 그렇기에 미리미리 예방하고 접종하거나 약을 먹이면서 치료해야 합니다. 진드기는 작은 사이즈가 기생하면 잘 보이지 않는 경우가 대다수이기에 미리 예방하는게 가장 좋아요! 진드기약은 크게 바르는 약과 먹이는 약 두 종류로 나뉘어지게 됩니다. 바르는 약 혹은 먹이는 약 중에서 반려동물에게 처방할 약을 선택해주시고, 가장 최근 혹은 가장 빠른 시일내에 처방한 날을 입력해주시면, 해당 날짜를 기반으로 알림을 통해 미리 알려드려요!"
             break
         case NotificationNameEnum.shared.miteEating:
-            label.text = "진드기 관련 내용"
+            label.text = "왜인지 모르게 산책하고 왔는데, 우리 강아지가 아파하면 바로 의심해봐야되는게 진드기인데요, 진드기가 위험한 이유는 숙주의 피를 빨아먹고 질병을 옮기기 때문이에요. 작은 사이즈로 보이지만, 그대로 방치하게 되면 피를 빨아 먹어서 점점 커지기도 하고, 염증이나 기타 질병으로도 이어질 수 있는 위험한 녀석들입니다. 그렇기에 미리미리 예방하고 접종하거나 약을 먹이면서 치료해야 합니다. 진드기는 작은 사이즈가 기생하면 잘 보이지 않는 경우가 대다수이기에 미리 예방하는게 가장 좋아요! 진드기약은 크게 바르는 약과 먹이는 약 두 종류로 나뉘어지게 됩니다. 바르는 약 혹은 먹이는 약 중에서 반려동물에게 처방할 약을 선택해주시고, 가장 최근 혹은 가장 빠른 시일내에 처방한 날을 입력해주시면, 해당 날짜를 기반으로 알림을 통해 미리 알려드려요!"
             break
         default:
             label.text = "??"
             break
         }
         return label
+    }()
+    
+    private lazy var miteEatingButton:UIButton = {
+        let bt = UIButton(type: UIButton.ButtonType.system)
+        bt.setTitle("먹이는 약", for: UIControl.State.normal)
+        bt.addTarget(self, action: #selector(miteKindButtonTapped), for: UIControl.Event.touchUpInside)
+        return bt
+    }()
+    
+    private lazy var miteCoveringButton:UIButton = {
+        let bt = UIButton(type: UIButton.ButtonType.system)
+        bt.setTitle("바르는 약", for: UIControl.State.normal)
+        bt.addTarget(self, action: #selector(miteKindButtonTapped), for: UIControl.Event.touchUpInside)
+        return bt
+    }()
+    
+    private lazy var selectedVar:UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemBlue
+        view.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        return view
+    }()
+    
+    private lazy var buttonsContainer:UIView = {
+        
+        let view = UIView()
+        
+        view.addSubview(miteEatingButton)
+        miteEatingButton.translatesAutoresizingMaskIntoConstraints = false
+        miteEatingButton.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        miteEatingButton.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        miteEatingButton.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        miteEatingButton.widthAnchor.constraint(equalToConstant: (self.view.frame.width - 40) / 2).isActive = true
+        
+        
+        view.addSubview(miteCoveringButton)
+        miteCoveringButton.translatesAutoresizingMaskIntoConstraints = false
+        miteCoveringButton.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        miteCoveringButton.leftAnchor.constraint(equalTo: miteEatingButton.rightAnchor).isActive = true
+        miteCoveringButton.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        miteCoveringButton.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        view.addSubview(selectedVar)
+        selectedVar.translatesAutoresizingMaskIntoConstraints = false
+        selectedVar.centerXAnchor.constraint(equalTo: miteEatingButton.centerXAnchor).isActive = true
+
+        selectedVar.widthAnchor.constraint(equalToConstant: (self.view.frame.width - 40) / 2).isActive = true
+        selectedVar.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        return view
     }()
     
     let years:[String] = Utilities.shared.generateUserBirthList()
@@ -197,13 +246,22 @@ class MiteNotificationViewController: UIViewController {
         descriptionLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
         descriptionLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
         
+        scrollView.addSubview(buttonsContainer)
+        buttonsContainer.translatesAutoresizingMaskIntoConstraints = false
+        buttonsContainer.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 50).isActive = true
+        buttonsContainer.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
+        buttonsContainer.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
+        buttonsContainer.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        
+        
+        
         
         let textFieldStack = UIStackView(arrangedSubviews: [self.yearPickerTextField, self.monthPickerTextField, self.dayPickerTextField])
         textFieldStack.axis = .horizontal
         textFieldStack.distribution = .fillEqually
         scrollView.addSubview(textFieldStack)
         textFieldStack.translatesAutoresizingMaskIntoConstraints = false
-        textFieldStack.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        textFieldStack.topAnchor.constraint(equalTo: buttonsContainer.bottomAnchor, constant: 70).isActive = true
         textFieldStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
         textFieldStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
         
@@ -231,7 +289,7 @@ class MiteNotificationViewController: UIViewController {
     
     // MARK: APIs
     func fetchNotification() {
-        NotificationService.shared.findNotificationByPetIdAndNotificationName(petId: pet._id, notificationName: notificationName) { (error, errorMessage, success, notification) in
+        NotificationService.shared.findNotificationByPetIdAndNotificationName(petId: pet._id, notificationName: NotificationNameEnum.shared.miteEating) { (error, errorMessage, success, notification) in
             self.loadingView.isHidden = true
             if let errorMessage = errorMessage {
                 return self.renderPopupWithOkayButtonNoImage(title: "에러", message: errorMessage)
@@ -250,6 +308,17 @@ class MiteNotificationViewController: UIViewController {
                     let day = calendar.component(Calendar.Component.day, from: notification.firstNotified)
                     
                     
+                    
+                    if let type = notification.type {
+                        if type == MiteNotificationKindEnum.shared.cover {
+                            self.notificationName = NotificationNameEnum.shared.miteCover
+                            UIView.animate(withDuration: 0.3) {
+                                self.selectedVar.frame.origin.x += (self.view.frame.width - 40) / 2
+                            }
+                        }
+                    }
+                    
+                    
                     self.selectedYear = String(year)
                     self.selectedMonth = String(month)
                     self.selectedDay = String(day)
@@ -265,6 +334,31 @@ class MiteNotificationViewController: UIViewController {
     }
     
     // MARK: Selectors
+    @objc func miteKindButtonTapped(sender:UIButton){
+        
+        if (self.notificationName == NotificationNameEnum.shared.miteEating) {
+            if (sender == self.miteCoveringButton) {
+                // 먹이는 약인 상태에서 바르는 약을 클릭하면 selectedVar를 오른쪽으로 self.view.frame - 40 / 2 만큼 움직여준다.
+                UIView.animate(withDuration: 0.3) {
+                    self.selectedVar.frame.origin.x += (self.view.frame.width - 40) / 2
+                }
+                self.notificationName = NotificationNameEnum.shared.miteCover
+            }
+        }
+        
+        if (self.notificationName == NotificationNameEnum.shared.miteCover) {
+            if (sender == self.miteEatingButton) {
+                // 바르는 약인 상태에서 먹이는 약을 클릭하면 selectedVar를 왼쪽으로 self.view.frame - 40 / 2 만큼 움직여준다.
+                UIView.animate(withDuration: 0.3) {
+                    self.selectedVar.frame.origin.x -= (self.view.frame.width - 40) / 2
+                }
+                self.notificationName = NotificationNameEnum.shared.miteEating
+            }
+        }
+        
+    }
+    
+    
     @objc func cancleButtonTapped(sender:UIButton) {
    
         
@@ -272,7 +366,7 @@ class MiteNotificationViewController: UIViewController {
         self.loadingView.isHidden = false
         
         // Server 알림 끄기 요청
-        NotificationService.shared.turnOffNotification(petId: self.pet._id, notificationName: self.notificationName) { (error, errorMessage, success) in
+        NotificationService.shared.turnOffNotification(petId: self.pet._id, notificationName: NotificationNameEnum.shared.miteEating) { (error, errorMessage, success) in
             if let errorMessage = errorMessage {
                 return self.renderPopupWithOkayButtonNoImage(title: "에러", message: errorMessage)
             }
@@ -281,10 +375,10 @@ class MiteNotificationViewController: UIViewController {
             }
             if success {
                 // LocalStorage에도 알림값 False
-                LocalData.shared.setting(key: self.notificationName, value: "false")
+                LocalData.shared.setting(key: NotificationNameEnum.shared.miteEating, value: "false")
                 // Loading 끄고 이전 화면으로 돌아가기
                 // 이전 화면의 알림도 꺼준다.
-                self.delegate?.toggleNotificationValue(notificationName: self.notificationName, value: false)
+                self.delegate?.toggleNotificationValue(notificationName: NotificationNameEnum.shared.miteEating, value: false)
                 self.loadingView.isHidden = true
                 self.navigationController?.popViewController(animated: true)
             }else {
@@ -306,25 +400,51 @@ class MiteNotificationViewController: UIViewController {
             return self.renderPopupWithOkayButtonNoImage(title: "알림", message: "일 을 입력해주세요")
         }
         self.loadingView.isHidden = false
-        NotificationService.shared.createOrUpdateNotification(petId: self.pet._id, notificationName: self.notificationName, isOn: true, firstNotifiedYear: selectedYear, firstNotifiedMonth: selectedMonth, firstNotifiedDate: selectedDay) { (error, errorMessage, success) in
-            self.loadingView.isHidden = true
-            if let errorMessage = errorMessage {
-                return self.renderPopupWithOkayButtonNoImage(title: "에러", message: errorMessage)
+        
+        
+        
+        if self.notificationName == NotificationNameEnum.shared.miteCover {
+            NotificationService.shared.createOrUpdateNotification(petId: self.pet._id, notificationName: NotificationNameEnum.shared.miteEating, isOn: true, firstNotifiedYear: selectedYear, firstNotifiedMonth: selectedMonth, firstNotifiedDate: selectedDay, type: MiteNotificationKindEnum.shared.cover) { (error, errorMessage, success) in
+                self.loadingView.isHidden = true
+                if let errorMessage = errorMessage {
+                    return self.renderPopupWithOkayButtonNoImage(title: "에러", message: errorMessage)
+                }
+
+                if let error = error {
+                    return self.renderPopupWithOkayButtonNoImage(title: "에러", message: error.localizedDescription)
+                }
+
+                if success == false {
+                    self.renderPopupWithOkayButtonNoImage(title: "에러", message: "알 수 없는 에러 발생")
+                    return
+                }
+
+                LocalData.shared.setting(key: NotificationNameEnum.shared.miteEating, value: "true")
+                self.delegate?.toggleNotificationValue(notificationName: NotificationNameEnum.shared.miteEating, value: true)
+                self.navigationController?.popViewController(animated: true)
             }
-            
-            if let error = error {
-                return self.renderPopupWithOkayButtonNoImage(title: "에러", message: error.localizedDescription)
+        }else {
+            NotificationService.shared.createOrUpdateNotification(petId: self.pet._id, notificationName: NotificationNameEnum.shared.miteEating, isOn: true, firstNotifiedYear: selectedYear, firstNotifiedMonth: selectedMonth, firstNotifiedDate: selectedDay, type: MiteNotificationKindEnum.shared.eat) { (error, errorMessage, success) in
+                self.loadingView.isHidden = true
+                if let errorMessage = errorMessage {
+                    return self.renderPopupWithOkayButtonNoImage(title: "에러", message: errorMessage)
+                }
+
+                if let error = error {
+                    return self.renderPopupWithOkayButtonNoImage(title: "에러", message: error.localizedDescription)
+                }
+
+                if success == false {
+                    self.renderPopupWithOkayButtonNoImage(title: "에러", message: "알 수 없는 에러 발생")
+                    return
+                }
+
+                LocalData.shared.setting(key: NotificationNameEnum.shared.miteEating, value: "true")
+                self.delegate?.toggleNotificationValue(notificationName: NotificationNameEnum.shared.miteEating, value: true)
+                self.navigationController?.popViewController(animated: true)
             }
-            
-            if success == false {
-                self.renderPopupWithOkayButtonNoImage(title: "에러", message: "알 수 없는 에러 발생")
-                return
-            }
-            
-            LocalData.shared.setting(key: self.notificationName, value: "true")
-            self.delegate?.toggleNotificationValue(notificationName: self.notificationName, value: true)
-            self.navigationController?.popViewController(animated: true)
         }
+        
     }
     
 

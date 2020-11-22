@@ -303,7 +303,7 @@ class NotificationFormController: UIViewController {
             return self.renderPopupWithOkayButtonNoImage(title: "알림", message: "일 을 입력해주세요")
         }
         self.loadingView.isHidden = false
-        NotificationService.shared.createOrUpdateNotification(petId: self.pet._id, notificationName: self.notificationName, isOn: true, firstNotifiedYear: selectedYear, firstNotifiedMonth: selectedMonth, firstNotifiedDate: selectedDay) { (error, errorMessage, success) in
+        NotificationService.shared.createOrUpdateNotification(petId: self.pet._id, notificationName: self.notificationName, isOn: true, firstNotifiedYear: selectedYear, firstNotifiedMonth: selectedMonth, firstNotifiedDate: selectedDay, type: nil) { (error, errorMessage, success) in
             self.loadingView.isHidden = true
             if let errorMessage = errorMessage {
                 return self.renderPopupWithOkayButtonNoImage(title: "에러", message: errorMessage)

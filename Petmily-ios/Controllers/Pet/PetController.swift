@@ -49,10 +49,10 @@ class PetController: UIViewController {
         let button = UIButton(type: UIButton.ButtonType.system)
         button.setTitle("+", for: UIControl.State.normal)
         button.setTitleColor(UIColor.white, for: UIControl.State.normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 45)
-        button.widthAnchor.constraint(equalToConstant: 60).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        button.layer.cornerRadius = 30
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 25)
+        button.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        button.layer.cornerRadius = 25
         button.backgroundColor = UIColor.systemBlue
         if traitCollection.userInterfaceStyle == .dark {
             button.layer.shadowColor = UIColor.white.cgColor
@@ -235,7 +235,7 @@ extension PetController:UICollectionViewDelegateFlowLayout {
 extension PetController:PetCellDelegate {
     func cellTapped(petCell: PetCell) {
         guard let pet = petCell.pet else { return }
-        let petDetailCollectionViewController = PetDetailCollectionViewController(pet: pet)
+        let petDetailCollectionViewController = PetDetailCollectionViewController(pet: pet, petController: self)
         petDetailCollectionViewController.delegate = self
         navigationController?.pushViewController(petDetailCollectionViewController, animated: true)
     }

@@ -68,7 +68,7 @@ class NotificationService {
         
     }
     
-    func createOrUpdateNotification(petId:String,notificationName:String, isOn:Bool, firstNotifiedYear:String, firstNotifiedMonth:String, firstNotifiedDate:String, completion:@escaping(Error?, String?, Bool) -> Void) {
+    func createOrUpdateNotification(petId:String,notificationName:String, isOn:Bool, firstNotifiedYear:String, firstNotifiedMonth:String, firstNotifiedDate:String, type:String?, completion:@escaping(Error?, String?, Bool) -> Void) {
         
         LocalData.shared.getting(key: "token") { (token) in
             guard let token = token else {
@@ -81,7 +81,8 @@ class NotificationService {
                 "isOn":isOn,
                 "firstNotifiedYear":firstNotifiedYear,
                 "firstNotifiedMonth":firstNotifiedMonth,
-                "firstNotifiedDate":firstNotifiedDate
+                "firstNotifiedDate":firstNotifiedDate,
+                "type": type ?? ""
             ], encoding: JSONEncoding.default, headers: [
                 "authorization":"Bearer \(token)"
             ], interceptor: nil, requestModifier: nil).responseJSON { (response) in

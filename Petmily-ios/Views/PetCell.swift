@@ -46,6 +46,12 @@ class PetCell:UICollectionViewCell {
         return label
     }()
     
+    private lazy var grayLine:GrayLineView = {
+        let view = GrayLineView()
+        
+        return view
+    }()
+    
     // MARK: Lifecycles
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -59,16 +65,41 @@ class PetCell:UICollectionViewCell {
     
     // MARK: Configures
     func configureUI(){
-        let stack = UIStackView(arrangedSubviews: [photo, name, kind])
-        stack.axis = .vertical
-        stack.spacing = 10
-        stack.alignment = .center
-        addSubview(stack)
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        stack.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        stack.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        stack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -30).isActive = true
+//        let stack = UIStackView(arrangedSubviews: [photo, name, kind])
+//        stack.axis = .vertical
+//        stack.spacing = 10
+//        stack.alignment = .center
+//        addSubview(stack)
+//        stack.translatesAutoresizingMaskIntoConstraints = false
+//        stack.topAnchor.constraint(equalTo: topAnchor).isActive = true
+//        stack.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+//        stack.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+//        stack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -30).isActive = true
+        
+        addSubview(photo)
+        photo.translatesAutoresizingMaskIntoConstraints = false
+        photo.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        photo.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        
+        
+        addSubview(name)
+        name.translatesAutoresizingMaskIntoConstraints = false
+        name.topAnchor.constraint(equalTo: photo.bottomAnchor, constant: 35).isActive = true
+        name.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        
+        addSubview(kind)
+        kind.translatesAutoresizingMaskIntoConstraints = false
+        kind.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 3).isActive = true
+        kind.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        
+        addSubview(grayLine)
+        grayLine.translatesAutoresizingMaskIntoConstraints = false
+        grayLine.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        grayLine.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        grayLine.leftAnchor.constraint(equalTo: leftAnchor, constant: 20).isActive = true
+        grayLine.rightAnchor.constraint(equalTo: rightAnchor, constant: -20).isActive = true
+        
+        
         
     }
     

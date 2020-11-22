@@ -11,23 +11,34 @@ import Alamofire
 class PetService {
     static let shared = PetService()
     
-    func uploadPetPhotos(petId:String, petPhotoUrls:[String], completion:@escaping(Error?, String?, Bool) -> Void) {
+    func uploadPetPhotos(petId:String, petPhotoUrls:[String], completion:@escaping(Error?, String?, Bool, [PetPhoto]) -> Void) {
         let urlString = "\(Properties.PETMILY_API)/v1/pet/photos"
+        var petPhotos:[PetPhoto] = []
         guard let url = URL(string: urlString) else {
-            return completion(nil, "URL 객체 생성 실패", false)
+            return completion(nil, "URL 객체 생성 실패", false, petPhotos)
         }
+        
         AF.request(url, method: HTTPMethod.post, parameters: ["petId":petId, "petPhotoUrl":petPhotoUrls], encoding: JSONEncoding.default, headers: nil, interceptor: nil, requestModifier: nil).responseJSON { (response) in
             switch response.result {
             case .failure(let error):
-                return completion(error, nil, false)
+                return completion(error, nil, false, petPhotos)
             case .success(let value):
                 guard let value = value as? [String:Any] else { return }
                 guard let ok = value["ok"] as? Bool else { return }
                 if ok == false {
                     guard let message = value["message"] as? String else { return }
-                    return completion(nil, message, false)
+                    return completion(nil, message, false, petPhotos)
                 }else {
-                    return completion(nil, nil, true)
+                    guard let photosDictionaries = value["photos"] as? [[String:Any]] else {
+                        return completion(nil, "알 수 없는 에러 발생", false,petPhotos)
+                    }
+                    
+                    for petPhotoDict in photosDictionaries {
+                        let petPhoto = PetPhoto(dictionary: petPhotoDict)
+                        petPhotos.append(petPhoto)
+                    }
+                    
+                    return completion(nil, nil, true, petPhotos)
                 }
             }
         }

@@ -8,10 +8,15 @@
 import UIKit
 import SDWebImage
 
+protocol PetImageCellDelgate:class {
+    func petImageCellTapped(petPhoto:PetPhoto)
+}
+
 
 class PetImageCell: UICollectionViewCell {
     
     // MARK: - Properties
+    weak var delegate:PetImageCellDelgate?
     
     
     var photo:PetPhoto? {
@@ -86,6 +91,8 @@ class PetImageCell: UICollectionViewCell {
         DispatchQueue.main.async {
             self.photoView.layer.opacity = 1
         }
+        guard let petPhoto = self.photo else { return }
+        self.delegate?.petImageCellTapped(petPhoto: petPhoto)
         
     }
     

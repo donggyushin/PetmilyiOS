@@ -7,6 +7,12 @@
 
 import Foundation
 
+struct MiteNotificationKindEnum {
+    static let shared = MiteNotificationKindEnum()
+    let eat = "eat"
+    let cover = "cover"
+}
+
 struct NotificationNameEnum {
     static let shared = NotificationNameEnum()
     let birth = "birth"
@@ -25,6 +31,7 @@ struct NotificationModel {
     var createdAt:Date
     var updatedAt:Date
     var firstNotified:Date
+    var type:String?
     
     init(dictionary:[String:Any]) {
         let petIdentifier = dictionary["petIdentifier"] as? String ?? ""
@@ -38,6 +45,7 @@ struct NotificationModel {
         let updatedAt = Utilities.shared.convertStringDateToDate(stringDate: updatedAtString)
         let firstNotifiedString = dictionary["firstNotified"] as? String ?? ""
         let firstNotified = Utilities.shared.convertStringDateToDate(stringDate: firstNotifiedString)
+        let type = dictionary["type"] as? String
         
         self.petIdentifier = petIdentifier
         self.userFcmToken = userFcmToken
@@ -47,6 +55,7 @@ struct NotificationModel {
         self.createdAt = createdAt
         self.updatedAt = updatedAt
         self.firstNotified = firstNotified
+        self.type = type
         
     }
 }
