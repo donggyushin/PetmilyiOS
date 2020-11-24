@@ -11,6 +11,40 @@ import Alamofire
 class PetService {
     static let shared = PetService()
     
+    func deletePetPhoto(petPhotoId:String, petId:String, completion:@escaping(Error?, String?, Bool, [PetPhoto]) -> Void){
+        let urlString = "\(Properties.PETMILY_API)/v1/pet/photo?petPhotoId=\(petPhotoId)&petId=\(petId)"
+        var petPhotos:[PetPhoto] = []
+        print("petPhotoId:\(petPhotoId)")
+        print("petId:\(petId)")
+        guard let url = URL(string: urlString) else {
+            return completion(nil, "url 객체 만드는데 실패함", false, petPhotos)
+        }
+        
+        AF.request(url, method: HTTPMethod.delete, parameters: nil, encoding: JSONEncoding.default, headers: nil, interceptor: nil, requestModifier: nil).responseJSON { (response) in
+            switch response.result {
+            case .failure(let error):
+                completion(error, nil, false, petPhotos)
+                break
+            case .success(let value):
+                print("value: \(value)")
+                guard let value = value as? [String:Any] else { return }
+                guard let ok = value["ok"] as? Bool else { return }
+                if ok {
+                    guard let petPhotoDictionaries = value["updatedPetPhotos"] as? [[String:Any]] else { return }
+                    for dict in petPhotoDictionaries {
+                        let petPhoto = PetPhoto(dictionary: dict)
+                        petPhotos.append(petPhoto)
+                    }
+                    completion(nil, nil, true, petPhotos)
+                }else {
+                    guard let message = value["message"] as? String else { return }
+                    completion(nil, message, false, petPhotos)
+                }
+                break
+            }
+        }
+    }
+    
     func uploadPetPhotos(petId:String, petPhotoUrls:[String], completion:@escaping(Error?, String?, Bool, [PetPhoto]) -> Void) {
         let urlString = "\(Properties.PETMILY_API)/v1/pet/photos"
         var petPhotos:[PetPhoto] = []

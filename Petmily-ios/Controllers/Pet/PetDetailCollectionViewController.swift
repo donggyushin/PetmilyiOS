@@ -359,7 +359,7 @@ extension PetDetailCollectionViewController:PetProfileDetailHeaderCellDelegate {
 
 extension PetDetailCollectionViewController:PetImageCellDelgate {
     func petImageCellTapped(petPhoto: PetPhoto) {
-        let photoViewerController = UINavigationController(rootViewController: PhotoViewerController(petPhoto: petPhoto))
+        let photoViewerController = UINavigationController(rootViewController: PhotoViewerController(petPhoto: petPhoto, pet: self.pet, petDetailCollectionViewController: self))
         self.present(photoViewerController, animated: true, completion: nil)
     }
 }

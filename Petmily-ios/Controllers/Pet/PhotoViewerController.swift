@@ -12,6 +12,9 @@ class PhotoViewerController: UIViewController {
 
     // MARK: Properties
     let petPhoto:PetPhoto
+    let pet:PetModel
+    let petDetailCollectionViewController:PetDetailCollectionViewController
+    
     
     private lazy var photo:UIImageView = {
         let iv = UIImageView()
@@ -43,9 +46,16 @@ class PhotoViewerController: UIViewController {
         return bt
     }()
     
+    private lazy var loadingView:LoadingViewWithoutBackground = {
+        let view = LoadingViewWithoutBackground()
+        return view
+    }()
+    
     // MARK: Lifecylces
-    init(petPhoto:PetPhoto) {
+    init(petPhoto:PetPhoto, pet:PetModel, petDetailCollectionViewController:PetDetailCollectionViewController) {
         self.petPhoto = petPhoto
+        self.pet = pet
+        self.petDetailCollectionViewController = petDetailCollectionViewController
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -91,6 +101,14 @@ class PhotoViewerController: UIViewController {
         deleteButton.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         deleteButton.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         deleteButton.heightAnchor.constraint(equalToConstant: view.frame.height * 0.1).isActive = true
+        
+        view.addSubview(loadingView)
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
+        loadingView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        loadingView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        loadingView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        loadingView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        loadingView.isHidden = true
     }
     
     func configureNavigationBar() {
@@ -131,7 +149,8 @@ class PhotoViewerController: UIViewController {
         print("사진 삭제하기 액션쉿 보여주기")
         let actionSheet = UIAlertController(title: nil, message: "정말로 사진을 삭제하시겠습니까?", preferredStyle: UIAlertController.Style.actionSheet)
         actionSheet.addAction(UIAlertAction(title: "네", style: .default , handler:{ (UIAlertAction)in
-                print("사진 삭제하기")
+                
+            self.deletePhoto()
             }))
         actionSheet.addAction(UIAlertAction(title: "아니오", style: .cancel , handler:{ (UIAlertAction)in
                 print("유저가 취소 버튼 누름")
@@ -146,6 +165,29 @@ class PhotoViewerController: UIViewController {
         // 다운 다 받고 화면 내리기
         UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func deletePhoto() {
+        
+        self.loadingView.isHidden = false
+        PetService.shared.deletePetPhoto(petPhotoId: self.petPhoto._id, petId: self.pet._id) { (error, errorMessage, success, petPhotos) in
+            self.loadingView.isHidden = true
+            if let errorMessage = errorMessage {
+                return self.renderPopupWithOkayButtonNoImage(title: "에러", message: errorMessage)
+            }
+            
+            if let error = error {
+                return self.renderPopupWithOkayButtonNoImage(title: "에러", message: error.localizedDescription)
+            }
+            
+            if success {
+                self.petDetailCollectionViewController.pet.photos = petPhotos
+                self.petDetailCollectionViewController.petController.fetchMyPets()
+                self.dismiss(animated: true, completion: nil)
+            }else {
+                self.renderPopupWithOkayButtonNoImage(title: "에러", message: "알 수 없는 에러 발생")
+            }
+        }
     }
     
 }
