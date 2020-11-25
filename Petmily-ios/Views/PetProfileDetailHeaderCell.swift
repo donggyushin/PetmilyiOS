@@ -84,7 +84,7 @@ class PetProfileDetailHeaderCell: UICollectionViewCell {
     
     private lazy var favoriteButton:UIButton = {
         let bt = UIButton(type: UIButton.ButtonType.system)
-        bt.setTitle("Favorites", for: UIControl.State.normal)
+        bt.setTitle("❤️", for: UIControl.State.normal)
         bt.addTarget(self, action: #selector(buttonTapped), for: UIControl.Event.touchUpInside)
         return bt
     }()

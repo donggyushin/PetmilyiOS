@@ -11,6 +11,7 @@ import YPImagePicker
 private let reuseIdentifier = "cell"
 private let reuseIdentifierForHeader = "header"
 private let reuseIdentifierForFooter = "footer"
+private let reuseIdentifierForInfoFooter = "infofooter"
 
 
 protocol PetDetailCollectionViewControllerDelegate: class {
@@ -153,6 +154,7 @@ class PetDetailCollectionViewController: UICollectionViewController {
     func configureCollectionViews(){
         self.collectionView!.register(PetProfileDetailHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader , withReuseIdentifier: reuseIdentifierForHeader)
         self.collectionView!.register(PetProfileDetailFooterCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: reuseIdentifierForFooter)
+        self.collectionView!.register(PetProfileDetailFooterSecondCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: reuseIdentifierForInfoFooter)
         self.collectionView!.register(PetImageCell.self, forCellWithReuseIdentifier: reuseIdentifier)
     }
     
@@ -231,6 +233,13 @@ class PetDetailCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
         if kind == UICollectionView.elementKindSectionFooter {
+            
+            if self.selectedCategory == "Favorites" {
+                let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: reuseIdentifierForInfoFooter, for: indexPath) as! PetProfileDetailFooterSecondCell
+                return footer
+            }
+            
+            
             let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: reuseIdentifierForFooter, for: indexPath) as! PetProfileDetailFooterCell
             footer.card.delegate = self
             return footer
@@ -265,8 +274,12 @@ extension PetDetailCollectionViewController:UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         
-        if self.pet.photos.count == 0 {
+        if self.pet.photos.count == 0 && self.selectedCategory == "photos" {
             return CGSize(width: view.frame.width, height: 400)
+        }
+        
+        if self.selectedCategory == "Favorites" {
+            return CGSize(width: view.frame.width, height: view.frame.height - 400)
         }
         
         return CGSize(width: 0, height: 0)
