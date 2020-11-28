@@ -317,6 +317,8 @@ class PetSettingsController: UIViewController {
     
     @objc func noticeButtonTapped(){
         print("알림 정보 버튼 클릭")
+        let notificationDetailController = PetNotificationDetailController()
+        navigationController?.pushViewController(notificationDetailController, animated: true)
     }
     
 

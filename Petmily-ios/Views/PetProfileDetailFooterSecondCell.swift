@@ -10,9 +10,31 @@ import UIKit
 class PetProfileDetailFooterSecondCell: UICollectionViewCell {
     
     // MARK: Properties
+    
+    var dailyInfo:DailyInfoModel? {
+        didSet {
+            
+            guard let dailyInfo = self.dailyInfo else { return }
+            titleLabel.text = dailyInfo.title
+            textLabel.text = dailyInfo.text
+        }
+    }
+    
     private lazy var testLabel:UILabel = {
         let label = UILabel()
         label.text = "준비중인 기능이에요"
+        return label
+    }()
+    
+    private lazy var titleLabel:UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.bold)
+        return label
+    }()
+    
+    private lazy var textLabel:UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
         return label
     }()
     
@@ -22,6 +44,7 @@ class PetProfileDetailFooterSecondCell: UICollectionViewCell {
         super.init(frame: frame)
         
         configureUI()
+        
     }
     
     required init?(coder: NSCoder) {
@@ -31,11 +54,20 @@ class PetProfileDetailFooterSecondCell: UICollectionViewCell {
     // MARK: Configures
     func configureUI() {
         backgroundColor = .systemBackground
-        addSubview(testLabel)
-        testLabel.translatesAutoresizingMaskIntoConstraints = false
-        testLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        testLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        
+        
+        addSubview(titleLabel)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 50).isActive = true
+        
+        addSubview(textLabel)
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        textLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30).isActive = true
+        textLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 20).isActive = true
+        textLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -20).isActive = true
         
     }
+    
     
 }

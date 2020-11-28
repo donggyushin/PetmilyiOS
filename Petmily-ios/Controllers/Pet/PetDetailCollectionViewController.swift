@@ -22,6 +22,8 @@ class PetDetailCollectionViewController: UICollectionViewController {
     // MARK: - Properties
     weak var delegate:PetDetailCollectionViewControllerDelegate?
     
+    var dailyInfo:DailyInfoModel?
+    
     var imagePicker: ImagePicker!
     
     let petController:PetController
@@ -41,6 +43,13 @@ class PetDetailCollectionViewController: UICollectionViewController {
     }
     
     var favoritePhotos:[PetPhoto] = []
+    
+    private lazy var notificationButton:UIButton = {
+        let bt = UIButton(type: UIButton.ButtonType.system)
+        bt.setTitle("셋팅", for: UIControl.State.normal)
+        bt.addTarget(self, action: #selector(rightBarButtonItemTapped), for: UIControl.Event.touchUpInside)
+        return bt
+    }()
     
     private lazy var favoriteCollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
     
@@ -97,7 +106,28 @@ class PetDetailCollectionViewController: UICollectionViewController {
         configurePicker()
         configureUINavigation()
         configureCollectionViews()
+        fetchDailyInfo()
    
+    }
+    
+    // MARK: APIs
+    func fetchDailyInfo() {
+        DailyInfoService.shared.getRandomDailyInfo { (error, errorMessage, success, dailyInfo) in
+            if let errorMessage = errorMessage {
+                return self.renderPopupWithOkayButtonNoImage(title: "에러", message: errorMessage)
+            }
+            
+            if let error = error {
+                return self.renderPopupWithOkayButtonNoImage(title: "에러", message: error.localizedDescription)
+            }
+            
+            if success {
+                guard let dailyInfo = dailyInfo else { return }
+                self.dailyInfo = dailyInfo
+            }else {
+                return self.renderPopupWithOkayButtonNoImage(title: "에러", message: "알 수 없는 에러 발생")
+            }
+        }
     }
     
     
@@ -148,7 +178,8 @@ class PetDetailCollectionViewController: UICollectionViewController {
     
     func configureUINavigation(){
         navigationItem.backButtonTitle = self.pet.name
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.compose, target: self, action: #selector(rightBarButtonItemTapped))
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.edit, target: self, action: #selector(rightBarButtonItemTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.notificationButton)
     }
     
     func configureCollectionViews(){
@@ -236,6 +267,7 @@ class PetDetailCollectionViewController: UICollectionViewController {
             
             if self.selectedCategory == "Favorites" {
                 let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: reuseIdentifierForInfoFooter, for: indexPath) as! PetProfileDetailFooterSecondCell
+                footer.dailyInfo = self.dailyInfo
                 return footer
             }
             
@@ -261,7 +293,7 @@ extension PetDetailCollectionViewController:UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 1
+        return 2
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
@@ -274,11 +306,20 @@ extension PetDetailCollectionViewController:UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         
+        
         if self.pet.photos.count == 0 && self.selectedCategory == "photos" {
+            
             return CGSize(width: view.frame.width, height: 400)
         }
         
         if self.selectedCategory == "Favorites" {
+            if let dailyInfo = self.dailyInfo {
+                let dailyInfoText = dailyInfo.text
+                let stringHeight = dailyInfoText.height(withConstrainedWidth: self.view.frame.width - 40, font: UIFont.systemFont(ofSize: 17))
+                
+                return CGSize(width: view.frame.width, height: 200 + stringHeight)
+                
+            }
             return CGSize(width: view.frame.width, height: view.frame.height - 400)
         }
         

@@ -38,11 +38,10 @@ class PhotoViewerController: UIViewController {
         return view
     }()
     
-    private lazy var deleteButton:UIButton = {
+    private lazy var donwloadButton:UIButton = {
         let bt = UIButton(type: UIButton.ButtonType.system)
-        bt.setTitle("삭제하기", for: UIControl.State.normal)
-        bt.setTitleColor(UIColor.systemRed, for: UIControl.State.normal)
-        bt.addTarget(self, action: #selector(buttonTapped), for: UIControl.Event.touchUpInside)
+        bt.setTitle("내려받기", for: UIControl.State.normal)
+        bt.addTarget(self, action: #selector(downloadButtonTapped), for: UIControl.Event.touchUpInside)
         return bt
     }()
     
@@ -82,25 +81,19 @@ class PhotoViewerController: UIViewController {
         photo.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         photo.heightAnchor.constraint(equalToConstant: view.frame.height * 0.7).isActive = true
         
-        view.addSubview(favoriteButton)
-        favoriteButton.translatesAutoresizingMaskIntoConstraints = false
-        favoriteButton.topAnchor.constraint(equalTo: photo.bottomAnchor).isActive = true
-        favoriteButton.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        favoriteButton.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        favoriteButton.heightAnchor.constraint(equalToConstant: view.frame.height * 0.1).isActive = true
+        view.addSubview(donwloadButton)
+        donwloadButton.translatesAutoresizingMaskIntoConstraints = false
+        donwloadButton.topAnchor.constraint(equalTo: photo.bottomAnchor).isActive = true
+        donwloadButton.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        donwloadButton.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        donwloadButton.heightAnchor.constraint(equalToConstant: view.frame.height * 0.1).isActive = true
         
         view.addSubview(divider)
         divider.translatesAutoresizingMaskIntoConstraints = false
-        divider.topAnchor.constraint(equalTo: favoriteButton.bottomAnchor).isActive = true
+        divider.topAnchor.constraint(equalTo: donwloadButton.bottomAnchor).isActive = true
         divider.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
         divider.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
-        
-        view.addSubview(deleteButton)
-        deleteButton.translatesAutoresizingMaskIntoConstraints = false
-        deleteButton.topAnchor.constraint(equalTo: divider.bottomAnchor).isActive = true
-        deleteButton.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        deleteButton.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        deleteButton.heightAnchor.constraint(equalToConstant: view.frame.height * 0.1).isActive = true
+     
         
         view.addSubview(loadingView)
         loadingView.translatesAutoresizingMaskIntoConstraints = false
@@ -112,15 +105,19 @@ class PhotoViewerController: UIViewController {
     }
     
     func configureNavigationBar() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.action, target: self, action: #selector(downloadButtonTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.trash, target: self, action: #selector(trashButtonTapped))
     }
     
     // MARK: Selectors
     @objc func buttonTapped(sender:UIButton){
         print("버튼 탭")
-        if sender == self.deleteButton {
+        if sender == self.donwloadButton {
             self.showDeleteActionSheet()
         }
+    }
+    
+    @objc func trashButtonTapped() {
+        self.showDeleteActionSheet()
     }
     
     
