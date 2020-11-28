@@ -15,6 +15,13 @@ class PhotoViewerController: UIViewController {
     let pet:PetModel
     let petDetailCollectionViewController:PetDetailCollectionViewController
     
+    private lazy var backButton:UIButton = {
+        let bt = UIButton(type: UIButton.ButtonType.system)
+        bt.setTitle("뒤로", for: UIControl.State.normal)
+        bt.addTarget(self, action: #selector(backButtonTapped), for: UIControl.Event.touchUpInside)
+        return bt
+    }()
+    
     
     private lazy var photo:UIImageView = {
         let iv = UIImageView()
@@ -76,7 +83,7 @@ class PhotoViewerController: UIViewController {
         
         view.addSubview(photo)
         photo.translatesAutoresizingMaskIntoConstraints = false
-        photo.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        photo.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         photo.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         photo.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         photo.heightAnchor.constraint(equalToConstant: view.frame.height * 0.7).isActive = true
@@ -105,12 +112,20 @@ class PhotoViewerController: UIViewController {
     }
     
     func configureNavigationBar() {
+        clearNavigationBar()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.trash, target: self, action: #selector(trashButtonTapped))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: self.backButton)
     }
     
     // MARK: Selectors
+    
+    @objc func backButtonTapped(){
+        print("뒤로가기 버튼 탭!!")
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     @objc func buttonTapped(sender:UIButton){
-        print("버튼 탭")
+        print("이 버튼은 아마 지워도 될걸?")
         if sender == self.donwloadButton {
             self.showDeleteActionSheet()
         }
