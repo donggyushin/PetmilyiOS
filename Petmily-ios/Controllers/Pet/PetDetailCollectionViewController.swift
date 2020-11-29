@@ -46,7 +46,7 @@ class PetDetailCollectionViewController: UICollectionViewController {
     
     private lazy var notificationButton:UIButton = {
         let bt = UIButton(type: UIButton.ButtonType.system)
-        bt.setTitle("셋팅", for: UIControl.State.normal)
+        bt.setTitle("설정", for: UIControl.State.normal)
         bt.addTarget(self, action: #selector(rightBarButtonItemTapped), for: UIControl.Event.touchUpInside)
         return bt
     }()
@@ -329,7 +329,7 @@ extension PetDetailCollectionViewController:UICollectionViewDelegateFlowLayout {
 }
 
 extension PetDetailCollectionViewController:TouchableViewDelegate {
-    func touchableUIViewTapped() {
+    func touchableUIViewTapped(sender:TouchableUIView) {
         
         showImagePicker(self.circularUploadButton)
         

@@ -8,7 +8,7 @@
 import UIKit
 
 protocol TouchableViewDelegate:class {
-    func touchableUIViewTapped()
+    func touchableUIViewTapped(sender:TouchableUIView)
 }
 
 class TouchableUIView: UIView {
@@ -21,7 +21,7 @@ class TouchableUIView: UIView {
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         layer.opacity = 1
-        delegate?.touchableUIViewTapped()
+        delegate?.touchableUIViewTapped(sender: self)
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {

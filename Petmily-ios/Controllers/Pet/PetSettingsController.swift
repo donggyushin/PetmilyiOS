@@ -136,6 +136,32 @@ class PetSettingsController: UIViewController {
         return view
     }()
     
+    private lazy var profileLabel:UILabel = {
+        let label = UILabel()
+        label.text = "프로필"
+        label.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.bold)
+        return label
+    }()
+    
+    private lazy var line2 = GrayLineView()
+    
+    private lazy var changeProfileLabel:UILabel = {
+        let label = UILabel()
+        label.text = "프로필 변경"
+        return label
+    }()
+    
+    private lazy var changeProfileLabelContainer:TouchableUIView = {
+        let view = TouchableUIView()
+        view.addSubview(changeProfileLabel)
+        view.isUserInteractionEnabled = true
+        changeProfileLabel.translatesAutoresizingMaskIntoConstraints = false
+        changeProfileLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true 
+        changeProfileLabel.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        view.delegate = self
+        return view
+    }()
+    
     private lazy var loadingView:LoadingViewWithoutBackground = {
         let lv = LoadingViewWithoutBackground()
         return lv
@@ -212,6 +238,26 @@ class PetSettingsController: UIViewController {
         noticeStack.topAnchor.constraint(equalTo: noticeContainer.bottomAnchor, constant: 50).isActive = true
         noticeStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
         noticeStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
+        
+        
+        scrollView.addSubview(profileLabel)
+        profileLabel.translatesAutoresizingMaskIntoConstraints = false
+        profileLabel.topAnchor.constraint(equalTo: noticeStack.bottomAnchor, constant: 50).isActive = true
+        profileLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
+        
+        scrollView.addSubview(line2)
+        line2.translatesAutoresizingMaskIntoConstraints = false
+        line2.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
+        line2.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16).isActive = true
+        line2.topAnchor.constraint(equalTo: profileLabel.bottomAnchor, constant: 10).isActive = true
+        
+        scrollView.addSubview(changeProfileLabelContainer)
+        changeProfileLabelContainer.translatesAutoresizingMaskIntoConstraints = false
+        changeProfileLabelContainer.topAnchor.constraint(equalTo: line2.bottomAnchor, constant: 50).isActive = true
+        changeProfileLabelContainer.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
+        changeProfileLabelContainer.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16).isActive = true
+        changeProfileLabelContainer.heightAnchor.constraint(equalToConstant: 50).isActive = true 
+        
         
         
         view.addSubview(loadingView)
@@ -407,4 +453,15 @@ extension PetSettingsController:NotificationFormDelegate {
         }
     }
     
+}
+
+
+extension PetSettingsController:TouchableViewDelegate {
+    func touchableUIViewTapped(sender:TouchableUIView) {
+        if sender == changeProfileLabelContainer {
+            print("프로필 변경 버튼 클릭")
+            let changeProfileController = ChangePetProfileController(pet:self.pet)
+            self.navigationController?.pushViewController(changeProfileController, animated: true)
+        }
+    }
 }

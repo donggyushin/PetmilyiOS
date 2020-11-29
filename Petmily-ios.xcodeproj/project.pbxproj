@@ -34,6 +34,7 @@
 		706C5C45254488D300A2FA96 /* TextContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706C5C44254488D300A2FA96 /* TextContainer.swift */; };
 		706C5C492544910300A2FA96 /* NewAccountStep1Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706C5C482544910300A2FA96 /* NewAccountStep1Controller.swift */; };
 		7071514825580ED8005CD284 /* TouchableUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7071514725580ED8005CD284 /* TouchableUIView.swift */; };
+		707476CE2573E02600D68B6E /* ChangePetProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707476CD2573E02600D68B6E /* ChangePetProfileController.swift */; };
 		7077CACB2566ACA6006014EE /* MiteNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7077CACA2566ACA6006014EE /* MiteNotificationViewController.swift */; };
 		7079A3C9254C934C001A18FF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7079A3C8254C934C001A18FF /* GoogleService-Info.plist */; };
 		7079A42D254C96A7001A18FF /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7079A42C254C96A7001A18FF /* FileService.swift */; };
@@ -107,6 +108,7 @@
 		706C5C44254488D300A2FA96 /* TextContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextContainer.swift; sourceTree = "<group>"; };
 		706C5C482544910300A2FA96 /* NewAccountStep1Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountStep1Controller.swift; sourceTree = "<group>"; };
 		7071514725580ED8005CD284 /* TouchableUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchableUIView.swift; sourceTree = "<group>"; };
+		707476CD2573E02600D68B6E /* ChangePetProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePetProfileController.swift; sourceTree = "<group>"; };
 		7077CACA2566ACA6006014EE /* MiteNotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiteNotificationViewController.swift; sourceTree = "<group>"; };
 		7079A3C8254C934C001A18FF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7079A42C254C96A7001A18FF /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 				7077CACA2566ACA6006014EE /* MiteNotificationViewController.swift */,
 				7059E7832568175400BAFA5B /* PhotoViewerController.swift */,
 				70D79F73257297EE00EB97CE /* PetNotificationDetailController.swift */,
+				707476CD2573E02600D68B6E /* ChangePetProfileController.swift */,
 			);
 			path = Pet;
 			sourceTree = "<group>";
@@ -552,6 +555,7 @@
 				706C5C492544910300A2FA96 /* NewAccountStep1Controller.swift in Sources */,
 				70B52C82255D6450002E9D7F /* GrayLineView.swift in Sources */,
 				704F2702254EA5520035B6C3 /* SelectKindController.swift in Sources */,
+				707476CE2573E02600D68B6E /* ChangePetProfileController.swift in Sources */,
 				701DBD2C2545A47B0057C8D9 /* NewAccountStep5Controller.swift in Sources */,
 				70DD7901254DC57100168C82 /* ViewContainerWithImageIconAndUnderline.swift in Sources */,
 				704F2705254EA6070035B6C3 /* PetKindModel.swift in Sources */,
