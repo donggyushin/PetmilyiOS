@@ -61,10 +61,62 @@ class ChangePetProfileController: UIViewController {
         view.addSubview(editButton)
         editButton.translatesAutoresizingMaskIntoConstraints = false
         editButton.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        editButton.leftAnchor.constraint(equalTo: view.leftAnchor,constant: 60).isActive = true
+        editButton.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 7).isActive = true
         
         view.delegate = self
         return view
+    }()
+    
+    private lazy var nameLabel:UILabel = {
+        let label = UILabel()
+        label.text = self.pet.name
+        return label
+    }()
+    
+    private lazy var nameEditButton:UIButton = {
+        let bt = UIButton(type: UIButton.ButtonType.system)
+        bt.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        bt.heightAnchor.constraint(equalToConstant: 18).isActive = true
+        bt.layer.cornerRadius = 6
+        bt.layer.borderWidth = 1
+        bt.layer.borderColor = UIColor.systemBlue.cgColor
+        bt.setTitle("Edit", for: UIControl.State.normal)
+        bt.addTarget(self, action: #selector(editButtonTapped), for: UIControl.Event.touchUpInside)
+        
+        return bt
+    }()
+    
+    var year:String?
+    var month:String?
+    var day:String?
+    
+    private lazy var birthLabel:UILabel = {
+        let label = UILabel()
+        let date = self.pet.birthDate
+        let yearText = DateUtils.shared.getYearFromDate(date: date)
+        let monthText = DateUtils.shared.getMonthFromDate(date: date)
+        let dayText = DateUtils.shared.getDayFromDate(date: date)
+        
+        self.year = yearText
+        self.month = monthText
+        self.day = dayText
+        
+        label.text = "\(yearText)년 \(monthText)월 \(dayText)일 🎉"
+        
+        return label
+    }()
+    
+    private lazy var birthEditButton:UIButton = {
+        let bt = UIButton(type: UIButton.ButtonType.system)
+        bt.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        bt.heightAnchor.constraint(equalToConstant: 18).isActive = true
+        bt.layer.cornerRadius = 6
+        bt.layer.borderWidth = 1
+        bt.layer.borderColor = UIColor.systemBlue.cgColor
+        bt.setTitle("Edit", for: UIControl.State.normal)
+        bt.addTarget(self, action: #selector(editButtonTapped), for: UIControl.Event.touchUpInside)
+        
+        return bt
     }()
     
     
@@ -95,6 +147,7 @@ class ChangePetProfileController: UIViewController {
     
     func configureNavBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: applyButton)
+        navigationItem.backButtonTitle = "프로필 변경"
     }
     
     func configureUI(){
@@ -107,6 +160,26 @@ class ChangePetProfileController: UIViewController {
         changeProfilePhotoContainer.widthAnchor.constraint(equalToConstant: 100).isActive = true
         changeProfilePhotoContainer.heightAnchor.constraint(equalToConstant: 90).isActive = true
         
+        view.addSubview(nameLabel)
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        nameLabel.topAnchor.constraint(equalTo: changeProfilePhotoContainer.bottomAnchor, constant: 40).isActive = true
+        nameLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
+        
+        view.addSubview(nameEditButton)
+        nameEditButton.translatesAutoresizingMaskIntoConstraints = false
+        nameEditButton.bottomAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
+        nameEditButton.leftAnchor.constraint(equalTo: nameLabel.rightAnchor, constant: 7).isActive = true
+
+        
+        view.addSubview(birthLabel)
+        birthLabel.translatesAutoresizingMaskIntoConstraints = false
+        birthLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10).isActive = true
+        birthLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
+        
+        view.addSubview(birthEditButton)
+        birthEditButton.translatesAutoresizingMaskIntoConstraints = false
+        birthEditButton.leftAnchor.constraint(equalTo: birthLabel.rightAnchor, constant: 7).isActive = true
+        birthEditButton.bottomAnchor.constraint(equalTo: birthLabel.bottomAnchor).isActive = true
         
     }
     
@@ -116,6 +189,24 @@ class ChangePetProfileController: UIViewController {
     }
     
     // MARK: Selectors
+    @objc func editButtonTapped(sender:UIButton){
+        if sender == nameEditButton {
+            let changeNameLabelController = ChangePetNameController(text: self.pet.name)
+            changeNameLabelController.delegate = self
+            navigationController?.pushViewController(changeNameLabelController, animated: true)
+        }
+        
+        if sender == birthEditButton {
+            print("생일 변경 컨트롤러로 이동시키기")
+            guard let year = self.year else { return }
+            guard let month = self.month else { return }
+            guard let day = self.day else { return }
+            
+            let changePetBirthdayController = ChangePetBirthdayController(year: year, month: month, day: day)
+            navigationController?.pushViewController(changePetBirthdayController, animated: true)
+        }
+    }
+    
     @objc func changeProfileContainerTapped(sender:UIView){
         self.selectPhotoFromLibrary(sender: sender)
     }
@@ -140,4 +231,15 @@ extension ChangePetProfileController:ImagePickerDelegate {
         print("이미지 선택됌 \(image)")
         self.profileImageView.image = image
     }
+}
+
+
+extension ChangePetProfileController:ChangePetNameControllerDelegate {
+    func returnText(text: String, type:String) {
+        if type == "name" {
+            self.nameLabel.text = text
+        }
+    }
+    
+    
 }

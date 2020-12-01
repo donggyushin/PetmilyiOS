@@ -23,9 +23,11 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>팻밀리가 카메라를 이용하려고 합니다</string>
+	<string>팻밀리가 카메라에 접근하려고 합니다</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>팻밀리가 마이크에 접근하려고 합니다</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>팻밀리가 사진을 선택하려고 합니다</string>
+	<string>팻밀리가 사진첩에 접근하려고 합니다</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -62,8 +64,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
@@ -72,11 +72,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSCameraUsageDescription</key>
-	<string>팻밀리가 카메라에 접근하려고 합니다</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>팻밀리가 사진첩에 접근하려고 합니다</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>팻밀리가 마이크에 접근하려고 합니다</string>
 </dict>
 </plist>

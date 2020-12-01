@@ -265,15 +265,19 @@ class PetDetailCollectionViewController: UICollectionViewController {
         
         if kind == UICollectionView.elementKindSectionFooter {
             
+        
+            
             if self.selectedCategory == "Favorites" {
                 let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: reuseIdentifierForInfoFooter, for: indexPath) as! PetProfileDetailFooterSecondCell
                 footer.dailyInfo = self.dailyInfo
+        
                 return footer
             }
             
-            
+
             let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: reuseIdentifierForFooter, for: indexPath) as! PetProfileDetailFooterCell
             footer.card.delegate = self
+        
             return footer
         }
         
@@ -307,7 +311,7 @@ extension PetDetailCollectionViewController:UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         
         
-        if self.pet.photos.count == 0 && self.selectedCategory == "photos" {
+        if self.pet.photos.count == 0 && self.selectedCategory == "Photos" {
             
             return CGSize(width: view.frame.width, height: 400)
         }
@@ -316,7 +320,6 @@ extension PetDetailCollectionViewController:UICollectionViewDelegateFlowLayout {
             if let dailyInfo = self.dailyInfo {
                 let dailyInfoText = dailyInfo.text
                 let stringHeight = dailyInfoText.height(withConstrainedWidth: self.view.frame.width - 40, font: UIFont.systemFont(ofSize: 17))
-                
                 return CGSize(width: view.frame.width, height: 200 + stringHeight)
                 
             }

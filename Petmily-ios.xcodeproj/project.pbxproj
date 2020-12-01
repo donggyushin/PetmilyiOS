@@ -16,6 +16,9 @@
 		7044CE32255FAF2200FF52CD /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7044CE31255FAF2200FF52CD /* NotificationService.swift */; };
 		7044CE35255FAFAB00FF52CD /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7044CE34255FAFAB00FF52CD /* NotificationModel.swift */; };
 		7044CE39255FB6C500FF52CD /* LoadingViewWithoutBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7044CE38255FB6C500FF52CD /* LoadingViewWithoutBackground.swift */; };
+		7047371D2576990200B7EE76 /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7047371C2576990200B7EE76 /* DateUtils.swift */; };
+		7047372025769FBD00B7EE76 /* ChangePetNameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7047371F25769FBD00B7EE76 /* ChangePetNameController.swift */; };
+		704737232576AC5C00B7EE76 /* ChangePetBirthdayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704737222576AC5C00B7EE76 /* ChangePetBirthdayController.swift */; };
 		70484C1F2552F713003C22DF /* KindView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70484C1E2552F713003C22DF /* KindView.swift */; };
 		70484C242552FFD5003C22DF /* PetListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70484C232552FFD5003C22DF /* PetListService.swift */; };
 		70484C272553005E003C22DF /* PetListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70484C262553005E003C22DF /* PetListModel.swift */; };
@@ -90,6 +93,9 @@
 		7044CE31255FAF2200FF52CD /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		7044CE34255FAFAB00FF52CD /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
 		7044CE38255FB6C500FF52CD /* LoadingViewWithoutBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewWithoutBackground.swift; sourceTree = "<group>"; };
+		7047371C2576990200B7EE76 /* DateUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
+		7047371F25769FBD00B7EE76 /* ChangePetNameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePetNameController.swift; sourceTree = "<group>"; };
+		704737222576AC5C00B7EE76 /* ChangePetBirthdayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePetBirthdayController.swift; sourceTree = "<group>"; };
 		70484C1E2552F713003C22DF /* KindView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KindView.swift; sourceTree = "<group>"; };
 		70484C232552FFD5003C22DF /* PetListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetListService.swift; sourceTree = "<group>"; };
 		70484C262553005E003C22DF /* PetListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetListModel.swift; sourceTree = "<group>"; };
@@ -216,6 +222,7 @@
 				7079A48E254CA557001A18FF /* Root.swift */,
 				70DD78FD254DB85E00168C82 /* ViewMaker.swift */,
 				70CE0BE7256A48C7003A679A /* ImagePicker.swift */,
+				7047371C2576990200B7EE76 /* DateUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -274,6 +281,8 @@
 				7059E7832568175400BAFA5B /* PhotoViewerController.swift */,
 				70D79F73257297EE00EB97CE /* PetNotificationDetailController.swift */,
 				707476CD2573E02600D68B6E /* ChangePetProfileController.swift */,
+				7047371F25769FBD00B7EE76 /* ChangePetNameController.swift */,
+				704737222576AC5C00B7EE76 /* ChangePetBirthdayController.swift */,
 			);
 			path = Pet;
 			sourceTree = "<group>";
@@ -511,6 +520,7 @@
 				70895AB925569E4C003EF5F7 /* PetCell.swift in Sources */,
 				707B0C662557DD3200AE47DA /* PetImageCell.swift in Sources */,
 				70895AB525569711003EF5F7 /* PetModel.swift in Sources */,
+				704737232576AC5C00B7EE76 /* ChangePetBirthdayController.swift in Sources */,
 				705638762556837D00ED84EC /* PetService.swift in Sources */,
 				707B0C5D2557D0AC00AE47DA /* PetProfileImageViewController.swift in Sources */,
 				70EE6A022544B89F00C40970 /* VerificationModel.swift in Sources */,
@@ -530,6 +540,7 @@
 				70B4F93725447CF7005CE631 /* AppDelegate.swift in Sources */,
 				701DBD2925459F9E0057C8D9 /* NewAccountStep4Controller.swift in Sources */,
 				707B0C5A2557CF0A00AE47DA /* TouchableUIImageViewWithoutImage.swift in Sources */,
+				7047372025769FBD00B7EE76 /* ChangePetNameController.swift in Sources */,
 				70D79F6E25728AB000EB97CE /* DailyInfoService.swift in Sources */,
 				7093E8C32545485E00B46B86 /* NewAccountStep2Controller.swift in Sources */,
 				70484C272553005E003C22DF /* PetListModel.swift in Sources */,
@@ -556,6 +567,7 @@
 				70B52C82255D6450002E9D7F /* GrayLineView.swift in Sources */,
 				704F2702254EA5520035B6C3 /* SelectKindController.swift in Sources */,
 				707476CE2573E02600D68B6E /* ChangePetProfileController.swift in Sources */,
+				7047371D2576990200B7EE76 /* DateUtils.swift in Sources */,
 				701DBD2C2545A47B0057C8D9 /* NewAccountStep5Controller.swift in Sources */,
 				70DD7901254DC57100168C82 /* ViewContainerWithImageIconAndUnderline.swift in Sources */,
 				704F2705254EA6070035B6C3 /* PetKindModel.swift in Sources */,
