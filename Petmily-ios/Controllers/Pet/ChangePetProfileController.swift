@@ -12,8 +12,10 @@ class ChangePetProfileController: UIViewController {
 
     // MARK: Properties
     let pet:PetModel
+    var petSettingsController:PetSettingsController?
     
     var imagePicker:ImagePicker!
+    var changedImage:UIImage?
     
     private lazy var applyButton:UIButton = {
         let bt = UIButton(type: UIButton.ButtonType.system)
@@ -338,7 +340,12 @@ class ChangePetProfileController: UIViewController {
     
     @objc func applyButtonTapped(sender: UIButton){
         print("적용 버튼 클릭")
-        loadingView.isHidden = false 
+        loadingView.isHidden = false
+        if changedImage != nil {
+            
+        }else {
+            
+        }
     }
     
 }
@@ -356,6 +363,7 @@ extension ChangePetProfileController:ImagePickerDelegate {
         guard let image = image else { return }
         print("이미지 선택됌 \(image)")
         self.profileImageView.image = image
+        self.changedImage = image
     }
 }
 

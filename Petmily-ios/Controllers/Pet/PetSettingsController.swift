@@ -11,6 +11,7 @@ class PetSettingsController: UIViewController {
     
     // MARK: Properties
     let pet:PetModel
+    var petDetailCollectionViewController:PetDetailCollectionViewController?
     
     var notifications:[NotificationModel] = [] {
         didSet {
@@ -170,8 +171,9 @@ class PetSettingsController: UIViewController {
 
     // MARK: Lifecycles
     
-    init(pet:PetModel) {
+    init(pet:PetModel,petDetailCollectionViewController:PetDetailCollectionViewController?) {
         self.pet = pet
+        self.petDetailCollectionViewController = petDetailCollectionViewController
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -461,6 +463,7 @@ extension PetSettingsController:TouchableViewDelegate {
         if sender == changeProfileLabelContainer {
             print("프로필 변경 버튼 클릭")
             let changeProfileController = ChangePetProfileController(pet:self.pet)
+            changeProfileController.petSettingsController = self
             self.navigationController?.pushViewController(changeProfileController, animated: true)
         }
     }

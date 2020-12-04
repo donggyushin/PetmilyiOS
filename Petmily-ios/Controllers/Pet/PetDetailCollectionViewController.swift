@@ -222,7 +222,7 @@ class PetDetailCollectionViewController: UICollectionViewController {
     // MARK: Selectors
     @objc func rightBarButtonItemTapped(){
         
-        let petSettingController = UINavigationController(rootViewController: PetSettingsController(pet: self.pet))
+        let petSettingController = UINavigationController(rootViewController: PetSettingsController(pet: self.pet, petDetailCollectionViewController: self))
         petSettingController.modalPresentationStyle = .fullScreen
         present(petSettingController, animated: true, completion: nil)
     }

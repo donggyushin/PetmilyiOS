@@ -11,6 +11,36 @@ import Alamofire
 class PetService {
     static let shared = PetService()
     
+    func updatePetProfile(petId:String, petProfileImage:String, petName:String, petBirthYear:String, petBirthMonth:String, petBirthDay:String, petKind:String, petGender:String, completion:@escaping(Error?, String?, Bool) -> Void) {
+        let urlString = "\(Properties.PETMILY_API)/v1/pet"
+        guard let url = URL(string: urlString) else { return completion(nil, "URL 객체를 생성하는데 실패하였습니다.", false) }
+        
+        AF.request(url, method: HTTPMethod.put, parameters: [
+            "petId":petId,
+            "petProfileImage":petProfileImage,
+            "petName": petName,
+            "petBirthYear":petBirthYear,
+            "petBirthMonth": petBirthMonth,
+            "petBirthDay": petBirthDay,
+            "petKind": petKind,
+            "petGender": petGender
+        ], encoding: JSONEncoding.default, headers: nil, interceptor: nil, requestModifier: nil).responseJSON { (response) in
+            switch response.result {
+            case .failure(let error):
+                return completion(error, nil, false)
+            case .success(let value):
+                guard let value = value as? [String:Any] else { return }
+                guard let ok = value["ok"] as? Bool else { return }
+                if ok {
+                    return completion(nil, nil, true)
+                }else {
+                    guard let message = value["message"] as? String else { return }
+                    return completion(nil, message, false)
+                }
+            }
+        }
+    }
+    
     func deletePetPhoto(petPhotoId:String, petId:String, completion:@escaping(Error?, String?, Bool, [PetPhoto]) -> Void){
         let urlString = "\(Properties.PETMILY_API)/v1/pet/photo?petPhotoId=\(petPhotoId)&petId=\(petId)"
         var petPhotos:[PetPhoto] = []
