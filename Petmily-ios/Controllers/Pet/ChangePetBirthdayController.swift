@@ -7,68 +7,17 @@
 
 import UIKit
 
-class ChangePetBirthdayController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
-    
-    // MARK: UIPickerViewDelegate, UIPickerViewDataSource
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 3
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if component == 0 {
-            return self.yearPickerData.count
-        }
-        
-        if component == 1 {
-            return self.monthPickerData.count
-        }
-        
-        if component == 2 {
-            return self.dayPickerData.count
-        }
-        
-        
-        return 0
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if component == 0 {
-            return self.yearPickerData[row]
-        }
-        
-        if component == 1 {
-            return self.monthPickerData[row]
-        }
-        
-        if component == 2 {
-            return self.dayPickerData[row]
-        }
-        
-        return nil
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if component == 0 {
-            let selectedYear = self.yearPickerData[row]
-            self.yearTextField.text = selectedYear
-            self.year = selectedYear
-        }
-        
-        if component == 1{
-            let selectedMonth = self.monthPickerData[row]
-            self.monthTextField.text = selectedMonth
-            self.month = selectedMonth
-        }
-        
-        if component == 2 {
-            let selectedDay = self.dayPickerData[row]
-            self.dayTextField.text = selectedDay
-            self.day = selectedDay
-        }
-    }
-    
+protocol ChangePetBirthdayDelegate:class {
+    func birthSelected(year:String, month:String, day:String)
+}
 
+
+class ChangePetBirthdayController: UIViewController {
+    
     // MARK: Properties
+    
+    weak var delegate:ChangePetBirthdayDelegate?
+    
     var year:String
     var month:String
     var day:String
@@ -76,6 +25,13 @@ class ChangePetBirthdayController: UIViewController, UIPickerViewDelegate, UIPic
     let yearPickerData = Utilities.shared.generateUserBirthList()
     let monthPickerData = Utilities.shared.generateMonths()
     let dayPickerData = Utilities.shared.generateDays()
+    
+    private lazy var applyButton:UIButton = {
+        let bt = UIButton(type: UIButton.ButtonType.system)
+        bt.setTitle("적용", for: UIControl.State.normal)
+        bt.addTarget(self, action: #selector(applyButtonTapped), for: UIControl.Event.touchUpInside)
+        return bt
+    }()
     
     private lazy var yearPicker = UIPickerView()
     
@@ -137,7 +93,6 @@ class ChangePetBirthdayController: UIViewController, UIPickerViewDelegate, UIPic
         let view = UIView()
         let textFieldWidth = (self.view.frame.width - 40) / 3 - 30
         
-        
         view.addSubview(yearTextField)
         yearTextField.translatesAutoresizingMaskIntoConstraints = false
         yearTextField.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
@@ -150,7 +105,6 @@ class ChangePetBirthdayController: UIViewController, UIPickerViewDelegate, UIPic
         yearLabel.leftAnchor.constraint(equalTo: yearTextField.rightAnchor, constant: 7).isActive = true
         yearLabel.centerYAnchor.constraint(equalTo: yearTextField.centerYAnchor).isActive = true
         
-        
         view.addSubview(monthTextField)
         monthTextField.translatesAutoresizingMaskIntoConstraints = false
         monthTextField.leftAnchor.constraint(equalTo: yearLabel.rightAnchor, constant: 10).isActive = true
@@ -162,7 +116,6 @@ class ChangePetBirthdayController: UIViewController, UIPickerViewDelegate, UIPic
         monthLabel.centerYAnchor.constraint(equalTo: monthTextField.centerYAnchor).isActive = true
         monthLabel.leftAnchor.constraint(equalTo: monthTextField.rightAnchor, constant: 7).isActive = true
         
-        
         view.addSubview(dayTextField)
         dayTextField.translatesAutoresizingMaskIntoConstraints = false
         dayTextField.centerYAnchor.constraint(equalTo: monthTextField.centerYAnchor).isActive = true
@@ -173,7 +126,6 @@ class ChangePetBirthdayController: UIViewController, UIPickerViewDelegate, UIPic
         dayLabel.translatesAutoresizingMaskIntoConstraints = false
         dayLabel.leftAnchor.constraint(equalTo: dayTextField.rightAnchor, constant: 7).isActive = true
         dayLabel.centerYAnchor.constraint(equalTo: monthTextField.centerYAnchor).isActive = true
- 
         return view
     }()
     
@@ -184,7 +136,6 @@ class ChangePetBirthdayController: UIViewController, UIPickerViewDelegate, UIPic
         self.year = year
         self.month = month
         self.day = day
-        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -194,13 +145,17 @@ class ChangePetBirthdayController: UIViewController, UIPickerViewDelegate, UIPic
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
         configureKeyboard()
         configureUI()
+        configureNav()
     }
     
     // MARK: Configures
+    func configureNav() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: applyButton)
+    }
+    
     func configureKeyboard() {
         dismissKeyboardWhenTappingAround()
         moveViewWhenKeyboardIsShown()
@@ -208,7 +163,6 @@ class ChangePetBirthdayController: UIViewController, UIPickerViewDelegate, UIPic
     
     func configureUI(){
         view.backgroundColor = .systemBackground
-        
         view.addSubview(textFieldsContainer)
         textFieldsContainer.translatesAutoresizingMaskIntoConstraints = false
         textFieldsContainer.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
@@ -216,9 +170,65 @@ class ChangePetBirthdayController: UIViewController, UIPickerViewDelegate, UIPic
         textFieldsContainer.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
         textFieldsContainer.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
         textFieldsContainer.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        
-        
     }
     
+    // MARK: Selectors
+    @objc func applyButtonTapped() {
+        delegate?.birthSelected(year: self.year, month: self.month, day: self.day)
+    }
+}
 
+
+
+extension ChangePetBirthdayController: UIPickerViewDelegate, UIPickerViewDataSource {
+    // MARK: UIPickerViewDelegate, UIPickerViewDataSource
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 3
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if component == 0 {
+            return self.yearPickerData.count
+        }
+        if component == 1 {
+            return self.monthPickerData.count
+        }
+        if component == 2 {
+            return self.dayPickerData.count
+        }
+        return 0
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if component == 0 {
+            return self.yearPickerData[row]
+        }
+        
+        if component == 1 {
+            return self.monthPickerData[row]
+        }
+        
+        if component == 2 {
+            return self.dayPickerData[row]
+        }
+        return nil
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if component == 0 {
+            let selectedYear = self.yearPickerData[row]
+            self.yearTextField.text = selectedYear
+            self.year = selectedYear
+        }
+        if component == 1 {
+            let selectedMonth = self.monthPickerData[row]
+            self.monthTextField.text = selectedMonth
+            self.month = selectedMonth
+        }
+        if component == 2 {
+            let selectedDay = self.dayPickerData[row]
+            self.dayTextField.text = selectedDay
+            self.day = selectedDay
+        }
+    }
 }

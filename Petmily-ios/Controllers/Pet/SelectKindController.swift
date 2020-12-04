@@ -66,7 +66,6 @@ class SelectKindController: UICollectionViewController {
     func configureUI() {
         view.backgroundColor = .systemBackground
         collectionView.backgroundColor = .systemBackground
-
     }
     
     func configure() {
@@ -74,7 +73,6 @@ class SelectKindController: UICollectionViewController {
         collectionView.alwaysBounceVertical = true
 
         collectionView.register(KindView.self, forCellWithReuseIdentifier: reuseIdentifierForKindView)
-        
         
         searchController.searchResultsUpdater = self
         // 2
@@ -99,12 +97,9 @@ class SelectKindController: UICollectionViewController {
         cell.delegate = self
         return cell
     }
-    
 }
 
 extension SelectKindController: UISearchResultsUpdating {
-    
-    
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchText = searchController.searchBar.text else { return }
         if searchText.isEmpty {
@@ -116,8 +111,6 @@ extension SelectKindController: UISearchResultsUpdating {
             self.filteredKindDatas = datas
         }
     }
-    
-    
 }
 
 extension SelectKindController:UICollectionViewDelegateFlowLayout {
@@ -131,6 +124,4 @@ extension SelectKindController:KindViewDelegate {
         self.delegate?.setKind(kind: petKind)
         navigationController?.popViewController(animated: true)
     }
-    
-    
 }
