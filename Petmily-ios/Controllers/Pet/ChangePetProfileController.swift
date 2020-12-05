@@ -173,12 +173,10 @@ class ChangePetProfileController: UIViewController {
     
     init(pet:PetModel) {
         self.pet = pet
-        
         let date = self.pet.birthDate
         self.year = DateUtils.shared.getYearFromDate(date: date)
         self.month = DateUtils.shared.getMonthFromDate(date: date)
         self.day = DateUtils.shared.getDayFromDate(date: date)
-        
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -195,7 +193,7 @@ class ChangePetProfileController: UIViewController {
         configureNavBar()
         configureImagePicker()
         DispatchQueue.main.async {
-            self.moveGenderLine(gender: self.gender)
+            self.moveGenderLine(gender: self.pet.gender)
         }
         
     }

@@ -48,6 +48,7 @@ class RootController: UITabBarController {
         let LostAnimals = UINavigationController(rootViewController: LostAnimalsController())
         let Pet = UINavigationController(rootViewController: PetController())
         let Chat = UINavigationController(rootViewController: ChatController())
+        let My = UINavigationController(rootViewController: MeController())
         
         PresaleOfAnimals.tabBarItem.image = #imageLiteral(resourceName: "icons8-dog-house-100 1")
         
@@ -57,7 +58,9 @@ class RootController: UITabBarController {
         
         Chat.tabBarItem.image = #imageLiteral(resourceName: "icons8-chat-bubble-100 1")
         
-        viewControllers = [PresaleOfAnimals, Pet,  Chat]
+        My.tabBarItem.image = #imageLiteral(resourceName: "icons8-info-50 1")
+        
+        viewControllers = [PresaleOfAnimals, Pet,  Chat, My]
         
         loadingView.isHidden = true
         

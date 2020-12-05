@@ -77,6 +77,10 @@
 		70DD78F6254DAC0D00168C82 /* TouchableUIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DD78F5254DAC0D00168C82 /* TouchableUIImageView.swift */; };
 		70DD78FE254DB85E00168C82 /* ViewMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DD78FD254DB85E00168C82 /* ViewMaker.swift */; };
 		70DD7901254DC57100168C82 /* ViewContainerWithImageIconAndUnderline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70DD7900254DC57100168C82 /* ViewContainerWithImageIconAndUnderline.swift */; };
+		70E9F4A1257BBBEC007BFE48 /* InfoPresaleOfAnimalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E9F4A0257BBBEC007BFE48 /* InfoPresaleOfAnimalsView.swift */; };
+		70E9F4A5257BC312007BFE48 /* PostPresaleFirstController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E9F4A4257BC312007BFE48 /* PostPresaleFirstController.swift */; };
+		70E9F4A8257BC72C007BFE48 /* UploadPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E9F4A7257BC72C007BFE48 /* UploadPhotoView.swift */; };
+		70E9F4AC257BD0A7007BFE48 /* MeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E9F4AB257BD0A7007BFE48 /* MeController.swift */; };
 		70EE69FE2544B3B500C40970 /* VerificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70EE69FD2544B3B500C40970 /* VerificationService.swift */; };
 		70EE6A022544B89F00C40970 /* VerificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70EE6A012544B89F00C40970 /* VerificationModel.swift */; };
 		70F248692549BE6500716A93 /* NewAccountStep6Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F248682549BE6500716A93 /* NewAccountStep6Controller.swift */; };
@@ -157,6 +161,10 @@
 		70DD78FD254DB85E00168C82 /* ViewMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewMaker.swift; sourceTree = "<group>"; };
 		70DD7900254DC57100168C82 /* ViewContainerWithImageIconAndUnderline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewContainerWithImageIconAndUnderline.swift; sourceTree = "<group>"; };
 		70E39F4E25558550002BF64C /* Petmily-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Petmily-ios.entitlements"; sourceTree = "<group>"; };
+		70E9F4A0257BBBEC007BFE48 /* InfoPresaleOfAnimalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPresaleOfAnimalsView.swift; sourceTree = "<group>"; };
+		70E9F4A4257BC312007BFE48 /* PostPresaleFirstController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostPresaleFirstController.swift; sourceTree = "<group>"; };
+		70E9F4A7257BC72C007BFE48 /* UploadPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadPhotoView.swift; sourceTree = "<group>"; };
+		70E9F4AB257BD0A7007BFE48 /* MeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeController.swift; sourceTree = "<group>"; };
 		70EE69FD2544B3B500C40970 /* VerificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationService.swift; sourceTree = "<group>"; };
 		70EE6A012544B89F00C40970 /* VerificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationModel.swift; sourceTree = "<group>"; };
 		70F248682549BE6500716A93 /* NewAccountStep6Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountStep6Controller.swift; sourceTree = "<group>"; };
@@ -230,6 +238,7 @@
 		706C5C3B2544852300A2FA96 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				70E9F49E257BBB78007BFE48 /* PresaleOfAnimals */,
 				706C5C44254488D300A2FA96 /* TextContainer.swift */,
 				701DBD332545B7810057C8D9 /* LoadingView.swift */,
 				70996B6D254D679E001A02D0 /* NotYetPet.swift */,
@@ -253,7 +262,9 @@
 		70B3E460254D4CA4009461A3 /* PresaleOfAnimals */ = {
 			isa = PBXGroup;
 			children = (
+				70E9F4A0257BBBEC007BFE48 /* InfoPresaleOfAnimalsView.swift */,
 				70B3E464254D4CFB009461A3 /* PresaleOfAnimalsController.swift */,
+				70E9F4A4257BC312007BFE48 /* PostPresaleFirstController.swift */,
 			);
 			path = PresaleOfAnimals;
 			sourceTree = "<group>";
@@ -340,6 +351,7 @@
 		70B4F94B25447DED005CE631 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				70E9F4AA257BD096007BFE48 /* Me */,
 				70B3E463254D4CE3009461A3 /* Chat */,
 				70B3E462254D4CD1009461A3 /* Pet */,
 				70B3E461254D4CBD009461A3 /* LostAnimals */,
@@ -356,6 +368,22 @@
 				70B4F95125447E57005CE631 /* Properties.swift */,
 			);
 			path = Properties;
+			sourceTree = "<group>";
+		};
+		70E9F49E257BBB78007BFE48 /* PresaleOfAnimals */ = {
+			isa = PBXGroup;
+			children = (
+				70E9F4A7257BC72C007BFE48 /* UploadPhotoView.swift */,
+			);
+			path = PresaleOfAnimals;
+			sourceTree = "<group>";
+		};
+		70E9F4AA257BD096007BFE48 /* Me */ = {
+			isa = PBXGroup;
+			children = (
+				70E9F4AB257BD0A7007BFE48 /* MeController.swift */,
+			);
+			path = Me;
 			sourceTree = "<group>";
 		};
 		70EE69FC2544B3A800C40970 /* APIs */ = {
@@ -513,6 +541,7 @@
 				70B52C7F255D6142002E9D7F /* PetSettingsController.swift in Sources */,
 				70484C242552FFD5003C22DF /* PetListService.swift in Sources */,
 				70B3E469254D4D32009461A3 /* LostAnimalsController.swift in Sources */,
+				70E9F4A1257BBBEC007BFE48 /* InfoPresaleOfAnimalsView.swift in Sources */,
 				706C5C45254488D300A2FA96 /* TextContainer.swift in Sources */,
 				7059E7842568175400BAFA5B /* PhotoViewerController.swift in Sources */,
 				70B52C85255D6728002E9D7F /* NoticeItem.swift in Sources */,
@@ -536,6 +565,7 @@
 				70D41AB6256E925E0024C34E /* PetProfileDetailFooterSecondCell.swift in Sources */,
 				7044CE35255FAFAB00FF52CD /* NotificationModel.swift in Sources */,
 				706A1516254574B60050C0C8 /* AuthService.swift in Sources */,
+				70E9F4AC257BD0A7007BFE48 /* MeController.swift in Sources */,
 				7044CE39255FB6C500FF52CD /* LoadingViewWithoutBackground.swift in Sources */,
 				70B4F93725447CF7005CE631 /* AppDelegate.swift in Sources */,
 				701DBD2925459F9E0057C8D9 /* NewAccountStep4Controller.swift in Sources */,
@@ -555,6 +585,7 @@
 				707B0C632557DC5200AE47DA /* PetProfileDetailHeaderCell.swift in Sources */,
 				70B3E46F254D4D9A009461A3 /* ChatController.swift in Sources */,
 				70B4F93925447CF7005CE631 /* SceneDelegate.swift in Sources */,
+				70E9F4A5257BC312007BFE48 /* PostPresaleFirstController.swift in Sources */,
 				701A7EFF25615EA700F3F7C4 /* NotificationFormController.swift in Sources */,
 				70996B6E254D679E001A02D0 /* NotYetPet.swift in Sources */,
 				70DD78FE254DB85E00168C82 /* ViewMaker.swift in Sources */,
@@ -568,6 +599,7 @@
 				704F2702254EA5520035B6C3 /* SelectKindController.swift in Sources */,
 				707476CE2573E02600D68B6E /* ChangePetProfileController.swift in Sources */,
 				7047371D2576990200B7EE76 /* DateUtils.swift in Sources */,
+				70E9F4A8257BC72C007BFE48 /* UploadPhotoView.swift in Sources */,
 				701DBD2C2545A47B0057C8D9 /* NewAccountStep5Controller.swift in Sources */,
 				70DD7901254DC57100168C82 /* ViewContainerWithImageIconAndUnderline.swift in Sources */,
 				704F2705254EA6070035B6C3 /* PetKindModel.swift in Sources */,
