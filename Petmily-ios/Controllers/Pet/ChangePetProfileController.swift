@@ -16,6 +16,11 @@ class ChangePetProfileController: UIViewController {
     
     var imagePicker:ImagePicker!
     var changedImage:UIImage?
+    var year:String?
+    var month:String?
+    var day:String?
+    var gender:String = "male"
+    
     
     private lazy var applyButton:UIButton = {
         let bt = UIButton(type: UIButton.ButtonType.system)
@@ -84,9 +89,7 @@ class ChangePetProfileController: UIViewController {
         return bt
     }()
     
-    var year:String?
-    var month:String?
-    var day:String?
+    
     
     private lazy var birthLabel:UILabel = {
         let label = UILabel()
@@ -136,7 +139,7 @@ class ChangePetProfileController: UIViewController {
     
     
     
-    var gender:String = "male"
+    
 
     private lazy var maleButton:UIButton = {
         let bt = UIButton(type: UIButton.ButtonType.system)
@@ -170,6 +173,12 @@ class ChangePetProfileController: UIViewController {
     
     init(pet:PetModel) {
         self.pet = pet
+        
+        let date = self.pet.birthDate
+        self.year = DateUtils.shared.getYearFromDate(date: date)
+        self.month = DateUtils.shared.getMonthFromDate(date: date)
+        self.day = DateUtils.shared.getDayFromDate(date: date)
+        
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -322,6 +331,7 @@ class ChangePetProfileController: UIViewController {
             guard let day = self.day else { return }
             
             let changePetBirthdayController = ChangePetBirthdayController(year: year, month: month, day: day)
+            changePetBirthdayController.delegate = self
             navigationController?.pushViewController(changePetBirthdayController, animated: true)
         }
         
@@ -342,9 +352,79 @@ class ChangePetProfileController: UIViewController {
         print("적용 버튼 클릭")
         loadingView.isHidden = false
         if changedImage != nil {
-            
+            // 이미지까지 같이 업데이트
+            guard let imageToChange = self.profileImageView.image else { return }
+            FileService.shared.uploadImageFile(image: imageToChange) { (error, errorMessage, imageUrl) in
+                if let errorMessage = errorMessage {
+                    return self.renderPopupWithOkayButtonNoImage(title: "에러", message: errorMessage)
+                }
+                
+                if let error = error {
+                    return self.renderPopupWithOkayButtonNoImage(title: "에러", message: error.localizedDescription)
+                }
+                
+                guard let url = imageUrl else {
+                    return self.renderPopupWithOkayButtonNoImage(title: "에러", message: "알 수 없는 에러 발생")
+                }
+                
+                guard let name = self.nameLabel.text else { return }
+                guard let year = self.year else { return }
+                guard let month = self.month else { return }
+                guard let day = self.day else { return }
+                guard let kind = self.petkindLabel.text else { return }
+                PetService.shared.updatePetProfile(petId: self.pet._id, petProfileImage: url, petName: name, petBirthYear: year, petBirthMonth: month, petBirthDay: day, petKind: kind, petGender: self.gender) { (error, errorMessage, success) in
+                    
+                    self.loadingView.isHidden = true
+                    if let errorMessage = errorMessage { return self.renderPopupWithOkayButtonNoImage(title: "에러", message: errorMessage)}
+                    if let error = error { return self.renderPopupWithOkayButtonNoImage(title: "에러", message: error.localizedDescription)}
+                    if success == false { return self.renderPopupWithOkayButtonNoImage(title: "에러", message: "알 수 없는 에러 발생") }
+                    
+                    // 업데이트 완료
+                    // 이제 뭘 해야하지?
+                    // 반려동물 상세 페이지의 데이터를 업데이트 해준다.
+                    self.petSettingsController?.petDetailCollectionViewController?.pet.name = name
+                    self.petSettingsController?.petDetailCollectionViewController?.pet.kind = kind
+                    self.petSettingsController?.petDetailCollectionViewController?.pet.photourl = url
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "yyyy/MM/dd"
+                    let date = formatter.date(from: "\(year)/\(month)/\(day)")
+                    self.petSettingsController?.petDetailCollectionViewController?.pet.birthDate = date!
+                    self.petSettingsController?.petDetailCollectionViewController?.pet.gender = self.gender
+                    // 반려동물 리스트 페이지에서 데이터를 다시 한번 api를 이용해서 fetch 해준다.
+                    self.petSettingsController?.petDetailCollectionViewController?.fetchPets()
+                    // 설정 페이지 자체를 dismiss 해줘서 바로 반려동물 상세 페이지로 이동시켜준다.
+                    self.petSettingsController?.dismiss(animated: true, completion: nil)
+                }
+                
+            }
         }else {
-            
+            // 기존 이미지의 Url 을 이용해서 업데이트
+            guard let name = self.nameLabel.text else { return }
+            guard let year = self.year else { return }
+            guard let month = self.month else { return }
+            guard let day = self.day else { return }
+            guard let kind = self.petkindLabel.text else { return }
+            PetService.shared.updatePetProfile(petId: self.pet._id, petProfileImage: self.pet.photourl, petName: name, petBirthYear: year, petBirthMonth: month, petBirthDay: day, petKind: kind, petGender: self.gender) { (error, errorMessage, success) in
+                self.loadingView.isHidden = true
+                if let errorMessage = errorMessage { return self.renderPopupWithOkayButtonNoImage(title: "에러", message: errorMessage)}
+                if let error = error { return self.renderPopupWithOkayButtonNoImage(title: "에러", message: error.localizedDescription)}
+                if success == false { return self.renderPopupWithOkayButtonNoImage(title: "에러", message: "알 수 없는 에러 발생") }
+                
+                // 업데이트 완료
+                // 이제 뭘 해야하지?
+                // 반려동물 상세 페이지의 데이터를 업데이트 해준다.
+                self.petSettingsController?.petDetailCollectionViewController?.pet.name = name
+                self.petSettingsController?.petDetailCollectionViewController?.pet.kind = kind
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy/MM/dd"
+                let date = formatter.date(from: "\(year)/\(month)/\(day)")
+                self.petSettingsController?.petDetailCollectionViewController?.pet.birthDate = date!
+                self.petSettingsController?.petDetailCollectionViewController?.pet.gender = self.gender
+                // 반려동물 리스트 페이지에서 데이터를 다시 한번 api를 이용해서 fetch 해준다.
+                self.petSettingsController?.petDetailCollectionViewController?.fetchPets()
+                // 설정 페이지 자체를 dismiss 해줘서 바로 반려동물 상세 페이지로 이동시켜준다.
+                self.petSettingsController?.dismiss(animated: true, completion: nil)
+            }
         }
     }
     
@@ -381,6 +461,17 @@ extension ChangePetProfileController:SelectKindControllerDelegate {
     func setKind(kind: PetListModel) {
         print("selected kind: \(kind)")
         self.petkindLabel.text = kind.name
+    }
+    
+}
+
+
+extension ChangePetProfileController:ChangePetBirthdayDelegate {
+    func birthSelected(year: String, month: String, day: String) {
+        self.birthLabel.text = "\(year)년 \(month)월 \(day)일 🎉"
+        self.year = year
+        self.month = month
+        self.day = day
     }
     
 }

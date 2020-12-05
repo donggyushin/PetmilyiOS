@@ -183,9 +183,14 @@ class PetProfileDetailHeaderCell: UICollectionViewCell {
         
         self.name.text = pet.name
         self.kind.text = pet.kind
-        let birthdayText = pet.birth.replacingOccurrences(of: " ", with: "")
-        let res = birthdayText.components(separatedBy: CharacterSet(charactersIn: "년월일"))
-        self.birth.text = "🎉 \(res[0])년 \(res[1])월 \(res[2])일"
+        
+        let date = pet.birthDate
+        
+        let year = DateUtils.shared.getYearFromDate(date: date)
+        let month = DateUtils.shared.getMonthFromDate(date: date)
+        let day = DateUtils.shared.getDayFromDate(date: date)
+        
+        self.birth.text = "🎉 \(year)년 \(month)월 \(day)일"
         
         if pet.gender == "male" {
             self.genderIcon.image = #imageLiteral(resourceName: "icons8-male-96")

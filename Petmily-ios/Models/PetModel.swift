@@ -24,17 +24,17 @@ struct PetPhoto {
 }
 
 struct PetModel {
-    let userIdentifier:String
+    var userIdentifier:String
     var petSort:String?
-    let kind:String
-    let name:String
+    var kind:String
+    var name:String
     var personality:[String]?
-    let photourl:String
-    let gender:String
-    let birth:String
+    var photourl:String
+    var gender:String
+    var birth:String
     var photos:[PetPhoto]
-    let _id:String
-    let birthDate:Date
+    var _id:String
+    var birthDate:Date
     
     init(dictionary:[String:AnyObject]) {
         let userIdentifier = dictionary["userIdentifier"] as? String ?? ""

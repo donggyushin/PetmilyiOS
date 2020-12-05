@@ -175,6 +175,7 @@ class ChangePetBirthdayController: UIViewController {
     // MARK: Selectors
     @objc func applyButtonTapped() {
         delegate?.birthSelected(year: self.year, month: self.month, day: self.day)
+        navigationController?.popViewController(animated: true)
     }
 }
 

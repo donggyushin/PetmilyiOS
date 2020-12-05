@@ -16,6 +16,7 @@ private let reuseIdentifierForInfoFooter = "infofooter"
 
 protocol PetDetailCollectionViewControllerDelegate: class {
     func didUploadPetPhotos()
+    func updatePet()
 }
 
 class PetDetailCollectionViewController: UICollectionViewController {
@@ -190,6 +191,9 @@ class PetDetailCollectionViewController: UICollectionViewController {
     }
     
     // MARK: Helpers
+    func fetchPets() {
+        self.delegate?.updatePet()
+    }
     
     func showImagePicker(_ sender: UIButton) {
             self.imagePicker.present(from: sender)

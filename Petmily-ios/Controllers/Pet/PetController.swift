@@ -243,7 +243,13 @@ extension PetController:PetCellDelegate {
 
 
 extension PetController:PetDetailCollectionViewControllerDelegate {
+    func updatePet() {
+        self.fetchMyPets()
+    }
+    
     func didUploadPetPhotos() {
         self.fetchMyPets()
     }
+    
+    
 }
