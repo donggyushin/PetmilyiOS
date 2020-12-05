@@ -14,6 +14,8 @@ struct UserModel {
     var createdAt:String
     var userId:String
     var _id:String
+    var nickname:String
+    var gender:String
     
     init(dictionary:[String:AnyObject]) {
         let profileImage = dictionary["profileImage"] as? String
@@ -22,7 +24,8 @@ struct UserModel {
         let createdAt = dictionary["createdAt"] as? String ?? ""
         let userId = dictionary["userId"] as? String ?? ""
         let _id = dictionary["_id"] as? String ?? ""
-        
+        let nickname = dictionary["nickname"] as? String ?? ""
+        let gender = dictionary["gender"] as? String ?? ""
         
         self.profileImage = profileImage
         self.phoneNumber = phoneNumber
@@ -30,5 +33,7 @@ struct UserModel {
         self.createdAt = createdAt
         self.userId = userId
         self._id = _id
+        self.nickname = nickname
+        self.gender = gender
     }
 }

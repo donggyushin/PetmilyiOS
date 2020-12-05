@@ -53,6 +53,7 @@
 		70895AB925569E4C003EF5F7 /* PetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70895AB825569E4C003EF5F7 /* PetCell.swift */; };
 		7093E8C32545485E00B46B86 /* NewAccountStep2Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7093E8C22545485E00B46B86 /* NewAccountStep2Controller.swift */; };
 		70996B6E254D679E001A02D0 /* NotYetPet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70996B6D254D679E001A02D0 /* NotYetPet.swift */; };
+		70B3C010257BF3D300675652 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B3C00F257BF3D300675652 /* UserProfileView.swift */; };
 		70B3E465254D4CFB009461A3 /* PresaleOfAnimalsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B3E464254D4CFB009461A3 /* PresaleOfAnimalsController.swift */; };
 		70B3E469254D4D32009461A3 /* LostAnimalsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B3E468254D4D32009461A3 /* LostAnimalsController.swift */; };
 		70B3E46C254D4D65009461A3 /* PetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B3E46B254D4D65009461A3 /* PetController.swift */; };
@@ -134,6 +135,7 @@
 		70895AB825569E4C003EF5F7 /* PetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetCell.swift; sourceTree = "<group>"; };
 		7093E8C22545485E00B46B86 /* NewAccountStep2Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountStep2Controller.swift; sourceTree = "<group>"; };
 		70996B6D254D679E001A02D0 /* NotYetPet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotYetPet.swift; sourceTree = "<group>"; };
+		70B3C00F257BF3D300675652 /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		70B3E464254D4CFB009461A3 /* PresaleOfAnimalsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresaleOfAnimalsController.swift; sourceTree = "<group>"; };
 		70B3E468254D4D32009461A3 /* LostAnimalsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LostAnimalsController.swift; sourceTree = "<group>"; };
 		70B3E46B254D4D65009461A3 /* PetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetController.swift; sourceTree = "<group>"; };
@@ -238,6 +240,7 @@
 		706C5C3B2544852300A2FA96 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				70B3C00D257BEAF300675652 /* My */,
 				70E9F49E257BBB78007BFE48 /* PresaleOfAnimals */,
 				706C5C44254488D300A2FA96 /* TextContainer.swift */,
 				701DBD332545B7810057C8D9 /* LoadingView.swift */,
@@ -257,6 +260,14 @@
 				70D41AB5256E925E0024C34E /* PetProfileDetailFooterSecondCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		70B3C00D257BEAF300675652 /* My */ = {
+			isa = PBXGroup;
+			children = (
+				70B3C00F257BF3D300675652 /* UserProfileView.swift */,
+			);
+			path = My;
 			sourceTree = "<group>";
 		};
 		70B3E460254D4CA4009461A3 /* PresaleOfAnimals */ = {
@@ -562,6 +573,7 @@
 				7044CE32255FAF2200FF52CD /* NotificationService.swift in Sources */,
 				70DD78F6254DAC0D00168C82 /* TouchableUIImageView.swift in Sources */,
 				70B3E46C254D4D65009461A3 /* PetController.swift in Sources */,
+				70B3C010257BF3D300675652 /* UserProfileView.swift in Sources */,
 				70D41AB6256E925E0024C34E /* PetProfileDetailFooterSecondCell.swift in Sources */,
 				7044CE35255FAFAB00FF52CD /* NotificationModel.swift in Sources */,
 				706A1516254574B60050C0C8 /* AuthService.swift in Sources */,

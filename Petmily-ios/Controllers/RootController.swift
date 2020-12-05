@@ -9,12 +9,21 @@ import UIKit
 import Firebase
 import UserNotificationsUI
 
-class RootController: UITabBarController {
+class RootController: UITabBarController, MeControllerDelegate {
     // MARK: - Properties
     private lazy var loadingView:LoadingView = {
         let lv = LoadingView()
         return lv
     }()
+    
+    var user:UserModel? {
+        didSet {
+            guard let user = self.user else { return }
+            guard let myNavigationController = self.viewControllers?[3] as? UINavigationController else { return }
+            let myController = myNavigationController.viewControllers[0] as! MeController
+            myController.user = user 
+        }
+    }
     
     // MARK: - Lifecycles
     override func viewDidLoad() {
@@ -50,6 +59,9 @@ class RootController: UITabBarController {
         let Chat = UINavigationController(rootViewController: ChatController())
         let My = UINavigationController(rootViewController: MeController())
         
+        let meController = My.viewControllers[0] as! MeController
+        meController.delegate = self
+        
         PresaleOfAnimals.tabBarItem.image = #imageLiteral(resourceName: "icons8-dog-house-100 1")
         
         LostAnimals.tabBarItem.image = #imageLiteral(resourceName: "icons8-search-100 1")
@@ -61,8 +73,29 @@ class RootController: UITabBarController {
         My.tabBarItem.image = #imageLiteral(resourceName: "icons8-info-50 1")
         
         viewControllers = [PresaleOfAnimals, Pet,  Chat, My]
+        self.selectedViewController = Pet
         
         loadingView.isHidden = true
+        
+        LocalData.shared.getting(key: "token") { (token) in
+            guard let token = token else { return self.renderPopupWithOkayButtonNoImage(title: "에러", message: "로그인을 다시 해주세요.")}
+            UserService.shared.getUserByToken(token: token) { (error, errorMessage, success, user) in
+                if let errorMessage = errorMessage {
+                    return self.renderPopupWithOkayButtonNoImage(title: "에러", message: errorMessage)
+                }
+                
+                if let error = error {
+                    return self.renderPopupWithOkayButtonNoImage(title: "에러", message: error.localizedDescription)
+                }
+                
+                if success {
+                    guard let user = user else { return }
+                    self.user = user
+                }else {
+                    return self.renderPopupWithOkayButtonNoImage(title: "에러", message: "알 수 없는 에러 발생")
+                }
+            }
+        }
         
     }
     
@@ -118,4 +151,3 @@ class RootController: UITabBarController {
         
     }
 }
-
