@@ -26,12 +26,7 @@ class PresaleOfAnimalsController:UIViewController {
     }()
     
     
-    private lazy var logoutButton:UIButton = {
-        let bt = UIButton(type: UIButton.ButtonType.system)
-        bt.setTitle("로그아웃", for: UIControl.State.normal)
-        bt.addTarget(self, action: #selector(logout), for: UIControl.Event.touchUpInside)
-        return bt
-    }()
+    
     
     // MARK: - Lifecycles
     
@@ -50,10 +45,7 @@ class PresaleOfAnimalsController:UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
         
         view.backgroundColor = .systemBackground
-        view.addSubview(logoutButton)
-        logoutButton.translatesAutoresizingMaskIntoConstraints = false
-        logoutButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        logoutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true 
+        
     }
     
     func configureNav() {
@@ -62,9 +54,7 @@ class PresaleOfAnimalsController:UIViewController {
     }
     
     // MARK: - Selectors
-    @objc func logout() {
-        Root.shared.root.logout()
-    }
+    
     
     @objc func postButtonTapped(){
         print("분양하기 버튼 클릭")

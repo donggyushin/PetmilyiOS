@@ -106,6 +106,11 @@ extension UIViewController {
         self.navigationController?.view.backgroundColor = UIColor.clear
     }
     
+    func setNavigationBackground() {
+        self.navigationController?.navigationBar.backgroundColor = .systemBackground
+        self.navigationController?.navigationBar.isTranslucent = false 
+    }
+    
     func dismissKeyboardWhenTappingAround() {
         
         

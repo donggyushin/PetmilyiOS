@@ -24,6 +24,11 @@
 		70484C272553005E003C22DF /* PetListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70484C262553005E003C22DF /* PetListModel.swift */; };
 		704F2702254EA5520035B6C3 /* SelectKindController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704F2701254EA5520035B6C3 /* SelectKindController.swift */; };
 		704F2705254EA6070035B6C3 /* PetKindModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704F2704254EA6070035B6C3 /* PetKindModel.swift */; };
+		70526128257C96B300F9293E /* PostPresaleSecondController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70526127257C96B300F9293E /* PostPresaleSecondController.swift */; };
+		7052612B257C975A00F9293E /* AddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7052612A257C975A00F9293E /* AddressCell.swift */; };
+		7052612E257CA7D600F9293E /* NaverAddressService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7052612D257CA7D600F9293E /* NaverAddressService.swift */; };
+		70526132257CA99900F9293E /* NaverSecretKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70526131257CA99900F9293E /* NaverSecretKeys.swift */; };
+		70526135257CAB8D00F9293E /* NaverAddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70526134257CAB8D00F9293E /* NaverAddressModel.swift */; };
 		705638762556837D00ED84EC /* PetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705638752556837D00ED84EC /* PetService.swift */; };
 		7059E78125680C0D00BAFA5B /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7059E78025680C0D00BAFA5B /* UserService.swift */; };
 		7059E7842568175400BAFA5B /* PhotoViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7059E7832568175400BAFA5B /* PhotoViewerController.swift */; };
@@ -106,6 +111,11 @@
 		70484C262553005E003C22DF /* PetListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetListModel.swift; sourceTree = "<group>"; };
 		704F2701254EA5520035B6C3 /* SelectKindController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectKindController.swift; sourceTree = "<group>"; };
 		704F2704254EA6070035B6C3 /* PetKindModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetKindModel.swift; sourceTree = "<group>"; };
+		70526127257C96B300F9293E /* PostPresaleSecondController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostPresaleSecondController.swift; sourceTree = "<group>"; };
+		7052612A257C975A00F9293E /* AddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressCell.swift; sourceTree = "<group>"; };
+		7052612D257CA7D600F9293E /* NaverAddressService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverAddressService.swift; sourceTree = "<group>"; };
+		70526131257CA99900F9293E /* NaverSecretKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverSecretKeys.swift; sourceTree = "<group>"; };
+		70526134257CAB8D00F9293E /* NaverAddressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverAddressModel.swift; sourceTree = "<group>"; };
 		705638752556837D00ED84EC /* PetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetService.swift; sourceTree = "<group>"; };
 		7059E78025680C0D00BAFA5B /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		7059E7832568175400BAFA5B /* PhotoViewerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewerController.swift; sourceTree = "<group>"; };
@@ -202,6 +212,14 @@
 			path = Constants;
 			sourceTree = "<group>";
 		};
+		70526130257CA98900F9293E /* SecretKeys */ = {
+			isa = PBXGroup;
+			children = (
+				70526131257CA99900F9293E /* NaverSecretKeys.swift */,
+			);
+			path = SecretKeys;
+			sourceTree = "<group>";
+		};
 		706C5C2D2544815900A2FA96 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -276,6 +294,7 @@
 				70E9F4A0257BBBEC007BFE48 /* InfoPresaleOfAnimalsView.swift */,
 				70B3E464254D4CFB009461A3 /* PresaleOfAnimalsController.swift */,
 				70E9F4A4257BC312007BFE48 /* PostPresaleFirstController.swift */,
+				70526127257C96B300F9293E /* PostPresaleSecondController.swift */,
 			);
 			path = PresaleOfAnimals;
 			sourceTree = "<group>";
@@ -338,6 +357,7 @@
 		70B4F93525447CF7005CE631 /* Petmily-ios */ = {
 			isa = PBXGroup;
 			children = (
+				70526130257CA98900F9293E /* SecretKeys */,
 				70E39F4E25558550002BF64C /* Petmily-ios.entitlements */,
 				701DBD2E2545AD780057C8D9 /* Constants */,
 				70EE6A002544B89400C40970 /* Models */,
@@ -385,6 +405,7 @@
 			isa = PBXGroup;
 			children = (
 				70E9F4A7257BC72C007BFE48 /* UploadPhotoView.swift */,
+				7052612A257C975A00F9293E /* AddressCell.swift */,
 			);
 			path = PresaleOfAnimals;
 			sourceTree = "<group>";
@@ -408,6 +429,7 @@
 				7044CE31255FAF2200FF52CD /* NotificationService.swift */,
 				7059E78025680C0D00BAFA5B /* UserService.swift */,
 				70D79F6D25728AB000EB97CE /* DailyInfoService.swift */,
+				7052612D257CA7D600F9293E /* NaverAddressService.swift */,
 			);
 			path = APIs;
 			sourceTree = "<group>";
@@ -422,6 +444,7 @@
 				70895AB425569711003EF5F7 /* PetModel.swift */,
 				7044CE34255FAFAB00FF52CD /* NotificationModel.swift */,
 				70D79F7025728B1600EB97CE /* DailyInfoModel.swift */,
+				70526134257CAB8D00F9293E /* NaverAddressModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -568,6 +591,7 @@
 				7079A48F254CA557001A18FF /* Root.swift in Sources */,
 				70B3E465254D4CFB009461A3 /* PresaleOfAnimalsController.swift in Sources */,
 				706A151C25457F350050C0C8 /* NewAccountStep3Controller.swift in Sources */,
+				7052612E257CA7D600F9293E /* NaverAddressService.swift in Sources */,
 				7059E78125680C0D00BAFA5B /* UserService.swift in Sources */,
 				70B4F93B25447CF7005CE631 /* ViewController.swift in Sources */,
 				7044CE32255FAF2200FF52CD /* NotificationService.swift in Sources */,
@@ -580,12 +604,14 @@
 				70E9F4AC257BD0A7007BFE48 /* MeController.swift in Sources */,
 				7044CE39255FB6C500FF52CD /* LoadingViewWithoutBackground.swift in Sources */,
 				70B4F93725447CF7005CE631 /* AppDelegate.swift in Sources */,
+				7052612B257C975A00F9293E /* AddressCell.swift in Sources */,
 				701DBD2925459F9E0057C8D9 /* NewAccountStep4Controller.swift in Sources */,
 				707B0C5A2557CF0A00AE47DA /* TouchableUIImageViewWithoutImage.swift in Sources */,
 				7047372025769FBD00B7EE76 /* ChangePetNameController.swift in Sources */,
 				70D79F6E25728AB000EB97CE /* DailyInfoService.swift in Sources */,
 				7093E8C32545485E00B46B86 /* NewAccountStep2Controller.swift in Sources */,
 				70484C272553005E003C22DF /* PetListModel.swift in Sources */,
+				70526135257CAB8D00F9293E /* NaverAddressModel.swift in Sources */,
 				70F248692549BE6500716A93 /* NewAccountStep6Controller.swift in Sources */,
 				706C5C422544874000A2FA96 /* Utilities.swift in Sources */,
 				7077CACB2566ACA6006014EE /* MiteNotificationViewController.swift in Sources */,
@@ -593,6 +619,7 @@
 				70DD78F3254DAAB900168C82 /* PetRegisterViewController.swift in Sources */,
 				707B0C572557B63900AE47DA /* PetDetailController.swift in Sources */,
 				70EE69FE2544B3B500C40970 /* VerificationService.swift in Sources */,
+				70526128257C96B300F9293E /* PostPresaleSecondController.swift in Sources */,
 				70D79F74257297EE00EB97CE /* PetNotificationDetailController.swift in Sources */,
 				707B0C632557DC5200AE47DA /* PetProfileDetailHeaderCell.swift in Sources */,
 				70B3E46F254D4D9A009461A3 /* ChatController.swift in Sources */,
@@ -622,6 +649,7 @@
 				70CE0BE8256A48C7003A679A /* ImagePicker.swift in Sources */,
 				707B0C692557E41600AE47DA /* PetProfileDetailFooterCell.swift in Sources */,
 				7079A42D254C96A7001A18FF /* FileService.swift in Sources */,
+				70526132257CA99900F9293E /* NaverSecretKeys.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -20,4 +20,7 @@ class Properties {
     
     // 특수문자 사용 불가 8자 이상 20자 이하
     public static let userIdRegex = "^[a-zA-Z0-9]{8,20}$"
+    
+    static var locationLatitude:Double?
+    static var locationLongitude:Double?
 }

@@ -8,6 +8,8 @@
 import UIKit
 import Firebase
 import UserNotificationsUI
+import MapKit
+import CoreLocation
 
 class RootController: UITabBarController, MeControllerDelegate {
     // MARK: - Properties
@@ -15,6 +17,8 @@ class RootController: UITabBarController, MeControllerDelegate {
         let lv = LoadingView()
         return lv
     }()
+    
+    let locationManager:CLLocationManager = CLLocationManager()
     
     var user:UserModel? {
         didSet {
@@ -28,7 +32,7 @@ class RootController: UITabBarController, MeControllerDelegate {
     // MARK: - Lifecycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        requestLocationToUser()
         configureUI()
         configureTabBar()
         checkUserLoggedIn()
@@ -103,6 +107,24 @@ class RootController: UITabBarController, MeControllerDelegate {
     
     
     // MARK: Helpers
+    
+    func requestLocationToUser () {
+        print("Request Location")
+        
+        locationManager.requestAlwaysAuthorization()
+        locationManager.requestWhenInUseAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
+        
+    }
+    
+    
+    
     func receiveInfoFromPushNotification(info:[AnyHashable : Any]) {
         print(info)
     }
@@ -137,6 +159,7 @@ class RootController: UITabBarController, MeControllerDelegate {
                 // TODO: - 로그인 할때, fcmToken을 user db에 저장해준다.
                 Properties.token = token
                 self.configureTabBar()
+                
             }else {
                 // 로그인이 되어져 있지 않음.
                 // 로그인 화면으로 쏴주기
@@ -148,6 +171,17 @@ class RootController: UITabBarController, MeControllerDelegate {
             }
         }
         
+        
+    }
+}
+
+
+extension RootController:CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+        
+        Properties.locationLatitude = locValue.latitude
+        Properties.locationLongitude = locValue.longitude
         
     }
 }

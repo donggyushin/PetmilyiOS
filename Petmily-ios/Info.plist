@@ -2,6 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>펫밀리가 유저의 위치에 접근하기를 원합니다</string>
+	<key>NSLocationUsageDescription</key>
+	<string>펫밀리가 유저의 위치에 접근하기를 원합니다</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>펫밀리가 유저의 위치에 접근하기를 원합니다</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>펫밀리가 유저의 위치에 접근하기를 원합니다</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
